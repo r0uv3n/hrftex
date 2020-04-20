@@ -47,9 +47,9 @@
 \renewtheorem*{generalthm*}{}
 
 % for references to items in enumerations
-\setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\thegeneralthm.\rechtsklammer{\roman*}}
+\setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\roman*}}
 \newlist{eigenschaftenenumerate}{enumerate}{1}
-\setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\thegeneralthm.\rechtsklammer{\alph*}}
+\setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\alph*}}
 \newlist{eigenschaftendescription}{description}{1}
 \setlist[eigenschaftendescription]{font=\normalfont}
 \newlist{proofenumerate}{enumerate}{1}
