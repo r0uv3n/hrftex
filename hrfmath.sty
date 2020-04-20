@@ -82,6 +82,7 @@
 \NewTheorem{bembsp}{Bemerkung / Beispiel}
 \NewTheorem{bemdef}{Bemerkung / Definition}
 \NewTheorem{bemnotation}{Bemerkung / Notation}
+\NewTheorem{bemuebung}{Bemerkung / Übung}
 \NewTheorem{bemerkung}{Bemerkung}
 \NewTheorem{bemerkungen}{Bemerkungen}
 \NewTheorem{defbem}{Definition / Bemerkung}
@@ -192,17 +193,19 @@
 
 
 % vertical variants of relations
-\def\vertlt{\protect\rotatebox{90}{\(\scriptstyle<\)}}
-\def\vertleq{\protect\rotatebox{90}{\(\scriptstyle\leq\)}}
-\def\vertgt{\protect\rotatebox{90}{\(\scriptstyle>\)}}
-\def\vertgeq{\protect\rotatebox{90}{\(\scriptstyle\geq\)}}
-\def\vertne{\protect\rotatebox{90}{\(\scriptstyle\ne\)}}
-\def\vertin{\protect\rotatebox{90}{\(\scriptstyle\in\)}}
+\newcommand{\vertrelation}[1]{\protect\rotatebox{90}{\(\scriptstyle#1\)}}
+\newcommand{\vertlt}{\vertrelation{<}}
+\newcommand{\vertleq}{\vertrelation{\leq}}
+\newcommand{\vertgt}{\vertrelation{>}}
+\newcommand{\vertgeq}{\vertrelation{\geq}}
+\newcommand{\vertne}{\vertrelation{\ne}}
+\newcommand{\vertin}{\vertrelation{\in}}
+\newcommand{\vertni}{\vertrelation{\ni}}
 
 % first (optional) argument - size, then explanation, then whats to be explained
 % should be used in math mode
 \newcommand{\equalto}[3][]{\underset{\scriptstyle\overset{\mkern4mu\scalebox{1}[0.7]{\verteq[#1]}}{\mathclap{#2}}}{#3}}
-% accepts vertical relation as first necessary
+% accepts vertical relation as first necessary (can be made with vertrelation)
 \newcommand{\vertrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\vertrelate[#1]{\uparrow}{#2}{#3}}
 
