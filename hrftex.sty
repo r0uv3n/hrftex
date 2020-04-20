@@ -1,0 +1,88 @@
+\ProvidesPackage{hrftex}[2020/04/19 Henry Ruben Fischer's common template for lecture notes and excercises.]
+
+% declare options
+
+% this should probably (hopefully) be the same for all use cases
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+
+
+% tools for command definition and co
+\RequirePackage{pgfkeys}
+\RequirePackage{etoolbox}
+
+% compatibility hacks for hyperref and float
+\RequirePackage{scrhack}
+\PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+\RequirePackage{scrlayer-scrpage}
+
+
+% aliases for counters
+\RequirePackage{aliascnt}
+
+% better enumeration
+\RequirePackage{enumitem}
+\newcommand{\rechtsklammer}[1]{#1)} % for avoiding warnings about single parantheses
+
+% for referencing \item[***]
+\RequirePackage{crossreftools}
+
+
+% for including graphics
+\RequirePackage{graphicx}
+
+% better tables
+\RequirePackage{booktabs}
+
+% better floats
+\RequirePackage{float}
+
+% subcaptions
+\RequirePackage{subcaption}
+
+% colors with legible names, will be loaded by tikz
+\PassOptionsToPackage{dvipsnames}{xcolor}
+
+% Should be passed if ntheorem is loaded
+\PassOptionsToPackage{hyperref,thref}{ntheorem}
+
+\RequirePackage{hrfmath}
+\RequirePackage{hrfgerman}
+
+% for links
+\PassOptionsToPackage{linkcolor=blue,pdfpagelayout=OneColumn, linktoc=all, colorlinks, pdfencoding=auto, psdextra}{hyperref}
+\RequirePackage{hyperref}
+
+% bibliography
+% \RequirePackage{biblatex}
+
+% headings (if no other option seems right...)
+\newif\ifnostyle
+\newif\ifnopar
+\newif\ifnoskip
+\pgfkeys{/heading/.cd,
+    nostyle/.is if=nostyle,
+    nopar/.is if=nopar,
+    noskip/.is if=noskip}
+\newcommand{\heading}[2][]{
+    \pgfkeys{
+        /heading/.cd,
+        nostyle=false,
+        nopar=false,
+        noskip=false,
+        #1
+    }
+    \par\noindent{\ifnostyle\else \bfseries \fi #2 \ifnopar \else \par \fi \ifnoskip \else \hspace{1em}\fi}
+}
+
+
+% For commenting out
+\newcommand{\ignore}[1]{}
+\newcommand{\hide}[1]{}
+
+% horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+

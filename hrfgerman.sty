@@ -1,0 +1,52 @@
+\ProvidesPackage{hrfgerman}[2020/04/19 Sets up common options and packages for writing in the german language.]
+
+% this will already be loaded if used from hrftex
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+% ngerman for Neue Rechtschreibung
+\PassOptionsToPackage{ngerman}{babel}
+\RequirePackage{babel}
+
+% simplest usage: \enquote{<text>} 
+% autostyle options changes quotation style automatically when changing language with babel
+\PassOptionsToPackage{autostyle=true, german=quotes}{csquotes}
+\RequirePackage{csquotes}
+
+% Abbreviations
+\RequirePackage{xspace}
+\renewcommand*{\dh}{\mbox{d.\,h.}\@\xspace}
+\newcommand*{\Dh}{\mbox{D.\,h.}\@\xspace}
+\newcommand*{\zb}{\mbox{z.\,B.}\@\xspace}
+\newcommand*{\Zb}{\mbox{Z.\,B.}\@\xspace}
+\newcommand*{\ua}{\mbox{u.\,a.}\@\xspace}
+\newcommand*{\Ua}{\mbox{U.\,a.}\@\xspace}
+\newcommand*{\Def}{\mbox{Def.}~}
+\newcommand*{\Bem}{\mbox{Bem.}~}
+\renewcommand*{\Abs}{\mbox{Abs.}\,}
+\newcommand*{\vgl}{\mbox{vgl.}~}
+\newcommand*{\Vgl}{\mbox{Vgl.}~}
+\newcommand*{\bzw}{\mbox{bzw.}\@\xspace}
+\newcommand*{\Bzw}{\mbox{Bzw.}\@\xspace}
+\newcommand*{\bzgl}{\mbox{bzgl.}\@\xspace}
+\newcommand*{\Bzgl}{\mbox{Bzgl.}\@\xspace}
+\newcommand*{\Co}{\mbox{Co.}\@\xspace}
+\newcommand*{\usw}{\mbox{usw.}\@\xspace}
+\newcommand*{\gdw}{\mbox{gdw}~}
+\newcommand*{\ggf}{\mbox{ggf.}\@\xspace}
+\newcommand*{\Ggf}{\mbox{Ggf.}\@\xspace}
+\renewcommand*{\S}{\mbox{S.}\,}
+\newcommand*{\s}{\mbox{s.}~}
+\newcommand*{\so}{\mbox{s.\,o.}\@\xspace}
+\newcommand*{\su}{\mbox{s.\,u.}\@\xspace}
+\newcommand*{\sd}{\mbox{s.\,d.}~}
+\newcommand*{\oae}{\mbox{o.\,Ä.}\@\xspace}
+\newcommand*{\og}{\mbox{o.\,g.}\@\xspace}
+\newcommand*{\ff}{\,\mbox{ff.}\@\xspace}
+\newcommand*{\Nr}{\mbox{Nr.}~}
+\newcommand*{\Ca}{\mbox{Ca.}\@\xspace}
+\newcommand*{\ca}{\mbox{ca.}\@\xspace}
+\newcommand*{\undoder}{\mbox{und/oder}~}
+\newcommand*{\obda}{o.B.d.A.\@\xspace}
+\newcommand*{\Obda}{O.B.d.A.\@\xspace}
+\newcommand*{\diffbar}{{differenzierbar\xspace}}

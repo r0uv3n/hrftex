@@ -1,0 +1,373 @@
+\ProvidesPackage{hrfmath}[2020/04/19 Math setup, should be loaded before hrfgerman]
+\PassOptionsToPackage{math=normal}{babel}
+
+% this will already be loaded if used from hrftex
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+% Fix problems with too many math fonts
+\newcommand\hmmax{0}
+\newcommand\bmmax{0}
+
+% main math package
+\PassOptionsToPackage{fleqn}{mathtools}
+\RequirePackage{mathtools}
+
+% Possibility to change between left and right equation numbers
+\newcommand{\leqnomode}{\tagsleft@true}
+\newcommand{\reqnomode}{\tagsleft@false}
+
+\RequirePackage{amssymb}
+\RequirePackage{amstext}
+
+% for some symbols (documented when used)
+\RequirePackage{stmaryrd}
+
+% for theorems
+\PassOptionsToPackage{amsthm}{ntheorem}
+\RequirePackage{ntheorem}
+\renewcommand{\qedsymbol}{$\blacksquare$} % so that the square can be used for subproofs
+\newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
+
+
+\theoremstyle{definition}
+% consistent numbering
+\newtheorem{generalthm}{}[chapter]
+\renewtheorem*{generalthm*}{}
+
+% for references to items in enumerations
+\setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\thegeneralthm.\rechtsklammer{\roman*}}
+\newlist{eigenschaftenenumerate}{enumerate}{1}
+\setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\thegeneralthm.\rechtsklammer{\alph*}}
+\newlist{eigenschaftendescription}{description}{1}
+\setlist[eigenschaftendescription]{font=\normalfont}
+\newlist{proofenumerate}{enumerate}{1}
+\setlist[proofenumerate]{label=\arabic*., wide}
+\newlist{proofdescription}{description}{1}
+\setlist[proofdescription]{font=\normalfont, wide}
+% for references to description items
+\def\namedlabel#1#2{\begingroup
+    #2%
+    \def\@currentlabel{#2}%
+    \phantomsection\label{#1}\endgroup
+}
+
+\newcommand{\NewTheorem}[2]{
+    % \newaliascnt{#1}{theorem}
+    \newtheorem{#1}[generalthm]{#2}
+    \renewtheorem*{#1*}{#2}
+    % \aliascntresetthe{#1}
+    % \expandafter\def\csname #1autorefname\endcsname{#1} % ChkTeX 41
+}
+
+\NewTheorem{anwendung}{Anwendung}
+\NewTheorem{anwendungen}{Anwendungen}
+\NewTheorem{achtung}{\emph{Achtung}}
+\NewTheorem{beachte}{Beachte}
+\NewTheorem{beispiel}{Beispiel}
+\NewTheorem{beispiele}{Beispiele}
+\NewTheorem{behauptung}{Behauptung}
+\NewTheorem{behauptungen}{Behauptungen}
+\NewTheorem{bembsp}{Bemerkung / Beispiel}
+\NewTheorem{bemdef}{Bemerkung / Definition}
+\NewTheorem{bemnotation}{Bemerkung / Notation}
+\NewTheorem{bemerkung}{Bemerkung}
+\NewTheorem{bemerkungen}{Bemerkungen}
+\NewTheorem{defbem}{Definition / Bemerkung}
+\NewTheorem{deflemma}{Definition / Lemma}
+\NewTheorem{defsatz}{Definition / Satz}
+\NewTheorem{definition}{Definition}
+\NewTheorem{definitionen}{Definitionen}
+\NewTheorem{einschub}{Einschub}
+\NewTheorem{exkurs}{Exskurs}
+\NewTheorem{erinnerung}{Erinnerung}
+\NewTheorem{folgerung}{Folgerung}
+\NewTheorem{folgerungbsp}{Folgerung / Beispiel}
+\NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
+\NewTheorem{folgerungen}{Folgerungen}
+\NewTheorem{frage}{Frage}
+\NewTheorem{fragen}{Fragen}
+\NewTheorem{intuition}{Intuition}
+\NewTheorem{lemmadef}{Lemma + Def}
+\NewTheorem{lemma}{Lemma}
+\NewTheorem{konvention}{Konvention}
+\NewTheorem{notation}{Notation}
+\NewTheorem{notationen}{Notationen}
+\NewTheorem{rechentrick}{Rechentrick}
+\NewTheorem{satz}{Satz}
+\NewTheorem{ziel}{Ziel}
+
+\newtheorem{subsatz}{Satz}[generalthm]
+\renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
+
+
+% stack below with optional argument
+\RequirePackage{stackrel}
+
+% left and right sub- and superscripts
+\RequirePackage{leftidx}
+
+% braket and (right now more importantly) proper set notation
+\RequirePackage{braket}
+
+% for composed symbols including a colon
+\RequirePackage{colonequals}
+
+
+% tikz with most important 
+\RequirePackage{tikz}
+\usetikzlibrary{matrix, arrows, cd, patterns, babel, calc}
+
+\RequirePackage{cancel}
+
+% Bold math
+\RequirePackage{bm}
+
+% Easily typeset systems of equations (French package)
+\RequirePackage{systeme}
+
+
+% Roman numerals
+\RequirePackage{romannum}
+
+% Nice Matrices and Arrays
+\RequirePackage{nicematrix}
+
+% Large Matrices
+\setcounter{MaxMatrixCols}{20}
+
+% Add \contra symbol to denote contradiction
+\RequirePackage{stmaryrd} % for \lightning
+\newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+
+
+% si unitx
+\RequirePackage{siunitx}
+\sisetup{locale = DE}
+
+
+
+\RequirePackage{cool}
+\Style{ArcTrig=arc, Conjugate=overline}
+
+% Better vector arrows
+\RequirePackage{esvect}
+
+% Intervals
+\RequirePackage{interval}
+\intervalconfig{
+    soft open fences,
+}
+
+% end of package imports
+
+% allow a page break within amstex math formulas,
+% use \\* to prohibit a page break
+\allowdisplaybreaks[1]
+
+
+% number this specific equation
+\newcommand{\numberthis}{\addtocounter{equation}{1}\tag{\theequation}}
+
+
+% phantom relations for better alignment
+\newcommand{\rphantom}[1]{\mathrel{\phantom{#1}}}
+
+
+% vertical variants of relations
+\def\vertlt{\protect\rotatebox{90}{\(\scriptstyle<\)}}
+\def\vertleq{\protect\rotatebox{90}{\(\scriptstyle\leq\)}}
+\def\vertgt{\protect\rotatebox{90}{\(\scriptstyle>\)}}
+\def\vertgeq{\protect\rotatebox{90}{\(\scriptstyle\geq\)}}
+\def\vertne{\protect\rotatebox{90}{\(\scriptstyle\ne\)}}
+
+% adjustable size
+\newcommand{\verteq}[1][]{\protect\raisebox{2pt}{\scalebox{1}[0.7]{\(\csname #1\endcsname{\Vert}\)}}}
+\def\vertne{\protect\rotatebox{90}{\(\scriptstyle\ne\)}}
+
+% for use over relations
+\newcommand{\needed}[1]{\overset{!}{#1}}
+
+
+% can be used in both math and text mode
+\newcommand{\zuzeigentext}[1]{ \fbox{\fbox{\parbox{17.55cm}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
+\newcommand{\zuzeigen}[1]{ \fbox{\fbox{\parbox{16.65cm}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
+
+% verbose definitions
+\newcommand*{\defines}{\eqqcolon}
+\newcommand*{\definedas}{\coloneqq}
+\newcommand*{\definedequivalentto}{\vcentcolon\Leftrightarrow}
+\newcommand*{\maps}{\colon}
+
+% for equivalence proofs
+\RequirePackage{csquotes}
+\newcommand*{\hin}{{\enquote{\( \implies \)}}}
+\newcommand*{\rueck}{\enquote{\( \impliedby \)}}
+\newcommand*{\hinrueck}{\enquote{\( \iff \)}}
+
+
+% equation sign with sim sign over it
+\DeclareRobustCommand{\simeqq}{\cong}
+
+% to avoid warnigns about "!"
+\DeclareRobustCommand{\existsone}{\exists!}
+
+% Add angled v as \varv
+\DeclareSymbolFont{matha}{OML}{txmi}{m}{it}% txfonts
+\DeclareMathSymbol{\varv}{\mathord}{matha}{118}
+
+
+% overline replacement
+\newcommand{\widebar}[1]{\mathop{\overline{#1}}}
+
+
+% Replace leq and req signs
+\renewcommand*{\leq}{\leqslant}
+\renewcommand*{\leqq}{\leqqslant}
+\renewcommand*{\geq}{\geqslant}
+\renewcommand*{\geqq}{\geqqslant}
+\renewcommand*{\trianglelefteq}{\trianglelefteqslant}
+\renewcommand*{\trianglerighteq}{\trianglerighteqslant}
+
+% easier long to
+\newcommand*{\longto}{\longrightarrow}
+
+% verbose limits
+\newcommand*{\goesto}{\to}
+\newcommand*{\goesupto}{\nearrow}
+\newcommand*{\goesdownto}{\searrow}
+
+% For complex
+\newcommand*{\real}{\mathfrak{R}}
+\newcommand*{\imag}{\mathfrak{I}}
+\newcommand{\conj}[1]{\widebar{#1}\nolimits}
+
+% sets
+
+\newcommand*{\zeroset}{{\Set{0}}}
+\newcommand*{\minuszero}{{\setminus\zeroset}}
+\newcommand*{\Minuszero}{{\!\setminus\!\zeroset}}
+\newcommand*{\powerset}[1]{\mathbb{P}\left( #1 \right)}
+
+
+\newcommand*{\naturals}{\mathbb{N}}
+\newcommand*{\reals}{\mathbb{R}}
+\newcommand*{\rationals}{\mathbb{Q}}
+\newcommand*{\complexs}{\mathbb{C}}
+\newcommand*{\wholes}{\mathbb{Z}}
+
+
+% from DIFF
+\newcommand*{\CauchyFolgenMenge}{\mathcal{C}}
+\newcommand*{\moebiusabbildungenmenge}{\mathcal{M}}
+
+
+% operators
+
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Abb}{Abb}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Kern}{Kern}
+\DeclareMathOperator{\Bild}{Bild}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\image}{Im}
+\DeclareMathOperator{\preimage}{Pre}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\ggt}{ggT} % größter gemeinsamer Teiler
+
+
+% from AGLA
+\DeclareMathOperator{\End}{End} % Endomorphismus
+\DeclareMathOperator{\Aut}{Aut} % Automorphismus
+\DeclareMathOperator{\Hom}{Hom} % Homomorphismen
+\DeclareMathOperator{\Mat}{Mat} % Matrizen
+\DeclareMathOperator{\GL}{GL} % General Linear Group
+\DeclareMathOperator{\Adj}{Adj} % Adjunction
+\DeclareMathOperator{\Sp}{Sp} % Special Linear Group
+\DeclareMathOperator{\ST}{ST} % selbstadjungierte Endomorphismen
+\DeclareMathOperator{\SR}{SR} % Spaltenrang
+\DeclareMathOperator{\ZR}{ZR} % Zeilenrang
+\DeclareMathOperator{\Rk}{Rk} % rank
+\DeclareMathOperator{\Rg}{Rg} % Rang
+\DeclareMathOperator{\Rang}{Rang}
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Dim}{Dim} % Dimensions
+\DeclareMathOperator{\Spur}{Spur}
+
+
+% commands
+
+% evaluate using vert
+\newcommand{\evaluateat}[2]{\left.{#1}\right\vert_{#2}}
+\newcommand{\evaluatebetween}[3]{\left.{#1}\right\vert_{#2}^{#3}}
+
+
+\newif\ifincludemit
+\newif\ifincludeparantheses
+\newif\ifincludevert
+\pgfkeys{/eqstep/.cd,
+    m/.is if=ifincludemit,
+    p/.is if=ifincludeparantheses,
+    v/.is if=ifincludevert}
+
+\newcommand{\eqstep}[2][]{
+    \pgfkeys{
+        /eqstep/.cd,
+        m=false,
+        p=false,
+        v=true,
+        #1
+    }
+    \par\noindent{\ifnostyle\else \bfseries \fi #2 \ifnopar \else \par \fi \ifnoskip \else \hspace{1em}\fi}
+    && \ifincludevert\left|\else\fi \;\ifincludeparanthses\left(\else\fi\ifincludemit\text{mit }\else\fi     #1 \ifincludeparanthses\left)\else\fi\ifincludevert\left.\else\fi
+}
+
+% first (optional) argument - size, then explaination, then whats to be explained
+% should be used in math mode
+\newcommand{\equalto}[3][]{\underset{\scriptstyle\overset{\mkern4mu\scalebox{1}[0.7]{\verteq[#1]}}{\mathclap{#2}}}{#3}}
+\newcommand{\explain}[3][]{\underset{\overset{\csname #1\endcsname{\uparrow}}{\mathclap{#2}}}{#3}}
+
+
+\newcommand{\inv}[1]{{{#1}^{-1}}} % inverse of argument
+\newcommand{\abs}[1]{\left|#1\right|} % absolute value
+\newcommand{\norm}[1]{{\left\| #1 \right\|}}
+
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rceil}
+
+\newcommand{\distance}[2]{d\left( #1, #2\right))}
+\newcommand{\quot}[2]{{{#1}/\!\raisebox{-.575ex}{\ensuremath{#2}}}} % quotient set
+
+% from DIFF
+\newcommand{\supnorm}[2][]{\norm{#2}_{\ifx&#1&\else{#1}, \fi\infty}}
+\newcommand{\regelfunktionen}[1][\interval{a}{b}]{\operatorname{\mathcal{R}}(#1)}
+\newcommand{\treppenfunktionen}[1][\interval{a}{b}]{\operatorname{\mathcal{T}}(#1)}
+
+
+% from AGLA
+\newcommand{\scalarproduct}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\spatproduct}[3]{\left( #1, #2, #3 \right)}
+\newcommand{\compactification}[1]{\widebar{#1}} % Compactification of a topological space
+\newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
+% basechange lower index Notation
+\newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}}
+\newcommand{\matrices}[3]{\Mat\left( #1\times #2,\ #3 \right)} % #1*#2 matrices over field #2 
+\newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
+\newcommand{\transpose}[1]{{#1}^{T}} % transpose argument
+
+
+
+% text macros (should not be used in real texts, ok for scripts and notes)
+\DeclareRobustCommand{\texistsone}{\( \exists! \)~}
+\DeclareRobustCommand{\tforall}{\( \forall \)~}
+\DeclareRobustCommand{\texists}{\( \exists \)~}
+\DeclareRobustCommand{\timplies}{\( \implies \)~}
+\DeclareRobustCommand{\tiff}{\( \iff \)~}
+\DeclareRobustCommand{\tto}{\( \to \)}
