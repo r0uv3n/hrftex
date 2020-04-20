@@ -1,7 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{hrflecture}[2020/04/19 For lecture notes]
+
+% actual documentclass
 \LoadClass[parskip=half-,a4paper, headsepline, chapterprefix=true]{scrreprt}    
+
+% package options
+
+% main package
 \RequirePackage{hrftex}
+
+% for \lecture macro, writes to margin
 \def\@lecture{}
 \newcommand{\lecture}[3]{%
     \ifblank{#3}{%
@@ -13,7 +21,7 @@
     \marginpar{\small\textsf{\mbox{#2}}}%
 }
 
-
+% header, chapter inner, lecture outer 
 \automark{chapter}
 \renewcommand{\chaptermarkformat}{%
     \chapappifchapterprefix{\ }\thechapter:\enskip}
