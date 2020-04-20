@@ -199,6 +199,12 @@
 \def\vertne{\protect\rotatebox{90}{\(\scriptstyle\ne\)}}
 \def\vertin{\protect\rotatebox{90}{\(\scriptstyle\in\)}}
 
+% first (optional) argument - size, then explaination, then whats to be explained
+% should be used in math mode
+\newcommand{\equalto}[3][]{\underset{\scriptstyle\overset{\mkern4mu\scalebox{1}[0.7]{\verteq[#1]}}{\mathclap{#2}}}{#3}}
+\newcommand{\vertrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
+\newcommand{\explain}[3][]{\vertrelate[#1]{\uparrow}{#2}{#3}}
+
 % adjustable size
 \newcommand{\verteq}[1][]{\protect\raisebox{2pt}{\scalebox{1}[0.7]{\(\csname #1\endcsname{\Vert}\)}}}
 
@@ -341,11 +347,6 @@
     \par\noindent{\ifnostyle\else \bfseries \fi #2 \ifnopar \else \par \fi \ifnoskip \else \hspace{1em}\fi}
     && \ifincludevert\left|\else\fi \;\ifincludeparanthses\left(\else\fi\ifincludemit\text{mit }\else\fi     #1 \ifincludeparanthses\left)\else\fi\ifincludevert\left.\else\fi
 }
-
-% first (optional) argument - size, then explaination, then whats to be explained
-% should be used in math mode
-\newcommand{\equalto}[3][]{\underset{\scriptstyle\overset{\mkern4mu\scalebox{1}[0.7]{\verteq[#1]}}{\mathclap{#2}}}{#3}}
-\newcommand{\explain}[3][]{\underset{\overset{\csname #1\endcsname{\uparrow}}{\mathclap{#2}}}{#3}}
 
 
 \newcommand{\inv}[1]{{{#1}^{-1}}} % inverse of argument
