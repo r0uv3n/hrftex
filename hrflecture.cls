@@ -4,7 +4,9 @@
 % actual documentclass
 \LoadClass[parskip=half-,a4paper, headsepline, chapterprefix=true]{scrreprt}    
 
-% package options
+% class options
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{hrftex}}
+\ProcessOptions\relax
 
 % main package
 \RequirePackage{hrftex}

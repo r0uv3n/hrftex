@@ -1,6 +1,8 @@
 \ProvidesPackage{hrftex}[2020/04/19 Henry Ruben Fischer's common template for lecture notes and excercises.]
 
 % package options
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{hrfmath}}
+\ProcessOptions\relax
 
 
 % this should probably (hopefully) be the same for all use cases
