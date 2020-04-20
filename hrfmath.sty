@@ -1,4 +1,15 @@
 \ProvidesPackage{hrfmath}[2020/04/19 Math setup, should be loaded before hrfgerman]
+
+% for options
+\RequirePackage{etoolbox}
+% package options
+% theorem numbering style
+\newtoggle{numberindividually}
+\togglefalse{numberindividually}
+\DeclareOption{numberindividually}{\toggletrue{numberindividually}}
+\ProcessOptions\relax
+
+% Reason for incompatibility
 \PassOptionsToPackage{math=normal}{babel}
 
 % this will already be loaded if used from hrftex
@@ -53,8 +64,8 @@
 }
 
 \newcommand{\NewTheorem}[2]{
-    % \newaliascnt{#1}{theorem}
-    \newtheorem{#1}[generalthm]{#2}
+    % \newaliascnt{#1}{theorem}    
+    \iftoggle{numberindividually}{\newtheorem{#1}{#2}}{\newtheorem{#1}[generalthm]{#2}}    
     \renewtheorem*{#1*}{#2}
     % \aliascntresetthe{#1}
     % \expandafter\def\csname #1autorefname\endcsname{#1} % ChkTeX 41
