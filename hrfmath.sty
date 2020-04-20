@@ -199,9 +199,10 @@
 \def\vertne{\protect\rotatebox{90}{\(\scriptstyle\ne\)}}
 \def\vertin{\protect\rotatebox{90}{\(\scriptstyle\in\)}}
 
-% first (optional) argument - size, then explaination, then whats to be explained
+% first (optional) argument - size, then explanation, then whats to be explained
 % should be used in math mode
 \newcommand{\equalto}[3][]{\underset{\scriptstyle\overset{\mkern4mu\scalebox{1}[0.7]{\verteq[#1]}}{\mathclap{#2}}}{#3}}
+% accepts vertical relation as first necessary
 \newcommand{\vertrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\vertrelate[#1]{\uparrow}{#2}{#3}}
 
