@@ -34,7 +34,7 @@
 \RequirePackage{stmaryrd}
 
 % for theorems
-\PassOptionsToPackage{amsthm}{ntheorem}
+\PassOptionsToPackage{amsmath, thmmarks, amsthm}{ntheorem}
 \RequirePackage{ntheorem}
 \renewcommand{\qedsymbol}{$\blacksquare$} % so that the square can be used for subproofs
 \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
