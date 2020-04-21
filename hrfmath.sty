@@ -21,7 +21,6 @@
 \newcommand\bmmax{0}
 
 % main math package
-\PassOptionsToPackage{fleqn}{mathtools}
 \RequirePackage{mathtools}
 
 % Possibility to change between left and right equation numbers
@@ -43,7 +42,10 @@
 
 \theoremstyle{definition}
 % consistent numbering
-\newtheorem{generalthm}{}[chapter]
+\ifdef{\thechapter}
+    {\newtheorem{generalthm}{}[chapter]}
+    {\newtheorem{generalthm}{}}
+
 \renewtheorem*{generalthm*}{}
 
 % for references to items in enumerations
@@ -65,7 +67,9 @@
 
 \newcommand{\NewTheorem}[2]{
     % \newaliascnt{#1}{theorem}    
-    \iftoggle{numberindividually}{\newtheorem{#1}{#2}}{\newtheorem{#1}[generalthm]{#2}}    
+    \iftoggle{numberindividually}
+        {\newtheorem{#1}{#2}}
+        {\newtheorem{#1}[generalthm]{#2}}    
     \renewtheorem*{#1*}{#2}
     % \aliascntresetthe{#1}
     % \expandafter\def\csname #1autorefname\endcsname{#1} % ChkTeX 41

@@ -36,4 +36,3 @@
 % Document settings
 \pagenumbering{arabic}
 \setlength{\parindent}{0em}
-\setlength{\mathindent}{0em}
