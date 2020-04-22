@@ -183,7 +183,7 @@
 
 % end of package imports
 
-% allow a page break within amstex math formulas,
+% allow a page break within amsmath math formulas,
 % use \\* to prohibit a page break
 \allowdisplaybreaks[1]
 
@@ -240,11 +240,23 @@
 % equation sign with sim sign over it
 \DeclareRobustCommand{\simeqq}{\cong}
 
-% to avoid warnigns about "!"
-\DeclareRobustCommand{\existsone}{\exists!}
+% Better logical spacing
+\newcommand*{\logicspace}{\hspace{0.5em}}
+
+% Make quantifiers operators
+\let\oldexists\exists
+\let\exists\relax
+\DeclareMathOperator{\exists}{\oldexists}
+
+\let\oldforall\forall
+\let\forall\relax
+\DeclareMathOperator{\forall}{\oldforall}
+
+% to avoid warnings about "!"
+\DeclareMathOperator{\existsone}{\exists!}
 
 % Add angled v as \varv
-\DeclareSymbolFont{matha}{OML}{txmi}{m}{it}% txfonts
+\DeclareSymbolFont{matha}{OML}{txmi}{m}{it} % txfonts
 \DeclareMathSymbol{\varv}{\mathord}{matha}{118}
 
 
@@ -274,6 +286,9 @@
 \newcommand{\conj}[1]{\widebar{#1}\nolimits}
 
 % sets
+
+% Prettier emptyset
+\renewcommand{\emptyset}{\varnothing}
 
 \newcommand*{\zeroset}{{\Set{0}}}
 \newcommand*{\minuszero}{{\setminus\zeroset}}
