@@ -2,12 +2,31 @@
 
 % for options
 \RequirePackage{etoolbox}
+\RequirePackage{pgfopts}
 % package options
 % theorem numbering style
 \newtoggle{numberindividually}
-\togglefalse{numberindividually}
-\DeclareOption{numberindividually}{\toggletrue{numberindividually}}
-\ProcessOptions\relax
+\newtoggle{nomasternumbers}
+\pgfkeys{
+        /hrftex/hrfmath/.cd,
+            numberindividually/.is choice,
+            numberindividually/true/.code=\toggletrue{numberindividually},
+            numberindividually/false/.code=\togglefalse{numberindividually},
+            numberindividually/.initial=false,
+            numberindividually/.default=true,
+            nomasternumbers/.is choice,
+            nomasternumbers/true/.code=\toggletrue{nomasternumbers},
+            nomasternumbers/false/.code=\togglefalse{nomasternumbers},
+            nomasternumbers/.initial=false,
+            nomasternumbers/.default=true,
+            numberwithin/.value required,
+            numberwithin/.initial=\ifdef{\thechapter}{chapter}{},
+            numberwithin/.store in=\numbertheoremswithinthis
+}
+% 
+
+
+\ProcessPgfOptions{/hrftex/hrfmath}
 
 % Reason for incompatibility
 \PassOptionsToPackage{math=normal}{babel}
@@ -42,9 +61,7 @@
 
 \theoremstyle{definition}
 % consistent numbering
-\ifdef{\thechapter}
-    {\newtheorem{generalthm}{}[chapter]}
-    {\newtheorem{generalthm}{}}
+\ifdefempty{\numbertheoremswithinthis}{\newtheorem{generalthm}{}}{\newtheorem{generalthm}{}[\numbertheoremswithinthis]}
 
 \renewtheorem*{generalthm*}{}
 
@@ -68,11 +85,12 @@
 \newcommand{\NewTheorem}[2]{
     % \newaliascnt{#1}{theorem}    
     \iftoggle{numberindividually}
-        {\newtheorem{#1}{#2}}
-        {\newtheorem{#1}[generalthm]{#2}}    
+        {\ifstrempty{\numbertheoremswithinthis}
+            {\newtheorem{#1}{#2}}
+            {\newtheorem{#1}{#2}[\numbertheoremswithinthis]}}
+        {\newtheorem{#1}[generalthm]{#2}} 
     \renewtheorem*{#1*}{#2}
-    % \aliascntresetthe{#1}
-    % \expandafter\def\csname #1autorefname\endcsname{#1} % ChkTeX 41
+    \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{} % the \the<counter> commands don't seem to exist here yet
 }
 
 \NewTheorem{anwendung}{Anwendung}
@@ -210,8 +228,8 @@
 % should be used in math mode
 \newcommand{\equalto}[3][]{\underset{\scriptstyle\overset{\mkern4mu\scalebox{1}[0.7]{\verteq[#1]}}{\mathclap{#2}}}{#3}}
 % accepts vertical relation as first necessary (can be made with vertrelation)
-\newcommand{\vertrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
-\newcommand{\explain}[3][]{\vertrelate[#1]{\uparrow}{#2}{#3}}
+\newcommand{\underrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
+\newcommand{\explain}[3][]{\underrelate[#1]{\uparrow}{#2}{#3}}
 
 % adjustable size
 \newcommand{\verteq}[1][]{\protect\raisebox{2pt}{\scalebox{1}[0.7]{\(\csname #1\endcsname{\Vert}\)}}}
