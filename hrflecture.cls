@@ -36,3 +36,6 @@
 % Document settings
 \pagenumbering{arabic}
 \setlength{\parindent}{0em}
+
+% We don't need _that_ many warnings
+\hfuzz=10pt
