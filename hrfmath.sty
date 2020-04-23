@@ -20,8 +20,8 @@
             nomasternumbers/.initial=false,
             nomasternumbers/.default=true,
             numberwithin/.value required,
-            numberwithin/.initial=\ifdef{\thechapter}{chapter}{},
-            numberwithin/.store in=\numbertheoremswithinthis
+            numberwithin/.estore in=\numbertheoremswithinthis
+            numberwithin/.expanded=\ifdef{\thechapter}{chapter}{}
 }
 % 
 
@@ -85,7 +85,7 @@
 \newcommand{\NewTheorem}[2]{
     % \newaliascnt{#1}{theorem}    
     \iftoggle{numberindividually}
-        {\ifstrempty{\numbertheoremswithinthis}
+        {\ifdefempty{\numbertheoremswithinthis}
             {\newtheorem{#1}{#2}}
             {\newtheorem{#1}{#2}[\numbertheoremswithinthis]}}
         {\newtheorem{#1}[generalthm]{#2}} 
