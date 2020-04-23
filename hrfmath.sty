@@ -7,6 +7,7 @@
 % theorem numbering style
 \newtoggle{numberindividually}
 \newtoggle{nomasternumbers}
+\newtoggle{numberwithin}
 \pgfkeys{
         /hrftex/hrfmath/.cd,
             numberindividually/.is choice,
@@ -20,13 +21,17 @@
             nomasternumbers/.initial=false,
             nomasternumbers/.default=true,
             numberwithin/.value required,
-            numberwithin/.estore in=\numbertheoremswithinthis
-            numberwithin/.expanded=\ifdef{\thechapter}{chapter}{}
+            numberwithin/.initial,
 }
 % 
 
 
 \ProcessPgfOptions{/hrftex/hrfmath}
+
+% Process numberwithin
+\pgfkeys{/hrftex/hrfmath/numberwithin/.get=\numbertheoremswithinthis}
+\def\novaluegiven{\pgfkeysnovalue}
+\ifdefequal{\numbertheoremswithinthis}{\novaluegiven}{\togglefalse{numberwithin}}{\toggletrue{numberwithin}}
 
 % Reason for incompatibility
 \PassOptionsToPackage{math=normal}{babel}
@@ -61,8 +66,7 @@
 
 \theoremstyle{definition}
 % consistent numbering
-\ifdefempty{\numbertheoremswithinthis}{\newtheorem{generalthm}{}}{\newtheorem{generalthm}{}[\numbertheoremswithinthis]}
-
+\iftoggle{numberwithin}{\newtheorem{generalthm}{}[\numbertheoremswithinthis]}{\newtheorem{generalthm}{}}
 \renewtheorem*{generalthm*}{}
 
 % for references to items in enumerations
@@ -85,12 +89,12 @@
 \newcommand{\NewTheorem}[2]{
     % \newaliascnt{#1}{theorem}    
     \iftoggle{numberindividually}
-        {\ifdefempty{\numbertheoremswithinthis}
-            {\newtheorem{#1}{#2}}
-            {\newtheorem{#1}{#2}[\numbertheoremswithinthis]}}
+        {\iftoggle{numberwithin}
+            {\newtheorem{#1}{#2}[\numbertheoremswithinthis]}
+            {\newtheorem{#1}{#2}}}
         {\newtheorem{#1}[generalthm]{#2}} 
     \renewtheorem*{#1*}{#2}
-    \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{} % the \the<counter> commands don't seem to exist here yet
+    \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
 }
 
 \NewTheorem{anwendung}{Anwendung}
@@ -329,6 +333,7 @@
 \newcommand*{\glattefunktionen}{C}
 \newcommand*{\cauchyfolgenmenge}{\mathcal{C}}
 \newcommand*{\moebiusabbildungenmenge}{\mathcal{M}}
+\newcommand*{\randpunkte}{\del}
 
 
 % operators
