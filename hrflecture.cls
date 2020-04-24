@@ -38,7 +38,7 @@
 
 
 % Document settings
-\pagenumbering{arabic}
+\AtBeginDocument{\pagenumbering{arabic}}
 \setlength{\parindent}{0em}
 
 % We don't need _that_ many warnings
