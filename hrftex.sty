@@ -54,9 +54,20 @@
 \RequirePackage{hrfmath}
 \RequirePackage{hrfgerman}
 
+
 % for links
 \PassOptionsToPackage{linkcolor=blue,pdfpagelayout=OneColumn, linktoc=all, colorlinks, pdfencoding=auto, pdfusetitle, pdfstartview=FitH}{hyperref}
 \RequirePackage{hyperref}
+
+
+% for cross-document references
+\RequirePackage{xr}
+% so that spaces work
+\def\XR@[#1]#2{{%
+  \makeatletter
+  \def\XR@prefix{#1}%
+  \XR@next"#2.aux"\relax\\}} %added quotes
+
 
 % bibliography
 % \RequirePackage{biblatex}
