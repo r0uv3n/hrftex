@@ -355,7 +355,7 @@
 \DeclareMathOperator{\image}{Im}
 \DeclareMathOperator{\preimage}{Pre}
 \DeclareMathOperator{\grad}{grad}
-\DeclareMathOperator{\ggt}{ggT} % größter gemeinsamer Teiler
+\DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
 
 
 % from AGLA
@@ -415,7 +415,7 @@
 \newcommand{\norm}[1]{{\left\| #1 \right\|}}
 
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 
 \newcommand{\distance}[2]{d\left( #1, #2\right))}
 \newcommand{\quot}[2]{{{#1}/\!\raisebox{-.575ex}{\ensuremath{#2}}}} % quotient set
@@ -438,6 +438,8 @@
 \newcommand{\transpose}[1]{{#1}^{T}} % transpose argument
 
 
+% from Zahlentheorie
+\newcommand{\ggt}[2]{\left( #1;#2 \right)}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
 \DeclareRobustCommand{\texistsone}{\( \exists! \)~}
