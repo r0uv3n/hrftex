@@ -135,6 +135,7 @@
 \NewTheorem{notationen}{Notationen}
 \NewTheorem{rechentrick}{Rechentrick}
 \NewTheorem{satz}{Satz}
+\NewTheorem{satzdef}{Satz / Definition}
 \NewTheorem{wiederholung}{Wiederholung}
 \NewTheorem{ziel}{Ziel}
 
@@ -246,7 +247,7 @@
 
 
 % can be used in both math and text mode
-\newcommand{\zuzeigentext}[1]{ \fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
+\newcommand{\zuzeigentext}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
 \newcommand{\zuzeigen}[1]{ \fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
 
 % verbose definitions
@@ -381,6 +382,7 @@
 
 % from DIFF
 \DeclareMathOperator{\diam}{diam} % Durchmesser
+\DeclareMathOperator{\dist}{dist} % Durchmesser
 
 % commands
 
@@ -392,10 +394,12 @@
 \newif\ifincludemit
 \newif\ifincludeparantheses
 \newif\ifincludevert
+\newif\iftextmode
 \pgfkeys{/eqstep/.cd,
-    m/.is if=ifincludemit,
-    p/.is if=ifincludeparantheses,
-    v/.is if=ifincludevert}
+    m/.is if=includemit,
+    p/.is if=includeparantheses,
+    v/.is if=includevert,
+    t/.is if=textmode}
 
 \newcommand{\eqstep}[2][]{
     \pgfkeys{
@@ -406,7 +410,7 @@
         #1
     }
     \par\noindent{\ifnostyle\else \bfseries \fi #2 \ifnopar \else \par \fi \ifnoskip \else \hspace{1em}\fi}
-    && \ifincludevert\left|\else\fi \;\ifincludeparanthses\left(\else\fi\ifincludemit\text{mit }\else\fi     #1 \ifincludeparanthses\left)\else\fi\ifincludevert\left.\else\fi
+    && \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #1\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
 }
 
 
@@ -445,6 +449,7 @@
 \DeclareRobustCommand{\texistsone}{\( \exists! \)~}
 \DeclareRobustCommand{\tforall}{\( \forall \)~}
 \DeclareRobustCommand{\texists}{\( \exists \)~}
+\DeclareRobustCommand{\tnexists}{\( \nexists \)~}
 \DeclareRobustCommand{\timplies}{\( \implies \)~}
 \DeclareRobustCommand{\tiff}{\( \iff \)~}
 \DeclareRobustCommand{\tto}{\( \to \)}
