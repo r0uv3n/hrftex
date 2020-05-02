@@ -111,6 +111,7 @@
 \NewTheorem{bemuebung}{Bemerkung / Übung}
 \NewTheorem{bemerkung}{Bemerkung}
 \NewTheorem{bemerkungen}{Bemerkungen}
+\NewTheorem{bspidee}{Beispiel / Idee}
 \NewTheorem{checkenvironment}{Check}
 \NewTheorem{defbem}{Definition / Bemerkung}
 \NewTheorem{deflemma}{Definition / Lemma}
@@ -133,6 +134,7 @@
 \NewTheorem{konvention}{Konvention}
 \NewTheorem{notation}{Notation}
 \NewTheorem{notationen}{Notationen}
+\NewTheorem{motivation}{Motivation}
 \NewTheorem{rechentrick}{Rechentrick}
 \NewTheorem{satz}{Satz}
 \NewTheorem{satzdef}{Satz / Definition}
@@ -244,11 +246,12 @@
 
 % for use over relations
 \newcommand{\needed}[1]{\overset{!}{#1}}
+\newcommand{\isittrue}[1]{\overset{?}{#1}}
 
 
 % can be used in both math and text mode
 \newcommand{\zuzeigentext}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
-\newcommand{\zuzeigen}[1]{ \fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
+\newcommand{\zuzeigen}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
 
 % verbose definitions
 \newcommand*{\defines}{\eqqcolon}
@@ -379,6 +382,8 @@
 \DeclareMathOperator{\Span}{Span}
 \DeclareMathOperator{\Dim}{Dim} % Dimensions
 \DeclareMathOperator{\Spur}{Spur}
+\DeclareMathOperator{\teilverhaeltnis}{TV}
+\DeclareMathOperator{\characteristic}{char}
 
 % from DIFF
 \DeclareMathOperator{\diam}{diam} % Durchmesser
