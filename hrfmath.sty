@@ -71,13 +71,13 @@
 
 % for references to items in enumerations
 \setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\roman*}}
-\newlist{eigenschaftenenumerate}{enumerate}{1}
+\newlist{eigenschaftenenumerate}{enumerate}{3}
 \setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\alph*}}
-\newlist{eigenschaftendescription}{description}{1}
+\newlist{eigenschaftendescription}{description}{3}
 \setlist[eigenschaftendescription]{font=\normalfont}
 \newlist{proofenumerate}{enumerate}{1}
 \setlist[proofenumerate]{label=\arabic*., wide}
-\newlist{proofdescription}{description}{1}
+\newlist{proofdescription}{description}{3}
 \setlist[proofdescription]{font=\normalfont, wide}
 % for references to description items
 \def\namedlabel#1#2{\begingroup
@@ -179,6 +179,9 @@
 
 % Large Matrices
 \setcounter{MaxMatrixCols}{20}
+
+% Units
+\RequirePackage[locale=DE]{siunitx}
 
 % Add \contra symbol to denote contradiction
 \RequirePackage{stmaryrd} % for \lightning
@@ -340,7 +343,7 @@
 
 
 % from DIFF
-\newcommand*{\stetigefunktionen}{C}
+\newcommand*{\stetigefunktionen}[1][]{C\ifstrempty{#1}{}{^{#1}}}
 \newcommand*{\cauchyfolgenmenge}{\mathcal{C}}
 \newcommand*{\moebiusabbildungenmenge}{\mathcal{M}}
 \newcommand*{\randpunkte}{\partial}
