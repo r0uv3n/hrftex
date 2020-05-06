@@ -349,6 +349,7 @@
 \newcommand*{\randpunkte}{\partial}
 \newcommand{\inneres}[1]{{#1}^{\circ}}
 \newcommand{\abschluss}[1]{\overline{#1}}
+\newcommand{\matrixmult}{\mathbin{.}}
 
 
 % operators
@@ -418,7 +419,6 @@
         v=true,
         #1
     }
-    \par\noindent{\ifnostyle\else \bfseries \fi #2 \ifnopar \else \par \fi \ifnoskip \else \hspace{1em}\fi}
     && \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #1\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
 }
 
