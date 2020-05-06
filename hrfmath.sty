@@ -106,6 +106,7 @@
 \NewTheorem{behauptung}{Behauptung}
 \NewTheorem{behauptungen}{Behauptungen}
 \NewTheorem{bembsp}{Bemerkung / Beispiel}
+\NewTheorem{bembspe}{Bemerkungen / Beispiele}
 \NewTheorem{bemdef}{Bemerkung / Definition}
 \NewTheorem{bemnotation}{Bemerkung / Notation}
 \NewTheorem{bemuebung}{Bemerkung / Übung}
@@ -408,18 +409,17 @@
 \pgfkeys{/eqstep/.cd,
     m/.is if=includemit,
     p/.is if=includeparantheses,
-    v/.is if=includevert,
-    t/.is if=textmode}
+    v/.is if=includevert}
 
-\newcommand{\eqstep}[2][]{
-    \pgfkeys{
-        /eqstep/.cd,
-        m=false,
-        p=false,
-        v=true,
-        #1
-    }
-    && \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #1\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
+\newcommand{\eqstep}[2][]{%
+    {\pgfkeys{%
+        /eqstep/.cd,%
+        m=true,%
+        p=true,%
+        v=true,%
+        #1%
+    }}%
+    && \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #2\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
 }
 
 
