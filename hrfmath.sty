@@ -8,6 +8,7 @@
 \newtoggle{numberindividually}
 \newtoggle{nomasternumbers}
 \newtoggle{numberwithin}
+\newtoggle{empheqoverload}{}
 \pgfkeys{
         /hrftex/hrfmath/.cd,
             numberindividually/.is choice,
@@ -20,6 +21,10 @@
             nomasternumbers/false/.code=\togglefalse{nomasternumbers},
             nomasternumbers/.initial=false,
             nomasternumbers/.default=true,
+            empheqoverload/true/.code=\toggletrue{empheqoverload},
+            empheqoverload/false/.code=\togglefalse{empheqoverload},
+            empheqoverload/.initial=false,
+            empheqoverload/.default=true,
             numberwithin/.value required,
             numberwithin/.initial,
 }
@@ -47,6 +52,11 @@
 % main math package
 \RequirePackage{mathtools}
 
+% Emphasizing equations, better endtheoremmark placement
+\iftoggle{empheqoverload}{\PassOptionsToPackage{overload}{empheq}}{}
+\PassOptionsToPackage{ntheorem}{empheq}
+\RequirePackage{empheq}
+
 % Possibility to change between left and right equation numbers
 \newcommand{\leqnomode}{\tagsleft@true}
 \newcommand{\reqnomode}{\tagsleft@false}
@@ -63,6 +73,7 @@
 % for theorems
 \PassOptionsToPackage{amsmath, thmmarks, amsthm}{ntheorem}
 \RequirePackage{ntheorem}
+\usetagform{default}
 \renewcommand{\qedsymbol}{$\blacksquare$} % so that the square can be used for subproofs
 \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
 
@@ -99,6 +110,8 @@
     \renewtheorem*{#1*}{#2}
     \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
 }
+
+
 
 \NewTheorem{anwendung}{Anwendung}
 \NewTheorem{anwendungen}{Anwendungen}
