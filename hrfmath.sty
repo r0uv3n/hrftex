@@ -54,6 +54,9 @@
 \RequirePackage{amssymb}
 \RequirePackage{amstext}
 
+% for \mathds{1}
+\RequirePackage{dsfont}
+
 % for some symbols (documented when used)
 \RequirePackage{stmaryrd}
 
@@ -75,7 +78,7 @@
 \setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\alph*}}
 \newlist{eigenschaftendescription}{description}{3}
 \setlist[eigenschaftendescription]{font=\normalfont}
-\newlist{proofenumerate}{enumerate}{1}
+\newlist{proofenumerate}{enumerate}{3}
 \setlist[proofenumerate]{label=\arabic*., wide}
 \newlist{proofdescription}{description}{3}
 \setlist[proofdescription]{font=\normalfont, wide}
@@ -102,6 +105,7 @@
 \NewTheorem{achtung}{\emph{Achtung}}
 \NewTheorem{beachte}{Beachte}
 \NewTheorem{beispiel}{Beispiel}
+\NewTheorem{antibeispiel}{Anti-Beispiel}
 \NewTheorem{beispiele}{Beispiele}
 \NewTheorem{behauptung}{Behauptung}
 \NewTheorem{behauptungen}{Behauptungen}
@@ -127,12 +131,14 @@
 \NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
 \NewTheorem{folgerungen}{Folgerungen}
 \NewTheorem{frage}{Frage}
+\NewTheorem{frageuebung}{Frage / Übung}
 \NewTheorem{fragen}{Fragen}
 \NewTheorem{idee}{Idee}
 \NewTheorem{intuition}{Intuition}
 \NewTheorem{lemmadef}{Lemma + Def}
 \NewTheorem{lemma}{Lemma}
 \NewTheorem{konvention}{Konvention}
+\NewTheorem{korollar}{Korollar}
 \NewTheorem{notation}{Notation}
 \NewTheorem{notationen}{Notationen}
 \NewTheorem{motivation}{Motivation}
@@ -243,6 +249,7 @@
 \newcommand{\equalto}[3][]{\underset{\scriptstyle\overset{\mkern4mu\scalebox{1}[0.7]{\verteq[#1]}}{\mathclap{#2}}}{#3}}
 % accepts vertical relation as first necessary (can be made with vertrelation)
 \newcommand{\underrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
+\newcommand{\overrelate}[4][]{\overset{\underset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\underrelate[#1]{\uparrow}{#2}{#3}}
 
 % adjustable size
@@ -305,12 +312,20 @@
 
 
 % Replace leq and req signs
+\let\leqold=\leq
+\let\leqqold=\leqq
+\let\geqold=\geq
+\let\geqqold=\geqq
+\let\triaglelefteqold=\trianglelefteq
+\let\triaglerighteqold=\trianglerighteq
 \renewcommand*{\leq}{\leqslant}
 \renewcommand*{\leqq}{\leqqslant}
 \renewcommand*{\geq}{\geqslant}
 \renewcommand*{\geqq}{\geqqslant}
 \renewcommand*{\trianglelefteq}{\trianglelefteqslant}
 \renewcommand*{\trianglerighteq}{\trianglerighteqslant}
+\newcommand*{\untervektorraum}{\leqold}
+\newcommand*{\uebervektorraum}{\geqold}
 
 % easier long to
 \newcommand*{\longto}{\longrightarrow}
@@ -319,6 +334,10 @@
 \newcommand*{\goesto}{\to}
 \newcommand*{\goesupto}{\nearrow}
 \newcommand*{\goesdownto}{\searrow}
+
+% proper differentials
+\newcommand*{\differential}{\mathrm d}
+\Style{DSymb={\mathrm d},IntegrateDifferentialDSymb={\mathrm d}}
 
 % For complex
 \newcommand*{\real}{\mathfrak{R}}
@@ -355,6 +374,18 @@
 
 % operators
 
+% missing trig functions
+
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arcxsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth} 
+
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\Abb}{Abb}
 \DeclareMathOperator{\Ker}{Ker}
@@ -390,10 +421,14 @@
 \DeclareMathOperator{\teilverhaeltnis}{TV}
 \DeclareMathOperator{\characteristic}{char}
 \DeclareMathOperator{\Fix}{Fix} % Fixpunkte
+\DeclareMathOperator{\sign}{sign} % Fixpunkte
 
 % from DIFF
 \DeclareMathOperator{\diam}{diam} % Durchmesser
 \DeclareMathOperator{\dist}{dist} % Durchmesser
+
+% from Zahlentheorie
+\DeclareMathOperator{\ord}{ord} % Ordnung
 
 % commands
 
@@ -432,6 +467,7 @@
 
 \newcommand{\distance}[2]{d\left( #1, #2\right))}
 \newcommand{\quot}[2]{{{#1}/\!\raisebox{-.575ex}{\ensuremath{#2}}}} % quotient set
+
 
 % from DIFF
 \newcommand{\supnorm}[2][]{\norm{#2}_{\ifx&#1&\else{#1}, \fi\infty}}
