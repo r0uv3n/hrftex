@@ -286,6 +286,8 @@
 \newcommand{\overrelate}[4][]{\overset{\underset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\underrelate[#1]{\uparrow}{#2}{#3}}
 
+\newcommand{\bracexplain}[2]{\smash[b]{\underbrace{#2}_{\mathclap{#1}}}\vphantom{#2}}
+
 % adjustable size
 \newcommand{\verteq}[1][]{\protect\raisebox{2pt}{\scalebox{1}[0.7]{\(\csname #1\endcsname{\Vert}\)}}}
 
@@ -500,20 +502,20 @@
 \DeclarePairedDelimiter{\floor}\lfloor\rfloor
 
 \newcommand{\distance}[2]{d\left( #1, #2\right))}
-\newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\ThisStyle #1$}\left/\raisebox{-.2em}{$\ThisStyle #2$}\right.}}}
+\newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\SavedStyle #1$}\left/\raisebox{-.2em}{$\SavedStyle #2$}\right.}}}
 \newcommand{\quot}[2]{{
     \mathchoice
         {% \displaystyle
             \quotient{#1}{#2}%
         }
         {% \textstyle
-            \quotient{#1}{#2}
+            \quotient{#1}{#2}%
         }
         {% \scriptstyle
-            #1\mathbin{/}#2
+            #1\mathbin{/}#2%
         }
         {% \scriptscriptstyle  
-            #1\mathbin{/}#2
+            #1\mathbin{/}#2%
         }
 }} % quotient set
 
