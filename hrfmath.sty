@@ -238,6 +238,27 @@
 % use \\* to prohibit a page break
 \allowdisplaybreaks[1]
 
+% possibility to save styles
+\def\@mstyleD{\displaystyle}
+\def\@mstyleT{\textstyle}
+\def\@mstyleS{\scriptstyle}
+\def\@mstyles{\scriptscriptstyle}
+%
+\def\SavedStyle{\csname @mstyle\m@switch\endcsname}
+%
+\newcommand\ThisStyle[1]{%
+  \ifmmode%
+    \def\@mmode{T}\mathchoice%
+      {\edef\m@switch{D}#1}%
+      {\edef\m@switch{T}#1}%
+      {\edef\m@switch{S}#1}%
+      {\edef\m@switch{s}#1}%
+  \else%
+    \def\@mmode{F}%
+    \edef\m@switch{T}#1%
+  \fi%
+}
+
 
 % number this specific equation
 \newcommand{\numberthis}{\addtocounter{equation}{1}\tag{\theequation}}
@@ -472,14 +493,29 @@
 
 
 \newcommand{\inv}[1]{{{#1}^{-1}}} % inverse of argument
-\newcommand{\abs}[1]{\left|#1\right|} % absolute value
-\newcommand{\norm}[1]{{\left\| #1 \right\|}}
+\DeclarePairedDelimiter{\abs}|| % absolute value
+\DeclarePairedDelimiter{\norm}\|\|
 
-\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\DeclarePairedDelimiter{\ceil}\lceil\rceil
+\DeclarePairedDelimiter{\floor}\lfloor\rfloor
 
 \newcommand{\distance}[2]{d\left( #1, #2\right))}
-\newcommand{\quot}[2]{{{#1}/\!\raisebox{-.575ex}{\ensuremath{#2}}}} % quotient set
+\newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\ThisStyle #1$}\left/\raisebox{-.2em}{$\ThisStyle #2$}\right.}}}
+\newcommand{\quot}[2]{{
+    \mathchoice
+        {% \displaystyle
+            \quotient{#1}{#2}%
+        }
+        {% \textstyle
+            \quotient{#1}{#2}
+        }
+        {% \scriptstyle
+            #1\mathbin{/}#2
+        }
+        {% \scriptscriptstyle  
+            #1\mathbin{/}#2
+        }
+}} % quotient set
 
 
 % from DIFF
