@@ -259,6 +259,16 @@
   \fi%
 }
 
+% possibility to ignore height and apply later (with SavedHeight)
+\newsavebox{\mastercontent}
+\newsavebox{\slavecontent}
+\newsavebox{\masterheight}
+\newsavebox{\slaveheight}
+\newsavebox{\masterwidth}
+\newsavebox{\slavewidth}
+
+% provides \slavecontent and \mastercontent to access content, \slaveheight and \masterheight to access height, \slavewidth and \masterwidth to access width
+\newcommand\heightcontext[2]{\sbox{\slavecontent}{#1}\sbox{\mastercontent}{#2}\sbox{\slaveheight}{\vphantom{\slavecontent}}\sbox{\masterheight}{\vphantom{\mastercontent}}\sbox{\slavewidth}{\hphantom{\slavecontent}}\sbox{\masterwidth}{\hphantom{\mastercontent}}}
 
 % number this specific equation
 \newcommand{\numberthis}{\addtocounter{equation}{1}\tag{\theequation}}
@@ -286,7 +296,7 @@
 \newcommand{\overrelate}[4][]{\overset{\underset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\underrelate[#1]{\uparrow}{#2}{#3}}
 
-\newcommand{\bracexplain}[2]{\smash[b]{\underbrace{#2}_{\mathclap{#1}}}\vphantom{#2}}
+\newcommand{\braceannotate}[2]{\underbrace{#2}_{#1}}
 
 % adjustable size
 \newcommand{\verteq}[1][]{\protect\raisebox{2pt}{\scalebox{1}[0.7]{\(\csname #1\endcsname{\Vert}\)}}}
@@ -388,7 +398,7 @@
 \newcommand*{\zeroset}{{\Set{0}}}
 \newcommand*{\minuszero}{{\setminus\zeroset}}
 \newcommand*{\Minuszero}{{\!\setminus\!\zeroset}}
-\newcommand*{\powerset}[1]{\mathbb{P}\left( #1 \right)}
+\DeclarePairedDelimiterXPP{\powerset}[1]{\mathbb{P}}{\lparen}{\rparen}{}{#1}
 
 
 \newcommand*{\naturals}{\mathbb{N}}
@@ -405,8 +415,12 @@
 \newcommand*{\randpunkte}{\partial}
 \newcommand{\inneres}[1]{{#1}^{\circ}}
 \newcommand{\abschluss}[1]{\overline{#1}}
-\newcommand{\matrixmult}{\mathbin{.}}
+\newcommand*{\matrixmult}{\mathbin{.}}
+\newcommand*{\laplaceoperator}{\Delta}
 
+% visited courses
+\newcommand{\agla}[1]{AGLA \Romannum{#1}}
+\newcommand{\diff}[1]{DIFF \Romannum{#1}}
 
 % operators
 
@@ -469,8 +483,8 @@
 % commands
 
 % evaluate using vert
-\newcommand{\evaluateat}[2]{\left.{#1}\right\vert_{#2}}
-\newcommand{\evaluatebetween}[3]{\left.{#1}\right\vert_{#2}^{#3}}
+\DeclarePairedDelimiterXPP{\evaluateat}[2]{}{}{\vert}{_{#2}}{#1}
+\DeclarePairedDelimiterXPP{\evaluatebetween}[3]{}{\vert}{}{_{#2}^{#3}}{#1}
 
 
 \newif\ifincludemit
@@ -495,13 +509,18 @@
 
 
 \newcommand{\inv}[1]{{{#1}^{-1}}} % inverse of argument
+
+
 \DeclarePairedDelimiter{\abs}{|}{|} % absolute value
 \DeclarePairedDelimiter{\norm}{\|}{\|}
 
-\DeclarePairedDelimiter{\ceil}\lceil\rceil
-\DeclarePairedDelimiter{\floor}\lfloor\rfloor
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 
-\newcommand{\distance}[2]{d\left( #1, #2\right))}
+\DeclarePairedDelimiter{\parens}{(}{)}
+
+\DeclarePairedDelimiterXPP{\distance}[2]{d}{\lparen}{\rparen}{}{#1,#2}
+\DeclarePairedDelimiterXPP{\lineangle}[2]{\angle}{\lparen}{\rparen}{}{#1,#2}
 \newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\SavedStyle #1$}\left/\raisebox{-.2em}{$\SavedStyle #2$}\right.}}}
 \newcommand{\quot}[2]{{
     \mathchoice
@@ -527,19 +546,19 @@
 
 
 % from AGLA
-\newcommand{\scalarproduct}[2]{\left\langle #1, #2 \right\rangle}
-\newcommand{\spatproduct}[3]{\left( #1, #2, #3 \right)}
+\DeclarePairedDelimiterX{\scalarproduct}[2]{\langle}{\rangle}{#1,#2}
+\DeclarePairedDelimiterX{\spatproduct}[3]{\lparen}{\rparen}{#1,#2,#3}
 \newcommand{\compactification}[1]{\widebar{#1}} % Compactification of a topological space
 \newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}}
-\newcommand{\matrices}[3]{\Mat\left( #1\times #2,\ #3 \right)} % #1*#2 matrices over field #2 
+\DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #2 
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
 \newcommand{\transpose}[1]{{#1}^{T}} % transpose argument
 
 
 % from Zahlentheorie
-\newcommand{\ggt}[2]{\left( #1;#2 \right)}
+\DeclarePairedDelimiterXPP{\ggt}[2]{ggt}{\lparen}{\rparen}{}{#1;#2}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
 \DeclareRobustCommand{\texistsone}{\( \exists! \)~}
