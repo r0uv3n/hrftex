@@ -455,6 +455,7 @@
 \DeclareMathOperator{\Hom}{Hom} % Homomorphismen
 \DeclareMathOperator{\Mat}{Mat} % Matrizen
 \DeclareMathOperator{\GL}{GL} % General Linear Group
+\DeclareMathOperator{\orthomatrices}{O}  % orthogonal matrices
 \DeclareMathOperator{\Adj}{Adj} % Adjunction
 \DeclareMathOperator{\Sp}{Sp} % Special Linear Group
 \DeclareMathOperator{\ST}{ST} % selbstadjungierte Endomorphismen
@@ -555,7 +556,8 @@
 \DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #2 
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
 \newcommand{\transpose}[1]{{#1}^{T}} % transpose argument
-
+\DeclarePairedDelimiterXPP{\invertiblematrices}[2]{\GL_{#1}}{\lparen}{\rparen}{}{#2}
+\DeclarePairedDelimiterXPP{\orthogonalmatrices}[1]{\orthomatrices}{\lparen}{\rparen}{}{#1}
 
 % from Zahlentheorie
 \DeclarePairedDelimiterXPP{\ggt}[2]{ggt}{\lparen}{\rparen}{}{#1;#2}
