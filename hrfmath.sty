@@ -296,7 +296,7 @@
 \newcommand{\overrelate}[4][]{\overset{\underset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\underrelate[#1]{\uparrow}{#2}{#3}}
 
-\newcommand{\braceannotate}[2]{\underbrace{#2}_{#1}}
+\newcommand{\braceannotate}[2]{\ThisStyle{\underbrace{\SavedStyle #2}_{#1}}}
 
 % adjustable size
 \newcommand{\verteq}[1][]{\protect\raisebox{2pt}{\scalebox{1}[0.7]{\(\csname #1\endcsname{\Vert}\)}}}
