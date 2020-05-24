@@ -78,6 +78,12 @@
 \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
 
 
+\def\DeclareMathOperatorWithDelimiter#1[#2]#3#4#5#6{
+    \DeclarePairedDelimiterXPP{#1}[#2]{#3}{#4}{#5}{}{#6}
+    \WithSuffix\newcommand#1-[#2]{#3 #6}
+}
+
+
 \theoremstyle{definition}
 % consistent numbering
 \iftoggle{numberwithin}{\newtheorem{generalthm}{}[\numbertheoremswithinthis]}{\newtheorem{generalthm}{}}
@@ -129,6 +135,7 @@
 \NewTheorem{bemuebung}{Bemerkung / Übung}
 \NewTheorem{bemerkung}{Bemerkung}
 \NewTheorem{bemerkungen}{Bemerkungen}
+\NewTheorem{bspdef}{Beispiel / Definition}
 \NewTheorem{bspidee}{Beispiel / Idee}
 \NewTheorem{checkenvironment}{Check}
 \NewTheorem{defbem}{Definition / Bemerkung}
@@ -341,8 +348,7 @@
 % to avoid warnings about "!"
 \DeclareMathOperator{\existsone}{\exists!}
 
-% add # as anzahl
-\newcommand*{\anzahl}{\#}
+\DeclareMathOperatorWithDelimiter{\anzahl}[1]{\#}{\lparen}{\rparen}{#1}
 
 % add \ndivides as does not divide
 \newcommand*{\divides}{\mid}
@@ -383,6 +389,7 @@
 
 % proper differentials
 \newcommand*{\differential}{\mathrm d}
+\DeclareMathOperatorWithDelimiter{\totalderivative}[1]{D}{\lparen}{\rparen}{#1}
 \Style{DSymb={\mathrm d},IntegrateDifferentialDSymb={\mathrm d}}
 
 % For complex
@@ -407,12 +414,48 @@
 \newcommand*{\complexs}{\mathbb{C}}
 \newcommand*{\wholes}{\mathbb{Z}}
 
+% min and max with delimiters
+\let\min\relax
+\DeclareMathOperator{\min}{min}
+\let\Min\relax
+\DeclareMathOperatorWithDelimiter{\Min}[1]{\min}{\lparen}{\rparen}{#1}
+\let\max\relax
+\DeclareMathOperator{\max}{max}
+\let\Max\relax
+\DeclareMathOperatorWithDelimiter{\Max}[1]{\max}{\lparen}{\rparen}{#1}
+
+% make trigonometric functions operators with delimiters
+\let\Sin\relax
+\DeclareMathOperatorWithDelimiter{\Sin}[1]{\sin}{\lparen}{\rparen}{#1}
+\let\Cos\relax
+\DeclareMathOperatorWithDelimiter{\Cos}[1]{\cos}{\lparen}{\rparen}{#1}
+\let\Tan\relax
+\DeclareMathOperatorWithDelimiter{\Tan}[1]{\tan}{\lparen}{\rparen}{#1}
+\let\Sec\relax
+\DeclareMathOperatorWithDelimiter{\Sec}[1]{\sec}{\lparen}{\rparen}{#1}
+\let\Csc\relax
+\DeclareMathOperatorWithDelimiter{\Csc}[1]{\csc}{\lparen}{\rparen}{#1}
+\let\Cot\relax
+\DeclareMathOperatorWithDelimiter{\Cot}[1]{\cot}{\lparen}{\rparen}{#1}
+\let\ArcSin\relax
+\DeclareMathOperatorWithDelimiter{\ArcSin}[1]{\arcsin}{\lparen}{\rparen}{#1}
+\let\ArcCos\relax
+\DeclareMathOperatorWithDelimiter{\ArcCos}[1]{\arccos}{\lparen}{\rparen}{#1}
+\let\ArcTan\relax
+\DeclareMathOperatorWithDelimiter{\ArcTan}[1]{\arctan}{\lparen}{\rparen}{#1}
+\let\ArcSec\relax
+\DeclareMathOperatorWithDelimiter{\ArcSec}[1]{\arcsec}{\lparen}{\rparen}{#1}
+\let\ArcCsc\relax
+\DeclareMathOperatorWithDelimiter{\ArcCsc}[1]{\arccsc}{\lparen}{\rparen}{#1}
+\let\ArcCot\relax
+\DeclareMathOperatorWithDelimiter{\ArcCot}[1]{\arccot}{\lparen}{\rparen}{#1}
 
 % from DIFF
-\newcommand*{\stetigefunktionen}[1][]{C\ifstrempty{#1}{}{^{#1}}}
-\newcommand*{\cauchyfolgenmenge}{\mathcal{C}}
-\newcommand*{\moebiusabbildungenmenge}{\mathcal{M}}
-\newcommand*{\randpunkte}{\partial}
+\newcommand*{\stetigefunktionen}[1][]{C\ifstrempty{#1}{}{^{#1}}} % #1-fach stetig differenzierbare funktionen
+
+\DeclareMathOperatorWithDelimiter{\cauchyfolgenmenge}[1]{\mathcal{C}}{\lparen}{\rparen}{#1} % \cauchyfolgenmenge of #1 
+\DeclareMathOperatorWithDelimiter{\moebiusabbildungenmenge}[1]{\mathcal{C}}{\lparen}{\rparen}{#1} % \moebiusabbildungenmenge of #1 
+\DeclareMathOperatorWithDelimiter{\randpunkte}[1]{\partial}{\lparen}{\rparen}{#1} % \randpunkte of #1 
 \newcommand{\inneres}[1]{{#1}^{\circ}}
 \newcommand{\abschluss}[1]{\overline{#1}}
 \newcommand*{\matrixmult}{\mathbin{.}}
@@ -426,61 +469,80 @@
 
 % missing trig functions
 
-\DeclareMathOperator{\arcsec}{arcsec}
-\DeclareMathOperator{\arccot}{arccot}
-\DeclareMathOperator{\arccsc}{arcxsc}
-\DeclareMathOperator{\arccosh}{arccosh}
-\DeclareMathOperator{\arcsinh}{arcsinh}
-\DeclareMathOperator{\arctanh}{arctanh}
-\DeclareMathOperator{\arcsech}{arcsech}
-\DeclareMathOperator{\arccsch}{arccsch}
-\DeclareMathOperator{\arccoth}{arccoth} 
-
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\Abb}{Abb}
-\DeclareMathOperator{\Ker}{Ker}
-\DeclareMathOperator{\Kern}{Kern}
-\DeclareMathOperator{\Bild}{Bild}
-\DeclareMathOperator{\Id}{Id}
-\DeclareMathOperator{\image}{Im}
-\DeclareMathOperator{\preimage}{Pre}
-\DeclareMathOperator{\grad}{grad}
-\DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
-
-
+\let\ArcCosh\relax
+\DeclareMathOperatorWithDelimiter{\ArcCosh}[1]{\operatorname{arccosh}}{\lparen}{\rparen}{#1} % \ArcCosh of #1 
+\let\ArcSinh\relax
+\DeclareMathOperatorWithDelimiter{\ArcSinh}[1]{\operatorname{arcsinh}}{\lparen}{\rparen}{#1} % \ArcSinh of #1 
+\let\ArcTanh\relax
+\DeclareMathOperatorWithDelimiter{\ArcTanh}[1]{\operatorname{arctanh}}{\lparen}{\rparen}{#1} % \ArcTanh of #1 
+\let\ArcSech\relax
+\DeclareMathOperatorWithDelimiter{\ArcSech}[1]{\operatorname{arcsech}}{\lparen}{\rparen}{#1} % \ArcSech of #1 
+\let\ArcCsch\relax
+\DeclareMathOperatorWithDelimiter{\ArcCsch}[1]{\operatorname{arccsch}}{\lparen}{\rparen}{#1} % \ArcCsch of #1 
+\let\ArcCoth\relax
+\DeclareMathOperatorWithDelimiter{\ArcCoth}[1]{\operatorname{arccoth}}{\lparen}{\rparen}{#1} % \ArcCoth of #1 
+\DeclareMathOperatorWithDelimiter{\sgn}[1]{\operatorname{sgn}}{\lparen}{\rparen}{#1} % \sgn of #1 
+\DeclareMathOperatorWithDelimiter{\Abb}[1]{\operatorname{Abb}}{\lparen}{\rparen}{#1} % \Abb of #1 
+\DeclareMathOperatorWithDelimiter{\Ker}[1]{\operatorname{Ker}}{\lparen}{\rparen}{#1} % \Ker of #1 
+\DeclareMathOperatorWithDelimiter{\Kern}[1]{\operatorname{Kern}}{\lparen}{\rparen}{#1} % Kern of #1 
+\DeclareMathOperatorWithDelimiter{\Bild}[1]{\operatorname{Bild}}{\lparen}{\rparen}{#1} % Bild of #1 
+\DeclareMathOperator{\Id}{Id} % Identity
+\DeclareMathOperatorWithDelimiter{\image}[1]{\operatorname{Im}}{\lparen}{\rparen}{#1} % \image of #1 
+\DeclareMathOperatorWithDelimiter{\preimage}[1]{\operatorname{Pre}}{\lparen}{\rparen}{#1} % \preimage of #1 
+\DeclareMathOperatorWithDelimiter{\grad}[1]{\operatorname{grad}}{\lparen}{\rparen}{#1} % grad of #1 
+\DeclareMathOperatorWithDelimiter{\gradient}[1]{\nabla}{\lparen}{\rparen}{#1} % grad of #1 
 % from AGLA
-\DeclareMathOperator{\Bij}{Bij} % Endomorphismus
-\DeclareMathOperator{\End}{End} % Endomorphismus
-\DeclareMathOperator{\Aut}{Aut} % Automorphismus
-\DeclareMathOperator{\Hom}{Hom} % Homomorphismen
-\DeclareMathOperator{\Mat}{Mat} % Matrizen
-\DeclareMathOperator{\GL}{GL} % General Linear Group
-\DeclareMathOperator{\orthomatrices}{O}  % orthogonal matrices
-\DeclareMathOperator{\Adj}{Adj} % Adjunction
-\DeclareMathOperator{\Sp}{Sp} % Special Linear Group
-\DeclareMathOperator{\ST}{ST} % selbstadjungierte Endomorphismen
-\DeclareMathOperator{\SR}{SR} % Spaltenrang
-\DeclareMathOperator{\ZR}{ZR} % Zeilenrang
-\DeclareMathOperator{\Rk}{Rk} % rank
-\DeclareMathOperator{\Rg}{Rg} % Rang
-\DeclareMathOperator{\Rang}{Rang}
-\DeclareMathOperator{\rang}{rang}
-\DeclareMathOperator{\rg}{rg}
-\DeclareMathOperator{\Span}{Span}
-\DeclareMathOperator{\Dim}{Dim} % Dimensions
-\DeclareMathOperator{\Spur}{Spur}
-\DeclareMathOperator{\teilverhaeltnis}{TV}
-\DeclareMathOperator{\characteristic}{char}
-\DeclareMathOperator{\Fix}{Fix} % Fixpunkte
-\DeclareMathOperator{\sign}{sign} % Fixpunkte
+\DeclareMathOperatorWithDelimiter{\bijections}[1]{\operatorname{Bij}}{\lparen}{\rparen}{#1} % Bijections of #1 
+% \let\endomorphisms    \relax
+% \DeclareMathOperatorWithDelimiter{\endomorphisms}[1]{\operatorname{End}}{\lparen}{\rparen}{#1} % Endomorphismus of #1 
+\DeclareMathOperatorWithDelimiter{\automorphisms}[1]{\operatorname{Aut}}{\lparen}{\rparen}{#1} % Automorphismus of #1 
+\DeclareMathOperatorWithDelimiter{\homomorphisms}[1]{\operatorname{Hom}}{\lparen}{\rparen}{#1} % Homomorphismen of #1 
+\DeclareMathOperator{\Mat}{Mat} % matrices
+\DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #3 
+\newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
+
+\DeclareMathOperatorWithDelimiter{\invertiblematrices}[2]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{\lparen}{\rparen}{#2} % general linear group of #1 dimensions over #2
+\DeclareMathOperatorWithDelimiter{\orthogonalmatrices}[1]{\operatorname{O}}{\lparen}{\rparen}{#1} % orthogonal matrices of #1 
+\DeclareMathOperatorWithDelimiter{\Adj}[1]{\operatorname{Adj}}{\lparen}{\rparen}{#1} % adjunction of #1 
+\DeclareMathOperatorWithDelimiter{\specialinvertiblematrices}[1]{\operatorname{SL}}{\lparen}{\rparen}{#1} % special linear group of #1 
+\DeclareMathOperatorWithDelimiter{\selfadjointendomorphisms}[1]{\operatorname{ST}}{\lparen}{\rparen}{#1} % selbstadjungierte Endomorphismen of #1 
+\DeclareMathOperatorWithDelimiter{\spaltenrang}[1]{\operatorname{SR}}{\lparen}{\rparen}{#1} % Spaltenrang of #1 
+\DeclareMathOperatorWithDelimiter{\zeilenrang}[1]{\operatorname{ZR}}{\lparen}{\rparen}{#1} % Zeilenrang of #1 
+\DeclareMathOperatorWithDelimiter{\rank}[1]{\operatorname{rank}}{\lparen}{\rparen}{#1} % rank of #1 
+\DeclareMathOperatorWithDelimiter{\rang}[1]{\operatorname{rang}}{\lparen}{\rparen}{#1} % rang of #1 
+% \DeclareMathOperator{\Rg}{Rg} % Rang
+% \DeclarePairedDelimiterXPP{\Rgof}[1]{\Rg}{\lparen}{\rparen}{}{#1} % Rg of #1 
+% \DeclareMathOperator{\Rang}{Rang}
+% \DeclarePairedDelimiterXPP{\Rangof}[1]{\Rang}{\lparen}{\rparen}{}{#1} % Rang of #1 
+% \DeclareMathOperator{\rg}{rg}
+% \DeclarePairedDelimiterXPP{\rgof}[1]{\rg}{\lparen}{\rparen}{}{#1} % rg of #1 
+\DeclareMathOperatorWithDelimiter{\Span}[1]{\operatorname{Span}}{\lparen}{\rparen}{#1} % Span of #1 
+\let\dim\relax
+\DeclareMathOperatorWithDelimiter{\dim}[2]{\operatorname{dim}\ifstrempty{#1}{}{_{#1}}}{\lparen}{\rparen}{#2} % dimension of #1 
+\DeclareMathOperatorWithDelimiter{\affindim}[1]{\operatorname{dim}}{\lparen}{\rparen}{#1} % dimension of affine space #1 
+\DeclareMathOperatorWithDelimiter{\projectivedim}[1]{\operatorname{dim}}{\lparen}{\rparen}{#1} % dimension of projection space #1 
+
+\DeclareMathOperatorWithDelimiter{\Spur}[1]{\operatorname{Spur}}{\lparen}{\rparen}{#1} % Spur of #1 
+\DeclarePairedDelimiterXPP{\teilverhaeltnis}[3]{\operatorname{TV}}{\lparen}{\rparen}{}{#1,#2,#3} % Teilverhältnis of #1 
+\DeclareMathOperatorWithDelimiter{\characteristic}[1]{\operatorname{char}}{\lparen}{\rparen}{#1} % characteristic of #1 
+\DeclareMathOperatorWithDelimiter{\fixpunkte}[1]{\operatorname{Fix}}{\lparen}{\rparen}{#1} % Fixpunkte of #1 
+\DeclareMathOperatorWithDelimiter{\signature}[1]{\operatorname{sign}}{\lparen}{\rparen}{#1} % signature of quadrik #1
+
+\DeclarePairedDelimiterXPP{\polynomials}[2]{#1}{\lbrack}{\rbrack}{}{#2} % Polynomials of variables #2 over field #1 
+
 
 % from DIFF
-\DeclareMathOperator{\diam}{diam} % Durchmesser
-\DeclareMathOperator{\dist}{dist} % Durchmesser
+\DeclareMathOperatorWithDelimiter{\diameter}[1]{\operatorname{diam}}{\lparen}{\rparen}{#1} % Durchmesser of #1
+\DeclareMathOperatorWithDelimiter{\normdiameter}[2]{\operatorname{diam}_{#1}}{\lparen}{\rparen}{#2} % Durchmesser of #2 under norm #1
+
+% \DeclareMathOperatorWithDelimiter{\distance}[1]{\operatorname{dist}}{\lparen}{\rparen}{#1} % Distanz of #1
 
 % from Zahlentheorie
-\DeclareMathOperator{\ord}{ord} % Ordnung
+\DeclareMathOperatorWithDelimiter{\ord}[1]{\operatorname{ord}}{\lparen}{\rparen}{#1} % order of quadrik #1
 
+
+
+\DeclareMathOperatorWithDelimiter{\ggt}[1]{\operatorname{ggT}}{\lparen}{\rparen}{#1} % größter gemeinsamer Teiler of #1 (#1 a collection)
 % commands
 
 % evaluate using vert
@@ -512,6 +574,8 @@
 \newcommand{\inverse}[1]{{{#1}^{-1}}} % inverse of argument
 \let\inv\inverse
 
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert} % absolute value
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \DeclarePairedDelimiterXPP{\explicitnorm}[2]{}{\|}{\|}{_{#1}}{#2}
 \DeclarePairedDelimiterXPP{\euclidiannorm}[1]{}{\|}{\|}{_{\text{E}}}{#1}
 \DeclarePairedDelimiterXPP{\supnorm}[1]{}{\|}{\|}{_{\infty}}{#1}
@@ -522,7 +586,7 @@
 \DeclarePairedDelimiter{\parens}{(}{)}
 
 \DeclarePairedDelimiterXPP{\distance}[2]{d}{\lparen}{\rparen}{}{#1,#2}
-\DeclarePairedDelimiterXPP{\lineangle}[2]{\angle}{\lparen}{\rparen}{}{#1,#2}
+\DeclareMathOperatorWithDelimiter{\lineangle}[2]{\angle}{\lparen}{\rparen}{#1,#2}
 \newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\SavedStyle #1$}\left/\raisebox{-.2em}{$\SavedStyle #2$}\right.}}}
 \newcommand{\quot}[2]{{
     \mathchoice
@@ -551,19 +615,14 @@
 \DeclarePairedDelimiterX{\spatproduct}[3]{\lparen}{\rparen}{#1,#2,#3}
 \newcommand{\compactification}[1]{\widebar{#1}} % Compactification of a topological space #1
 \newcommand{\fieldwithoutzero}[1]{{#1}^{\star}} % Compactification of a topological space #1
+\DeclareMathOperatorWithDelimiter{\projectionspace}[1]{\mathbb{P}}{\lparen}{\rparen}{#1} % projection of a vector space #1
+\DeclareMathOperatorWithDelimiter{\projectionspaceover}[2]{\mathbb{P}_{#1}}{\lparen}{\rparen}{#2} % projection of a vector space #2^{#1+1}, #2 a field
 \newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
 \newcommand{\transpose}[1]{{#1}^{T}} % transpose #1
 
 % basechange lower index Notation
-\newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}}
-\DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #2 
-\newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
-\newcommand{\transpose}[1]{{#1}^{T}} % transpose argument
-\DeclarePairedDelimiterXPP{\invertiblematrices}[2]{\GL_{#1}}{\lparen}{\rparen}{}{#2}
-\DeclarePairedDelimiterXPP{\orthogonalmatrices}[1]{\orthomatrices}{\lparen}{\rparen}{}{#1}
+\newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
 
-% from Zahlentheorie
-\DeclarePairedDelimiterXPP{\ggt}[2]{ggt}{\lparen}{\rparen}{}{#1;#2}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
 \DeclareRobustCommand{\texistsone}{\( \exists! \)~}
