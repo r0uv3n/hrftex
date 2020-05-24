@@ -512,8 +512,9 @@
 \newcommand{\inverse}[1]{{{#1}^{-1}}} % inverse of argument
 \let\inv\inverse
 
-\DeclarePairedDelimiter{\abs}{|}{|} % absolute value
-\DeclarePairedDelimiter{\norm}{\|}{\|}
+\DeclarePairedDelimiterXPP{\explicitnorm}[2]{}{\|}{\|}{_{#1}}{#2}
+\DeclarePairedDelimiterXPP{\euclidiannorm}[1]{}{\|}{\|}{_{\text{E}}}{#1}
+\DeclarePairedDelimiterXPP{\supnorm}[1]{}{\|}{\|}{_{\infty}}{#1}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -541,7 +542,6 @@
 
 
 % from DIFF
-\newcommand{\supnorm}[2][]{\norm{#2}_{\ifx&#1&\else{#1}, \fi\infty}}
 \newcommand{\regelfunktionen}[1][\interval{a}{b}]{\operatorname{\mathcal{R}}(#1)}
 \newcommand{\treppenfunktionen}[1][\interval{a}{b}]{\operatorname{\mathcal{T}}(#1)}
 
