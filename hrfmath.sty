@@ -273,9 +273,11 @@
 \newsavebox{\slaveheight}
 \newsavebox{\masterwidth}
 \newsavebox{\slavewidth}
+\newsavebox{\compositeheight}
+\newsavebox{\compositewidth}
 
 % provides \slavecontent and \mastercontent to access content, \slaveheight and \masterheight to access height, \slavewidth and \masterwidth to access width
-\newcommand\heightcontext[2]{\sbox{\slavecontent}{\( #1 \)}\sbox{\mastercontent}{\(#2\)}\sbox{\slaveheight}{\vphantom{\slavecontent}}\sbox{\masterheight}{\vphantom{\mastercontent}}\sbox{\slavewidth}{\hphantom{\slavecontent}}\sbox{\masterwidth}{\hphantom{\mastercontent}}}
+\newcommand\heightcontext[2]{\sbox{\slavecontent}{\( #1 \)}\sbox{\mastercontent}{\(#2\)}\sbox{\slaveheight}{\vphantom{\usebox{\slavecontent}}}\sbox{\masterheight}{\vphantom{\usebox{\mastercontent}}}\sbox{\slavewidth}{\hphantom{\usebox{\slavecontent}}}\sbox{\masterwidth}{\hphantom{\usebox{\mastercontent}}}}
 
 % number this specific equation
 \newcommand{\numberthis}{\addtocounter{equation}{1}\tag{\theequation}}
