@@ -38,7 +38,7 @@
     \newcommand{\file}[2][]{
         \ifstrempty{#1}{\addxcontentsline{listoffiles}{section}{#2}}{\addxcontentsline{listoffiles}{section}[#1]{#2}}%
         \def\@file{Datei \arabic{lecture}: #2}%
-        \marginpar{\@file}%
+        \marginpar{\raggedright\small\@file}%
     }
 \else\fi
 
