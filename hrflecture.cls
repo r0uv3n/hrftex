@@ -12,6 +12,7 @@
 
 % needed for hrftex if to be numbered within lecture
 \newcounter{lecture}
+\newcounter{file}
 % main package
 \RequirePackage{hrftex}
 
@@ -22,7 +23,7 @@
     \stepcounter{lecture} % be sure to reset all dependent counters
     
     \ifblank{#3}{%
-        \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}{#2}}{\addxcontentsline{listoflectures}{section}[#1]{#2}}%
+        \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}[\thelecture]{#2}}{\addxcontentsline{listoflectures}{section}[#1]{#2}}%
         \def\@lecture{Vorlesung \arabic{lecture}}%
     }{%
         \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}{#3}}{\addxcontentsline{listoflectures}{section}[#1]{#3}}%
@@ -36,8 +37,9 @@
     \DeclareNewTOC[owner=hrflecture,listname=Dateienverzeichnis,type=file,types=files, name=Datei]{listoffiles}
     \def\@file{}
     \newcommand{\file}[2][]{
-        \ifstrempty{#1}{\addxcontentsline{listoffiles}{section}{#2}}{\addxcontentsline{listoffiles}{section}[#1]{#2}}%
-        \def\@file{Datei \arabic{lecture}: #2}%
+        \stepcounter{file} % be sure to reset all dependent counters
+        \ifstrempty{#1}{\addxcontentsline{listoffiles}{section}[\thefile]{#2}}{\addxcontentsline{listoffiles}{section}[#1]{#2}}%
+        \def\@file{Datei \arabic{file}: #2}%
         \marginpar{\raggedright\small\@file}%
     }
 \else\fi
