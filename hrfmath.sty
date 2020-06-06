@@ -528,7 +528,8 @@
 \DeclareMathOperatorWithDelimiter{\projectivedim}[1]{\operatorname{dim}}{\lparen}{\rparen}{#1} % dimension of projection space #1 
 
 \DeclareMathOperatorWithDelimiter{\Spur}[1]{\operatorname{Spur}}{\lparen}{\rparen}{#1} % Spur of #1 
-\DeclarePairedDelimiterXPP{\teilverhaeltnis}[3]{\operatorname{TV}}{\lparen}{\rparen}{}{#1,#2,#3} % Teilverhältnis of #1 
+\DeclarePairedDelimiterXPP{\teilverhaeltnis}[3]{\operatorname{TV}}{\lparen}{\rparen}{}{#1,#2,#3} % Teilverhältnis
+\DeclarePairedDelimiterXPP{\doppelverhaeltnis}[4]{\operatorname{DV}}{\lparen}{\rparen}{}{#1,#2,#3,#4} % Doppelverhältnis
 \DeclareMathOperatorWithDelimiter{\characteristic}[1]{\operatorname{char}}{\lparen}{\rparen}{#1} % characteristic of #1 
 \DeclareMathOperatorWithDelimiter{\fixpunkte}[1]{\operatorname{Fix}}{\lparen}{\rparen}{#1} % Fixpunkte of #1 
 \DeclareMathOperatorWithDelimiter{\signature}[1]{\operatorname{sign}}{\lparen}{\rparen}{#1} % signature of quadrik #1
@@ -552,7 +553,7 @@
 
 % evaluate using vert
 \DeclarePairedDelimiterXPP{\evaluateat}[2]{}{}{\vert}{_{#2}}{#1}
-\DeclarePairedDelimiterXPP{\evaluatebetween}[3]{}{\vert}{}{_{#2}^{#3}}{#1}
+\DeclarePairedDelimiterXPP{\evaluatebetween}[3]{}{}{\vert}{_{#2}^{#3}}{#1}
 
 
 \newif\ifincludemit
