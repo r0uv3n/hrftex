@@ -48,12 +48,14 @@
 \automark{chapter}
 \renewcommand{\chaptermarkformat}{%
     \chapappifchapterprefix{\ }\thechapter:\enskip}
-\ihead{\leftmark}
+\chead{}
 \iffilemanagement
-    \chead{\@lecture}
-    \ohead{\@file}
+    \KOMAoptions{headlines=2.1}
+    \ohead{\@lecture\\\@file}
+    \ihead{\leftmark\\}
+    \recalctypearea
 \else
-    \chead{}
+    \ihead{\leftmark}
     \ohead{\@lecture}
 \fi
 
