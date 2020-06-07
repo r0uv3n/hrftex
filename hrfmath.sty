@@ -552,8 +552,8 @@
 % commands
 
 % evaluate using vert
-\DeclarePairedDelimiterXPP{\evaluateat}[2]{}{}{\vert}{_{#2}}{#1}
-\DeclarePairedDelimiterXPP{\evaluatebetween}[3]{}{}{\vert}{_{#2}^{#3}}{#1}
+\newcommand{\evaluateat}[2]{\left.#1\right|_{#2}}
+\newcommand{\evaluatebetween}[3]{\left.#1\right|_{#2}^{#3}}
 
 
 \newif\ifincludemit
