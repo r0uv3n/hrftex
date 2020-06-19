@@ -479,10 +479,10 @@
 \DeclareFunction{\normalenraum}[1]{\operatorname{Na}}{#1} % \normalenraum of #1 
 \DeclareFunction{\tangentialraum}[1]{\operatorname{Ta}}{#1} % \tangentialraum of #1 
 \DeclareFunction{\cauchyfolgenmenge}[1]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
-\DeclareFunction{\homogenreddglloesungsraum}[1]{\mathcal{L}_{\text{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
-\DeclareFunction{\inhomogenreddglloesungsraum}[2]{\mathcal{L}_{\text{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
-\DeclareFunction{\homogendglloesungsraum}[2]{\mathcal{L}_{\text{H},#2}}{#1} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=0, #1 array of matrices
-\DeclareFunction{\inhomogendglloesungsraum}[3]{\mathcal{L}_{\text{I},#3}}{#1,#2} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=#2, #1 array of matrices, #2 vector 
+\DeclareFunction{\homogenreddglloesungsraum}[1]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
+\DeclareFunction{\inhomogenreddglloesungsraum}[2]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
+\DeclareFunction{\homogendglloesungsraum}[2]{\mathcal{L}_{\textnormal{H},#2}}{#1} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=0, #1 array of matrices
+\DeclareFunction{\inhomogendglloesungsraum}[3]{\mathcal{L}_{\textnormal{I},#3}}{#1,#2} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=#2, #1 array of matrices, #2 vector 
 \DeclareFunction{\wronskideterminant}[1]{W}{#1} % Wronski-Determinante an Zeitpunkt #1
 \DeclareFunction{\Ln}[1]{\ln}{#1} % Logarithmus naturalis of #1
 \DeclareFunction{\moebiusabbildungenmenge}[1]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
@@ -612,9 +612,9 @@
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert} % absolute value
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \DeclarePairedDelimiterXPP{\explicitnorm}[2]{}{\|}{\|}{_{#1}}{#2}
-\DeclarePairedDelimiterXPP{\euclidiannorm}[1]{}{\|}{\|}{_{\text{E}}}{#1}
+\DeclarePairedDelimiterXPP{\euclidiannorm}[1]{}{\|}{\|}{_{\textnormal{E}}}{#1}
 \DeclarePairedDelimiterXPP{\supnorm}[1]{}{\|}{\|}{_{\infty}}{#1}
-\DeclarePairedDelimiterXPP{\operatornorm}[1]{}{\|}{\|}{_{\text{op}}}{#1}
+\DeclarePairedDelimiterXPP{\operatornorm}[1]{}{\|}{\|}{_{\textnormal{op}}}{#1}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
