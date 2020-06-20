@@ -82,22 +82,45 @@
 \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
 
 
-\def\DeclareMathOperatorWithDelimiter#1[#2]#3#4#5#6{
-    \DeclarePairedDelimiterXPP{#1}[#2]{#3}{#4}{#5}{}{#6} % delimiters, #1*: autoscales, #1[<sisecommand>] sets delimiters to size
+\WithSuffix\def\DeclareMathOperatorWithDelimiter+#1[#2]#3#4#5#6{ % plus variant :parentheses, have to be deactivated with -
+    \DeclarePairedDelimiterXPP{#1}[#2]{#3}{#4}{#5}{}{#6} %  by default with delimiters, #1*: auto scales, #1[<size-command>] sets delimiters to size
     \WithSuffix\newcommand#1-[#2]{#3 #6} % #1-: no delimiters
+    \WithSuffix\let#1+#1 % #1+: with delimiters
 }
-\def\DeclareMathPostOperatorWithDelimiter#1[#2]#3#4#5#6{
-    \DeclarePairedDelimiterXPP{#1}[#2]{}{#4}{#5}{#3}{#6}
-    \WithSuffix\newcommand#1-[#2]{{#6}#3}
+\WithSuffix\def\DeclareMathPostOperatorWithDelimiter+#1[#2]#3#4#5#6{ % plus variant :parentheses, have to be deactivated with -
+    \DeclarePairedDelimiterXPP{#1}[#2]{}{#4}{#5}{#3}{#6} %  by default with delimiters, #1*: auto scales, #1[<size-command>] sets delimiters to size
+    \WithSuffix\newcommand#1-[#2]{{#6}#3} % #1-: no delimiters
+    \WithSuffix\let#1+#1 % #1+: with delimiters
+}
+% shortcuts for MOWDs and MPOWDs with parentheses as delimiters
+\WithSuffix\def\DeclareFunction+#1[#2]#3#4{ % plus variant :parentheses, have to be deactivated with -
+    \DeclareMathOperatorWithDelimiter+{#1}[#2]{#3}{\lparen}{\rparen}{#4}
+}
+\WithSuffix\def\DeclarePostFunction+#1[#2]#3#4{ % plus variant :parentheses, have to be deactivated with -
+    \DeclareMathPostOperatorWithDelimiter+{#1}[#2]{#3}{\lparen}{\rparen}{#4}
 }
 
-\def\DeclareFunction#1[#2]#3#4{
-    \DeclareMathOperatorWithDelimiter{#1}[#2]{#3}{\lparen}{\rparen}{#4}
+
+\WithSuffix\def\DeclareMathOperatorWithDelimiter-#1[#2]#3#4#5#6{ % minus variant :no parentheses, have to be activated with +
+    \newcommand{#1}[#2]{#3 #6} % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
+    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{#3}{#4}{#5}{}{#6} % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
+    \WithSuffix\let#1-#1 % #1-: no delimiters
 }
-\def\DeclarePostFunction#1[#2]#3#4{
-    \DeclareMathPostOperatorWithDelimiter{#1}[#2]{#3}{\lparen}{\rparen}{#4}
+\WithSuffix\def\DeclareMathPostOperatorWithDelimiter-#1[#2]#3#4#5#6{ % minus variant :no parentheses, have to be activated with +
+    \newcommand{#1}[#2]{{#6}#3} % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
+    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{}{#4}{#5}{#3}{#6}  % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
+    \WithSuffix\let#1-#1 % #1-: no delimiters
+    
+}
+% shortcuts for MOWDs and MPOWDs with parentheses as delimiters 
+\WithSuffix\def\DeclareFunction-#1[#2]#3#4{ % minus variant :no parentheses, have to be activated with +
+    \DeclareMathOperatorWithDelimiter-{#1}[#2]{#3}{\lparen}{\rparen}{#4}
+}
+\WithSuffix\def\DeclarePostFunction-#1[#2]#3#4{ % minus variant :no parentheses, have to be activated with +
+    \DeclareMathPostOperatorWithDelimiter-{#1}[#2]{#3}{\lparen}{\rparen}{#4}
 }
 
+% Note: if you want to swap the default after definition, or otherwise redefine a MOWD or MPOWD macro, first define a new MOWD or MPOWD macro with a new name and then \let it to the old macro name.
 
 \theoremstyle{definition}
 % consistent numbering
@@ -207,6 +230,7 @@
 % tikz with most important libraries
 \RequirePackage{tikz}
 \usetikzlibrary{matrix, arrows, cd, patterns, babel, calc}
+\RequirePackage{tkz-euclide}
 
 \RequirePackage{cancel}
 
@@ -372,7 +396,7 @@
 % to avoid warnings about "!"
 \DeclareMathOperator{\existsone}{\exists!}
 
-\DeclareFunction{\anzahl}[1]{\#}{#1}
+\DeclareFunction+{\anzahl}[1]{\#}{#1}
 
 % add \ndivides as does not divide
 \newcommand*{\divides}{\mid}
@@ -411,9 +435,8 @@
 \newcommand*{\goesupto}{\nearrow}
 \newcommand*{\goesdownto}{\searrow}
 
-% proper differentials
 \newcommand*{\differential}{d}
-\DeclareFunction{\totalderivative}[1]{D}{#1}
+\DeclareFunction+{\totalderivative}[1]{D}{#1}
 
 % For complex
 \newcommand*{\real}{\mathfrak{R}}
@@ -441,61 +464,62 @@
 \let\min\relax
 \DeclareMathOperator{\min}{min}
 \let\Min\relax
-\DeclareFunction{\Min}[1]{\min}{#1}
+\DeclareFunction+{\Min}[1]{\min}{#1}
 \let\max\relax
 \DeclareMathOperator{\max}{max}
 \let\Max\relax
-\DeclareFunction{\Max}[1]{\max}{#1}
+\DeclareFunction+{\Max}[1]{\max}{#1}
 
 % make trigonometric functions operators with delimiters
 \let\Sin\relax
-\DeclareFunction{\Sin}[1]{\sin}{#1}
+\DeclareFunction+{\Sin}[1]{\sin}{#1}
 \let\Cos\relax
-\DeclareFunction{\Cos}[1]{\cos}{#1}
+\DeclareFunction+{\Cos}[1]{\cos}{#1}
 \let\Tan\relax
-\DeclareFunction{\Tan}[1]{\tan}{#1}
+\DeclareFunction+{\Tan}[1]{\tan}{#1}
 \let\Sec\relax
-\DeclareFunction{\Sec}[1]{\sec}{#1}
+\DeclareFunction+{\Sec}[1]{\sec}{#1}
 \let\Csc\relax
-\DeclareFunction{\Csc}[1]{\csc}{#1}
+\DeclareFunction+{\Csc}[1]{\csc}{#1}
 \let\Cot\relax
-\DeclareFunction{\Cot}[1]{\cot}{#1}
+\DeclareFunction+{\Cot}[1]{\cot}{#1}
 \let\ArcSin\relax
-\DeclareFunction{\ArcSin}[1]{\arcsin}{#1}
+\DeclareFunction+{\ArcSin}[1]{\arcsin}{#1}
 \let\ArcCos\relax
-\DeclareFunction{\ArcCos}[1]{\arccos}{#1}
+\DeclareFunction+{\ArcCos}[1]{\arccos}{#1}
 \let\ArcTan\relax
-\DeclareFunction{\ArcTan}[1]{\arctan}{#1}
+\DeclareFunction+{\ArcTan}[1]{\arctan}{#1}
 \let\ArcSec\relax
-\DeclareFunction{\ArcSec}[1]{\arcsec}{#1}
+\DeclareFunction+{\ArcSec}[1]{\arcsec}{#1}
 \let\ArcCsc\relax
-\DeclareFunction{\ArcCsc}[1]{\arccsc}{#1}
+\DeclareFunction+{\ArcCsc}[1]{\arccsc}{#1}
 \let\ArcCot\relax
-\DeclareFunction{\ArcCot}[1]{\arccot}{#1}
+\DeclareFunction+{\ArcCot}[1]{\arccot}{#1}
 
 % from DIFF
 \newcommand*{\stetigefunktionen}[1][]{C\ifstrempty{#1}{}{^{#1}}} % #1-fach stetig differenzierbare funktionen
+\newcommand{\pushforward}[2]{{#2}_{\star}{#1}} % push-forward of #1 along #2    
 
-\DeclareFunction{\legendrepolynomial}[2]{P_{#1}}{#2}
-\DeclareFunction{\hermitepolynomial}[2]{H_{#1}}{#2}
-\DeclareFunction{\laguerrepolynomial}[2]{L_{#1}}{#2}
+\DeclareFunction+{\legendrepolynomial}[2]{P_{#1}}{#2}
+\DeclareFunction+{\hermitepolynomial}[2]{H_{#1}}{#2}
+\DeclareFunction+{\laguerrepolynomial}[2]{L_{#1}}{#2}
 
-\DeclareFunction{\normalenraum}[1]{\operatorname{Na}}{#1} % \normalenraum of #1 
-\DeclareFunction{\tangentialraum}[1]{\operatorname{Ta}}{#1} % \tangentialraum of #1 
-\DeclareFunction{\cauchyfolgenmenge}[1]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
-\DeclareFunction{\homogenreddglloesungsraum}[1]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
-\DeclareFunction{\inhomogenreddglloesungsraum}[2]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
-\DeclareFunction{\homogendglloesungsraum}[2]{\mathcal{L}_{\textnormal{H},#2}}{#1} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=0, #1 array of matrices
-\DeclareFunction{\inhomogendglloesungsraum}[3]{\mathcal{L}_{\textnormal{I},#3}}{#1,#2} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=#2, #1 array of matrices, #2 vector 
-\DeclareFunction{\wronskideterminant}[1]{W}{#1} % Wronski-Determinante an Zeitpunkt #1
-\DeclareFunction{\Ln}[1]{\ln}{#1} % Logarithmus naturalis of #1
-\DeclareFunction{\moebiusabbildungenmenge}[1]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
-\DeclareFunction{\randpunkte}[1]{\partial}{#1} % \randpunkte of #1 
-\newcommand{\inneres}[1]{{#1}^{\circ}}
+\DeclareFunction+{\normalenraum}[1]{\operatorname{Na}}{#1} % \normalenraum of #1 
+\DeclareFunction+{\tangentialraum}[1]{\operatorname{Ta}}{#1} % \tangentialraum of #1 
+\DeclareFunction+{\cauchyfolgenmenge}[1]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
+\DeclareFunction+{\homogenreddglloesungsraum}[1]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
+\DeclareFunction+{\inhomogenreddglloesungsraum}[2]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
+\DeclareFunction+{\homogendglloesungsraum}[2]{\mathcal{L}_{\textnormal{H},#2}}{#1} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=0, #1 array of matrices
+\DeclareFunction+{\inhomogendglloesungsraum}[3]{\mathcal{L}_{\textnormal{I},#3}}{#1,#2} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=#2, #1 array of matrices, #2 vector 
+\DeclareFunction+{\wronskideterminant}[1]{W}{#1} % Wronski-Determinante an Zeitpunkt #1
+\DeclareFunction+{\Ln}[1]{\ln}{#1} % Logarithmus naturalis of #1
+\DeclareFunction+{\moebiusabbildungenmenge}[1]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
+\DeclareFunction+{\randpunkte}[1]{\partial}{#1} % \randpunkte of #1 
+\DeclarePostFunction-{\inneres}[1]{^{\circ}}{#1}
 \newcommand{\abschluss}[1]{\overline{#1}}
 \newcommand*{\matrixmult}{\mathbin{.}}
 \newcommand*{\laplaceoperator}{\Delta}
-\renewcommand*{\kroneckerdelta}[1]{\delta_{#1}} % Kronecker Delta of indices #1
+\newcommand*{\kroneckerdelta}[1]{\delta_{#1}} % Kronecker Delta of indices #1
 
 % visited courses
 \newcommand{\aglacourse}[1]{AGLA \Romannum{#1}}
@@ -506,83 +530,84 @@
 % missing trig functions
 
 \let\ArcCosh\relax
-\DeclareFunction{\ArcCosh}[1]{\operatorname{arccosh}}{#1} % \ArcCosh of #1 
+\DeclareFunction+{\ArcCosh}[1]{\operatorname{arccosh}}{#1} % \ArcCosh of #1 
 \let\ArcSinh\relax
-\DeclareFunction{\ArcSinh}[1]{\operatorname{arcsinh}}{#1} % \ArcSinh of #1 
+\DeclareFunction+{\ArcSinh}[1]{\operatorname{arcsinh}}{#1} % \ArcSinh of #1 
 \let\ArcTanh\relax
-\DeclareFunction{\ArcTanh}[1]{\operatorname{arctanh}}{#1} % \ArcTanh of #1 
+\DeclareFunction+{\ArcTanh}[1]{\operatorname{arctanh}}{#1} % \ArcTanh of #1 
 \let\ArcSech\relax
-\DeclareFunction{\ArcSech}[1]{\operatorname{arcsech}}{#1} % \ArcSech of #1 
+\DeclareFunction+{\ArcSech}[1]{\operatorname{arcsech}}{#1} % \ArcSech of #1 
 \let\ArcCsch\relax
-\DeclareFunction{\ArcCsch}[1]{\operatorname{arccsch}}{#1} % \ArcCsch of #1 
+\DeclareFunction+{\ArcCsch}[1]{\operatorname{arccsch}}{#1} % \ArcCsch of #1 
 \let\ArcCoth\relax
-\DeclareFunction{\ArcCoth}[1]{\operatorname{arccoth}}{#1} % \ArcCoth of #1 
-\DeclareFunction{\sgn}[1]{\operatorname{sgn}}{#1} % \sgn of #1 
-\DeclareFunction{\Abb}[1]{\operatorname{Abb}}{#1} % \Abb of #1 
-\DeclareFunction{\Ker}[1]{\operatorname{Ker}}{#1} % \Ker of #1 
-\DeclareFunction{\Kern}[1]{\operatorname{Kern}}{#1} % Kern of #1 
-\DeclareFunction{\Urbild}[1]{\operatorname{Urbild}}{#1} % Bild of #1 
-\DeclareFunction{\Bild}[1]{\operatorname{Bild}}{#1} % Bild of #1 
+\DeclareFunction+{\ArcCoth}[1]{\operatorname{arccoth}}{#1} % \ArcCoth of #1 
+\DeclareFunction+{\sgn}[1]{\operatorname{sgn}}{#1} % \sgn of #1 
+\DeclareFunction+{\Abb}[1]{\operatorname{Abb}}{#1} % \Abb of #1 
+\DeclareFunction+{\Ker}[1]{\operatorname{Ker}}{#1} % \Ker of #1 
+\DeclareFunction+{\Kern}[1]{\operatorname{Kern}}{#1} % Kern of #1 
+\DeclareFunction+{\Urbild}[1]{\operatorname{Urbild}}{#1} % Bild of #1 
+\DeclareFunction+{\Bild}[1]{\operatorname{Bild}}{#1} % Bild of #1 
 \DeclareMathOperator{\Id}{Id} % Identity
-\DeclareFunction{\image}[1]{\operatorname{Im}}{#1} % \image of #1 
-\DeclareFunction{\preimage}[1]{\operatorname{Pre}}{#1} % \preimage of #1 
-\DeclareFunction{\grad}[1]{\operatorname{grad}}{#1} % grad of #1 
-\DeclareFunction{\gradient}[1]{\nabla}{#1} % grad of #1 
+\DeclareFunction+{\image}[1]{\operatorname{Im}}{#1} % \image of #1 
+\DeclareFunction+{\preimage}[1]{\operatorname{Pre}}{#1} % \preimage of #1 
+\DeclareFunction+{\grad}[1]{\operatorname{grad}}{#1} % grad of #1 
+\DeclareFunction+{\gradient}[1]{\nabla}{#1} % grad of #1 
 % from AGLA
-\DeclareFunction{\bijections}[1]{\operatorname{Bij}}{#1} % Bijections of #1 
+\DeclareFunction+{\bijections}[1]{\operatorname{Bij}}{#1} % Bijections of #1 
 % \let\endomorphisms    \relax
-% \DeclareFunction{\endomorphisms}[1]{\operatorname{End}}{#1} % Endomorphismus of #1 
-\DeclareFunction{\automorphisms}[1]{\operatorname{Aut}}{#1} % Automorphismus of #1 
-\DeclareFunction{\homomorphisms}[1]{\operatorname{Hom}}{#1} % Homomorphismen of #1 
+% \DeclareFunction+{\endomorphisms}[1]{\operatorname{End}}{#1} % Endomorphismus of #1 
+\DeclareFunction+{\automorphisms}[1]{\operatorname{Aut}}{#1} % Automorphismus of #1 
+\DeclareFunction+{\homomorphisms}[1]{\operatorname{Hom}}{#1} % Homomorphismen of #1 
 \DeclareMathOperator{\Mat}{Mat} % matrices
 \DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #3 
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
 
-\DeclareFunction{\determinant}[1]{\det}{#1} % determinant of #1
-\DeclareFunction{\invertiblematrices}[2]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over #2
-\DeclareFunction{\orthogonalmatrices}[1]{\operatorname{O}}{#1} % orthogonal matrices of #1 
-\DeclareFunction{\Adj}[1]{\operatorname{Adj}}{#1} % adjunction of #1 
-\DeclareFunction{\specialinvertiblematrices}[1]{\operatorname{SL}}{#1} % special linear group of #1 
-\DeclareFunction{\selfadjointendomorphisms}[1]{\operatorname{ST}}{#1} % selbstadjungierte Endomorphismen of #1 
-\DeclareFunction{\spaltenrang}[1]{\operatorname{SR}}{#1} % Spaltenrang of #1 
-\DeclareFunction{\zeilenrang}[1]{\operatorname{ZR}}{#1} % Zeilenrang of #1 
-\DeclareFunction{\rank}[1]{\operatorname{rank}}{#1} % rank of #1 
-\DeclareFunction{\rang}[1]{\operatorname{rang}}{#1} % rang of #1 
+\DeclareFunction+{\determinant}[1]{\det}{#1} % determinant of #1
+\DeclareFunction+{\invertiblematrices}[2]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
+\DeclareFunction+{\orthogonalmatrices}[1]{\operatorname{O}}{#1} % orthogonal matrices of #1 
+\DeclareFunction+{\Adj}[1]{\operatorname{Adj}}{#1} % adjunction of #1 
+\DeclareFunction+{\specialinvertiblematrices}[1]{\operatorname{SL}}{#1} % special linear group of #1 
+\DeclareFunction+{\selfadjointendomorphisms}[1]{\operatorname{ST}}{#1} % selbstadjungierte Endomorphismen of #1 
+\DeclareFunction+{\spaltenrang}[1]{\operatorname{SR}}{#1} % Spaltenrang of #1 
+\DeclareFunction+{\zeilenrang}[1]{\operatorname{ZR}}{#1} % Zeilenrang of #1 
+\DeclareFunction+{\rank}[1]{\operatorname{rank}}{#1} % rank of #1 
+\DeclareFunction+{\rang}[1]{\operatorname{rang}}{#1} % rang of #1 
 % \DeclareMathOperator{\Rg}{Rg} % Rang
 % \DeclarePairedDelimiterXPP{\Rgof}[1]{\Rg}{\lparen}{\rparen}{}{#1} % Rg of #1 
 % \DeclareMathOperator{\Rang}{Rang}
 % \DeclarePairedDelimiterXPP{\Rangof}[1]{\Rang}{\lparen}{\rparen}{}{#1} % Rang of #1 
 % \DeclareMathOperator{\rg}{rg}
 % \DeclarePairedDelimiterXPP{\rgof}[1]{\rg}{\lparen}{\rparen}{}{#1} % rg of #1 
-\DeclareFunction{\Span}[1]{\operatorname{Span}}{#1} % Span of #1 
+\DeclareFunction+{\Span}[1]{\operatorname{Span}}{#1} % Span of #1 
 \let\dim\relax
-\DeclareFunction{\dim}[2]{\operatorname{dim}\ifstrempty{#1}{}{_{#1}}}{#2} % dimension of #1 
-\DeclareFunction{\affindim}[1]{\operatorname{dim}}{#1} % dimension of affine space #1 
-\DeclareFunction{\projectivedim}[1]{\operatorname{dim}}{#1} % dimension of projection space #1 
+\DeclareFunction+{\dim}[1]{\operatorname{dim}}{#1} % dimension of #1 
+\DeclareFunction+{\fielddim}[2]{\operatorname{dim}_{#1}}{#2} % dimension of #2 over field #1
+\DeclareFunction+{\affindim}[1]{\operatorname{dim}}{#1} % dimension of affine space #1 
+\DeclareFunction+{\projectivedim}[1]{\operatorname{dim}}{#1} % dimension of projection space #1 
 
-\DeclareFunction{\Spur}[1]{\operatorname{Spur}}{#1} % Spur of #1 
+\DeclareFunction+{\Spur}[1]{\operatorname{Spur}}{#1} % Spur of #1 
 \DeclarePairedDelimiterXPP{\teilverhaeltnis}[3]{\operatorname{TV}}{\lparen}{\rparen}{}{#1,#2,#3} % Teilverhältnis
 \DeclarePairedDelimiterXPP{\doppelverhaeltnis}[4]{\operatorname{DV}}{\lparen}{\rparen}{}{#1,#2,#3,#4} % Doppelverhältnis
-\DeclareFunction{\characteristic}[1]{\operatorname{char}}{#1} % characteristic of #1 
-\DeclareFunction{\fixpunkte}[1]{\operatorname{Fix}}{#1} % Fixpunkte of #1 
-\DeclareFunction{\signature}[1]{\operatorname{sign}}{#1} % signature of quadrik #1
+\DeclareFunction+{\characteristic}[1]{\operatorname{char}}{#1} % characteristic of #1 
+\DeclareFunction+{\fixpunkte}[1]{\operatorname{Fix}}{#1} % Fixpunkte of #1 
+\DeclareFunction+{\signature}[1]{\operatorname{sign}}{#1} % signature of quadrik #1
 
-\DeclareFunction{\exponential}[1]{\exp}{#1} % exponential function of #1
+\DeclareFunction+{\exponential}[1]{\exp}{#1} % exponential function of #1
 \DeclarePairedDelimiterXPP{\polynomials}[2]{#1}{\lbrack}{\rbrack}{}{#2} % Polynomials of variables #2 over field #1 
 
 
 % from DIFF
-\DeclareFunction{\diameter}[1]{\operatorname{diam}}{#1} % Durchmesser of #1
-\DeclareFunction{\normdiameter}[2]{\operatorname{diam}_{#1}}{#2} % Durchmesser of #2 under norm #1
+\DeclareFunction+{\diameter}[1]{\operatorname{diam}}{#1} % Durchmesser of #1
+\DeclareFunction+{\normdiameter}[2]{\operatorname{diam}_{#1}}{#2} % Durchmesser of #2 under norm #1
 
-% \DeclareFunction{\distance}[1]{\operatorname{dist}}{#1} % Distanz of #1
+% \DeclareFunction+{\distance}[1]{\operatorname{dist}}{#1} % Distanz of #1
 
 % from Zahlentheorie
-\DeclareFunction{\ord}[1]{\operatorname{ord}}{#1} % order of quadrik #1
+\DeclareFunction+{\ord}[1]{\operatorname{ord}}{#1} % order of quadrik #1
 
 
 
-\DeclareFunction{\ggt}[1]{\operatorname{ggT}}{#1} % größter gemeinsamer Teiler of #1 (#1 a collection)
+\DeclareFunction+{\ggt}[1]{\operatorname{ggT}}{#1} % größter gemeinsamer Teiler of #1 (#1 a collection)
 % commands
 
 % evaluate using vert
@@ -611,7 +636,7 @@
 }
 
 
-\newcommand{\inverse}[1]{{{#1}^{-1}}} % inverse of argument
+\DeclarePostFunction-{\inverse}[1]{^{-1}}{#1} % inverse of argument
 \let\inv\inverse
 
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert} % absolute value
@@ -627,7 +652,7 @@
 \DeclarePairedDelimiter{\parens}{(}{)}
 
 \DeclarePairedDelimiterXPP{\distance}[2]{d}{\lparen}{\rparen}{}{#1,#2}
-\DeclareFunction{\lineangle}[2]{\angle}{#1,#2}
+\DeclareFunction+{\lineangle}[2]{\angle}{#1,#2}
 \newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\SavedStyle #1$}\left/\raisebox{-.2em}{$\SavedStyle #2$}\right.}}}
 \newcommand{\quot}[2]{{
     \mathchoice
@@ -649,9 +674,9 @@
 \newcommand{\logicalor}{\mathbin{\vee}}
 
 % from DIFF
-\newcommand{\regelfunktionen}[1][\interval{a}{b}]{\operatorname{\mathcal{R}}(#1)}
-\newcommand{\treppenfunktionen}[1][\interval{a}{b}]{\operatorname{\mathcal{T}}(#1)}
-\DeclarePostFunction{\parendiff}[2]{^{\parens*{#2}}}{#1} % #2th derivative of #1
+\DeclareFunction+{\regelfunktionen}[1]{\operatorname{\mathcal{R}}}{#1}
+\DeclareFunction+{\treppenfunktionen}[1]{\operatorname{\mathcal{T}}}{#1}
+\DeclarePostFunction-{\parendiff}[2]{^{\parens*{#2}}}{#1} % #2th derivative of #1
 
 
 
@@ -659,16 +684,18 @@
 \DeclarePairedDelimiterX{\scalarproduct}[2]{\langle}{\rangle}{#1,#2}
 \DeclarePairedDelimiterX{\spatproduct}[3]{\lparen}{\rparen}{#1,#2,#3}
 \newcommand{\compactification}[1]{\widebar{#1}} % Compactification of a topological space #1
-\newcommand{\fieldwithoutzero}[1]{{#1}^{\star}} % Compactification of a topological space #1
-\DeclareFunction{\projectionspace}[1]{\mathbb{P}}{#1} % projection of a vector space #1
-\DeclareFunction{\projectionspaces}[1]{\mathcal{P}}{#1} % set of projection subspaces of \projectionspace{#1} 
-\DeclareFunction{\projectionmap}[1]{\mathbb{P}}{#1} % projection equivalent of a linear map #1
-\DeclareFunction{\projectionspaceover}[2]{\mathbb{P}_{#1}}{#2} % projection of a vector space #2^{#1+1}, #2 a field
-\DeclarePostFunction{\dualspace}[1]{^{\star}}{#1} % dual space of a vector space #1
-\DeclarePostFunction{\dualvector}[1]{^{\star}}{#1} % dual vector of a vector #1
+\DeclarePostFunction-{\fieldwithoutzero}[1]{^{\star}}{#1} % Compactification of a topological space #1
+\DeclareFunction+{\projectionspace}[1]{\mathbb{P}}{#1} % projection of a vector space #1
+\DeclareFunction+{\projectionspaces}[1]{\mathcal{P}}{#1} % set of projection subspaces of \projectionspace{#1} 
+\DeclareFunction+{\projectionmap}[1]{\mathbb{P}}{#1} % projection equivalent of a linear map #1
+\DeclareFunction+{\projectionspaceover}[2]{\mathbb{P}_{#1}}{#2} % projection of a vector space #2^{#1+1}, #2 a field
+\DeclarePostFunction-{\orthogonalspace}[1]{^{0}}{#1} % orthogonal space (in the dual space) of a vector subspace #1
+\DeclarePostFunction-{\dualspace}[1]{^{\star}}{#1} % dual space of a vector space #1
+\DeclarePostFunction-{\bidualspace}[1]{^{\star\star}}{#1} % bidual space of a vector space #1
+\DeclarePostFunction-{\dualvector}[1]{^{\star}}{#1} % dual vector of a vector #1
 \newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
-\DeclarePostFunction{\perpspace}[1]{^{\perp}}{#1} % perpendicular space to #1
-\DeclarePostFunction{\transpose}[1]{^{T}}{#1} % perpendicular space to #1
+\DeclarePostFunction+{\perpspace}[1]{^{\perp}}{#1} % perpendicular space to #1
+\DeclarePostFunction-{\transpose}[1]{^{T}}{#1} % perpendicular space to #1
 
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
