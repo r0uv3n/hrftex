@@ -495,6 +495,7 @@
 \newcommand{\abschluss}[1]{\overline{#1}}
 \newcommand*{\matrixmult}{\mathbin{.}}
 \newcommand*{\laplaceoperator}{\Delta}
+\renewcommand*{\kroneckerdelta}[1]{\delta_{#1}} % Kronecker Delta of indices #1
 
 % visited courses
 \newcommand{\aglacourse}[1]{AGLA \Romannum{#1}}
@@ -660,8 +661,11 @@
 \newcommand{\compactification}[1]{\widebar{#1}} % Compactification of a topological space #1
 \newcommand{\fieldwithoutzero}[1]{{#1}^{\star}} % Compactification of a topological space #1
 \DeclareFunction{\projectionspace}[1]{\mathbb{P}}{#1} % projection of a vector space #1
+\DeclareFunction{\projectionspaces}[1]{\mathcal{P}}{#1} % set of projection subspaces of \projectionspace{#1} 
 \DeclareFunction{\projectionmap}[1]{\mathbb{P}}{#1} % projection equivalent of a linear map #1
 \DeclareFunction{\projectionspaceover}[2]{\mathbb{P}_{#1}}{#2} % projection of a vector space #2^{#1+1}, #2 a field
+\DeclarePostFunction{\dualspace}[1]{^{\star}}{#1} % dual space of a vector space #1
+\DeclarePostFunction{\dualvector}[1]{^{\star}}{#1} % dual vector of a vector #1
 \newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
 \DeclarePostFunction{\perpspace}[1]{^{\perp}}{#1} % perpendicular space to #1
 \DeclarePostFunction{\transpose}[1]{^{T}}{#1} % perpendicular space to #1
