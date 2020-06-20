@@ -52,7 +52,11 @@
 % main math package
 \RequirePackage{mathtools}
 
-% Emphasizing equations, better endtheoremmark placement
+% better \left, \right spacing
+\RequirePackage{mleftright}
+\mleftright % redefine \left to \mleft and \right to \mright
+
+% better boxed equations, better endtheoremmark placement
 \iftoggle{empheqoverload}{\PassOptionsToPackage{overload}{empheq}}{}
 \PassOptionsToPackage{ntheorem}{empheq}
 \RequirePackage{empheq}
@@ -244,8 +248,8 @@
 \RequirePackage{cool} % kind of bad package
 \Style{ArcTrig=arc, Conjugate=overline}
 
-\PassOptionsToPackage{derivative}
-
+\RequirePackage{derivative}
+\derivset{all}[scale-auto=mleftmright]
 
 % Better vector arrows
 \RequirePackage{esvect}
