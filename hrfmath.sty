@@ -207,6 +207,7 @@
 \NewTheorem{rechentrick}{Rechentrick}
 \NewTheorem{satz}{Satz}
 \NewTheorem{satzdef}{Satz / Definition}
+\NewTheorem{spezialfall}{Spezialfall}
 \NewTheorem{wiederholung}{Wiederholung}
 \NewTheorem{ziel}{Ziel}
 
@@ -440,8 +441,8 @@
 
 % For complex
 \newcommand*{\real}{\mathfrak{R}}
-\newcommand*{\imag}{\mathfrak{I}}
-\newcommand{\conj}[1]{\widebar{#1}\nolimits}
+\newcommand*{\imaginary}{\mathfrak{I}}
+\newcommand{\conjugate}[1]{\widebar{#1}\nolimits}
 
 % sets
 
@@ -675,6 +676,11 @@
 
 \newcommand{\logicaland}{\mathbin{\wedge}}
 \newcommand{\logicalor}{\mathbin{\vee}}
+
+
+
+\DeclarePostFunction-{\factorial}[1]{!}{#1} % factorial of #1
+
 
 % from DIFF
 \DeclareFunction+{\regelfunktionen}[1]{\operatorname{\mathcal{R}}}{#1}
