@@ -503,6 +503,7 @@
 \DeclareFunction+{\legendrepolynomial}[2]{P_{#1}}{#2}
 \DeclareFunction+{\hermitepolynomial}[2]{H_{#1}}{#2}
 \DeclareFunction+{\laguerrepolynomial}[2]{L_{#1}}{#2}
+\DeclareFunction+{\besselfirstkind}[2]{J_{#1}}{#2}
 
 \DeclareFunction+{\normalenraum}[1]{\operatorname{Na}}{#1} % \normalenraum of #1 
 \DeclareFunction+{\tangentialraum}[1]{\operatorname{Ta}}{#1} % \tangentialraum of #1 
@@ -650,6 +651,8 @@
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 
 \DeclarePairedDelimiter{\parens}{(}{)}
+\newcommand{\p}{} % test if already defined
+\let\p\parens
 
 \DeclarePairedDelimiterXPP{\distance}[2]{d}{\lparen}{\rparen}{}{#1,#2}
 \DeclareFunction+{\lineangle}[2]{\angle}{#1,#2}
