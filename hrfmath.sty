@@ -652,8 +652,7 @@
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 
 \DeclarePairedDelimiter{\parens}{(}{)}
-\newcommand{\p}{} % test if already defined
-\let\p\parens
+\let\p\parens % shortcut, lots of parens make the .tex really cluttered
 
 \DeclarePairedDelimiterXPP{\distance}[2]{d}{\lparen}{\rparen}{}{#1,#2}
 \DeclareFunction+{\lineangle}[2]{\angle}{#1,#2}
