@@ -1,4 +1,4 @@
-\ProvidesPackage{hrfmath}[2020/04/19 Math setup, should be loaded before hrfgerman]
+\ProvidesPackage{hrfmath}[2020/04/19 Math setup, should be loaded after hrfgerman]
 
 % for options
 \RequirePackage{etoolbox}
@@ -37,9 +37,6 @@
 \pgfkeys{/hrftex/hrfmath/numberwithin/.get=\numbertheoremswithinthis}
 \def\novaluegiven{\pgfkeysnovalue}
 \ifdefequal{\numbertheoremswithinthis}{\novaluegiven}{\togglefalse{numberwithin}}{\toggletrue{numberwithin}}
-
-% Reason for incompatibility
-\PassOptionsToPackage{math=normal}{babel}
 
 % this will already be loaded if used from hrftex
 \RequirePackage[utf8]{inputenc}
@@ -275,6 +272,7 @@
 
 \RequirePackage{derivative}
 \derivset{all}[scale-auto=mleftmright]
+\derivset{odv}[style-inf=\mathnormal] % \differential is not an operator
 
 % Better vector arrows
 \RequirePackage{esvect}
@@ -440,8 +438,8 @@
 \DeclareFunction+{\totalderivative}[1]{D}{#1}
 
 % For complex
-\newcommand*{\real}{\mathfrak{R}}
-\newcommand*{\imaginary}{\mathfrak{I}}
+\newcommand*{\real}{\mathrm{Re}}
+\newcommand*{\imaginary}{\mathrm{Im}}
 \newcommand{\conjugate}[1]{\widebar{#1}\nolimits}
 
 % sets
@@ -564,7 +562,7 @@
 \DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #3 
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
 
-\DeclareFunction+{\determinant}[1]{\det}{#1} % determinant of #1
+\DeclareFunction-{\determinant}[1]{\det}{#1} % determinant of #1
 \DeclareFunction+{\invertiblematrices}[2]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
 \DeclareFunction+{\orthogonalmatrices}[1]{\operatorname{O}}{#1} % orthogonal matrices of #1 
 \DeclareFunction+{\Adj}[1]{\operatorname{Adj}}{#1} % adjunction of #1 
@@ -652,7 +650,7 @@
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 
 \DeclarePairedDelimiter{\parens}{(}{)}
-\let\p\parens % shortcut, lots of parens make the .tex really cluttered
+\let\p\parens % shortcut, lots of "\parens" make the .tex really cluttered
 
 \DeclarePairedDelimiterXPP{\distance}[2]{d}{\lparen}{\rparen}{}{#1,#2}
 \DeclareFunction+{\lineangle}[2]{\angle}{#1,#2}

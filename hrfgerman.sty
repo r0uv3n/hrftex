@@ -5,7 +5,7 @@
 \RequirePackage[T1]{fontenc}
 
 % ngerman for Neue Rechtschreibung
-\PassOptionsToPackage{ngerman}{babel}
+\PassOptionsToPackage{ngerman,math=normal}{babel}
 \RequirePackage{babel}
 
 % simplest usage: \enquote{<text>} 
@@ -16,7 +16,7 @@
 % Abbreviations
 \RequirePackage{xpunctuate}
 \RequirePackage{xspace}
-\renewcommand*{\Abs}{Abs\xperiod}
+\newcommand*{\Absatz}{Abs\xperiod}
 \newcommand*{\Def}{Def\xperiod}
 \newcommand*{\Beh}{Beh\xperiod}
 \newcommand*{\Bem}{Bem\xperiod}
