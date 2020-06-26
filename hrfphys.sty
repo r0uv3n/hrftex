@@ -10,7 +10,9 @@
 \newcommand{\kin}{\textnormal{kin}}
 \newcommand{\pot}{\textnormal{pot}}
 
-\DeclareMathOperatorXPP{\poissonklammer}[4]{}{\lbrack}{\rbrack}{_{#3,#4}}{#1,#2}
+\DeclarePairedDelimiterXPP{\poissonklammer}[4]{}{\lbrack}{\rbrack}{_{#3,#4}}{#1,#2}
+
+\newcommand*{\rungelenzvektor}{\vektor{\Lambda}}
 
 \DeclareFunction+{\lagrangian}[1]{\mathcal{L}}{#1}
 \DeclareFunction+{\hamiltonian}[1]{\mathcal{H}}{#1}
