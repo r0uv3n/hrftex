@@ -498,6 +498,9 @@
 % from DIFF
 \newcommand*{\stetigefunktionen}[1][]{C\ifstrempty{#1}{}{^{#1}}} % #1-fach stetig differenzierbare funktionen
 \newcommand{\pushforward}[2]{{#2}_{\star}{#1}} % push-forward of #1 along #2    
+\DeclareFunction+{\volume}[1]{\operatorname{vol}}{#1}
+\DeclareFunction+{\characteristicfunction}[2]{\mathcal{X}_{#1}}{#2}
+\newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
 
 \DeclareFunction+{\legendrepolynomial}[2]{P_{#1}}{#2}
 \DeclareFunction+{\hermitepolynomial}[2]{H_{#1}}{#2}
@@ -604,7 +607,7 @@
 
 % from Zahlentheorie
 \DeclareFunction+{\ord}[1]{\operatorname{ord}}{#1} % order of quadrik #1
-
+\DeclarePairedDelimiterXPP{\quadraticform}[3]{}{\langle}{\rangle}{}{#1,#2,#3} % quadratic form #1x^2+#2xy+#3y^2
 
 
 \DeclareFunction+{\ggt}[1]{\operatorname{ggT}}{#1} % größter gemeinsamer Teiler of #1 (#1 a collection)
