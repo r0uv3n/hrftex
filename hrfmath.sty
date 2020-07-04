@@ -474,7 +474,7 @@
 \DeclareMathOperator{\max}{max}
 \let\Max\relax
 \DeclareFunction+{\Max}[1,]{\max}{#1}
-\DeclareFunction+{\Med}[3,0]{\operatorname{med}}{#3}
+\DeclareFunction+{\Med}[3,0]{\operatorname{med}}{#1,#2,#3}
 
 % make trigonometric functions operators with delimiters
 \let\Sin\relax
@@ -508,7 +508,7 @@
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\mathcal{X}_{#1}}{#2}
 \newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
-\newcommand*{\lebesgueintegrablefunctions}[1][1]{\mathcal{R}^{#1}}
+\newcommand*{\lebesgueintegrablefunctions}[1][1]{L^{#1}}
 
 \DeclareFunction+{\legendrepolynomial}[2,]{P_{#1}}{#2}
 \DeclareFunction+{\hermitepolynomial}[2,]{H_{#1}}{#2}
