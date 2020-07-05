@@ -566,6 +566,7 @@
 \DeclareFunction+{\gradient}[1,]{\nabla}{#1} % grad of #1 
 % from AGLA
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
+\DeclareFunction+{\bilinearities}[3,0]{\operatorname{Bil}}{#1,#2;#3} % bilinearities of #1 x #2 into #3
 % \let\endomorphisms    \relax
 % \DeclareFunction+{\endomorphisms}[1,]{\operatorname{End}}{#1} % Endomorphismus of #1 
 \DeclareFunction+{\automorphisms}[1,]{\operatorname{Aut}}{#1} % Automorphismus of #1 
@@ -592,6 +593,7 @@
 % \DeclareMathOperator{\rg}{rg}
 % \DeclarePairedDelimiterXPP{\rgof}[1]{\rg}{\lparen}{\rparen}{}{#1} % rg of #1 
 \DeclareFunction+{\Span}[1,]{\operatorname{Span}}{#1} % Span of #1 
+\DeclareFunction+{\fieldspan}[2,]{\operatorname{Span}_{#1}}{#2} % Span of #1 over field #2 
 \let\dim\relax
 \DeclareFunction+{\dim}[1,]{\operatorname{dim}}{#1} % dimension of #1 
 \DeclareFunction+{\fielddim}[2,]{\operatorname{dim}_{#1}}{#2} % dimension of #2 over field #1
@@ -637,14 +639,14 @@
     p/.is if=includeparantheses,
     v/.is if=includevert}
 
-\newcommand{\eqstep}[2][]{%
-    {\pgfkeys{%
-        /eqstep/.cd,%
-        m=true,%
-        p=true,%
-        v=true,%
-        #1%
-    }}%
+\newcommand{\eqstep}[2][]{
+    {\pgfkeys{
+        /eqstep/.cd,
+        m=true,
+        p=true,
+        v=true,
+        #1
+    }}
     && \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #2\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
 }
 
