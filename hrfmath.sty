@@ -575,6 +575,7 @@
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
 
 \DeclareFunction-{\determinant}[1,]{\det}{#1} % determinant of #1
+\DeclareFunction-{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
 \DeclareFunction+{\invertiblematrices}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
 \DeclareFunction+{\orthogonalmatrices}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
 \DeclareFunction+{\Adj}[1,]{\operatorname{Adj}}{#1} % adjunction of #1 
