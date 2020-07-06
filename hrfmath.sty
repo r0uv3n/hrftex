@@ -442,7 +442,7 @@
 \newcommand*{\goesdownto}{\searrow}
 
 \newcommand*{\differential}{d}
-\DeclareFunction+{\totalderivative}[1,]{D}{#1}
+\DeclareFunction-{\totalderivative}[1,]{D}{#1}
 
 % For complex
 \newcommand*{\real}{\mathrm{Re}}
@@ -660,6 +660,7 @@
 \DeclarePairedDelimiterXPP{\euclidiannorm}[1]{}{\|}{\|}{_{\textnormal{E}}}{#1}
 \DeclarePairedDelimiterXPP{\lebesguenorm}[1]{}{\|}{\|}{_{\lebesgueintegrablefunctions}}{#1}
 \DeclarePairedDelimiterXPP{\supnorm}[1]{}{\|}{\|}{_{\infty}}{#1}
+\DeclarePairedDelimiterXPP{\maxnorm}[1]{}{\|}{\|}{_{\max}}{#1}
 \DeclarePairedDelimiterXPP{\operatornorm}[1]{}{\|}{\|}{_{\textnormal{op}}}{#1}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
@@ -722,7 +723,8 @@
 
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
-
+\newcommand{\tensorproperty}{\( \otimes \)}
+\newcommand{\tensorproduct}{\otimes}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
 \DeclareRobustCommand{\texistsone}{\( \exists! \)~}
