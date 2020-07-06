@@ -579,6 +579,7 @@
 \DeclareFunction-{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
 \DeclareFunction+{\invertiblematrices}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
 \DeclareFunction+{\orthogonalmatrices}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
+\DeclareFunction+{\diagonalmatrix}[1,]{\operatorname{diag}}{#1} % diagonal matrix with diagonal entries #1
 \DeclareFunction+{\Adj}[1,]{\operatorname{Adj}}{#1} % adjunction of #1 
 \DeclareFunction+{\specialinvertiblematrices}[1,]{\operatorname{SL}}{#1} % special linear group of #1 
 \DeclareFunction+{\selfadjointendomorphisms}[1,]{\operatorname{ST}}{#1} % selbstadjungierte Endomorphismen of #1 
