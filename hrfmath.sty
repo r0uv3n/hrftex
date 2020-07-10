@@ -516,8 +516,8 @@
 \DeclareFunction+{\laguerrepolynomial}[2,]{L_{#1}}{#2}
 \DeclareFunction+{\besselfirstkind}[2,]{J_{#1}}{#2}
 
-\DeclareFunction+{\normalenraum}[1,]{\operatorname{Na}}{#1} % \normalenraum of #1 
-\DeclareFunction+{\tangentialraum}[1,]{\operatorname{Ta}}{#1} % \tangentialraum of #1 
+\DeclareFunction-{\normalenraum}[1,]{\operatorname{Na}}{#1} % \normalenraum of #1 
+\DeclareFunction-{\tangentialraum}[1,]{\operatorname{Ta}}{#1} % \tangentialraum of #1 
 \DeclareFunction+{\cauchyfolgenmenge}[1,]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
 \DeclareFunction+{\homogenreddglloesungsraum}[1,]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
 \DeclareFunction+{\inhomogenreddglloesungsraum}[2,0]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
@@ -526,7 +526,7 @@
 \DeclareFunction+{\wronskideterminant}[1,]{W}{#1} % Wronski-Determinante an Zeitpunkt #1
 \DeclareFunction-{\Ln}[1,]{\ln}{#1} % Logarithmus naturalis of #1
 \DeclareFunction+{\moebiusabbildungenmenge}[1,]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
-\DeclareFunction+{\randpunkte}[1,]{\partial}{#1} % \randpunkte of #1 
+\DeclareFunction-{\randpunkte}[1,]{\partial}{#1} % \randpunkte of #1 
 \DeclarePostFunction-{\inneres}[1]{^{\circ}}{#1}
 \newcommand{\abschluss}[1]{\overline{#1}}
 \newcommand*{\matrixmult}{\mathbin{.}}
@@ -560,17 +560,20 @@
 \DeclareFunction+{\Urbild}[1,]{\operatorname{Urbild}}{#1} % Bild of #1 
 \DeclareFunction+{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
 \DeclareMathOperator{\Id}{Id} % Identity
+\DeclareMathOperator{\supp}{supp} % Identity
 \DeclareFunction+{\image}[1,]{\operatorname{Im}}{#1} % \image of #1 
 \DeclareFunction+{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
-\DeclareFunction+{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
-\DeclareFunction+{\gradient}[1,]{\nabla}{#1} % grad of #1 
+\DeclareFunction-{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
+\DeclareFunction-{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
+\DeclareFunction-{\gradient}[1,]{\nabla}{#1} % grad of #1 
 % from AGLA
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
 \DeclareFunction+{\bilinearities}[3,0]{\operatorname{Bil}}{#1,#2;#3} % bilinearities of #1 x #2 into #3
 % \let\endomorphisms    \relax
 % \DeclareFunction+{\endomorphisms}[1,]{\operatorname{End}}{#1} % Endomorphismus of #1 
 \DeclareFunction+{\automorphisms}[1,]{\operatorname{Aut}}{#1} % Automorphismus of #1 
-\DeclareFunction+{\homomorphisms}[1,]{\operatorname{Hom}}{#1} % Homomorphismen of #1 
+\DeclareFunction+{\homomorphisms}[2,]{\operatorname{Hom}}{#1,#2} % Homomorphismen of #1 into #2
+\DeclareFunction+{\fieldhomomorphisms}[3,]{\operatorname{Hom}_{#1}}{#2,#3} % Homomorphismen of #2 into #3 over field #1
 \DeclareMathOperator{\Mat}{Mat} % matrices
 \DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #3 
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
@@ -596,7 +599,7 @@
 \DeclareFunction+{\Span}[1,]{\operatorname{Span}}{#1} % Span of #1 
 \DeclareFunction+{\fieldspan}[2,]{\operatorname{Span}_{#1}}{#2} % Span of #1 over field #2 
 \let\dim\relax
-\DeclareFunction+{\dim}[1,]{\operatorname{dim}}{#1} % dimension of #1 
+\DeclareFunction+{\dim }[1,]{\operatorname{dim}}{#1} % dimension of #1 
 \DeclareFunction+{\fielddim}[2,]{\operatorname{dim}_{#1}}{#2} % dimension of #2 over field #1
 \DeclareFunction+{\affindim}[1,]{\operatorname{dim}}{#1} % dimension of affine space #1 
 \DeclareFunction+{\projectivedim}[1,]{\operatorname{dim}}{#1} % dimension of projection space #1 
@@ -610,6 +613,7 @@
 
 \DeclareFunction+{\exponential}[1,]{\exp}{#1} % exponential function of #1
 \DeclarePairedDelimiterXPP{\polynomials}[2]{#1}{\lbrack}{\rbrack}{}{#2} % Polynomials of variables #2 over field #1 
+\DeclarePairedDelimiterXPP{\noncommutativepolynomials}[2]{#1}{\langle}{\rangle}{}{#2} % Polynomials of non-commutative variables #2 over field #1 
 
 
 % from DIFF
@@ -714,6 +718,7 @@
 \DeclareFunction+{\projectionspaces}[1,]{\mathcal{P}}{#1} % set of projection subspaces of \projectionspace{#1} 
 \DeclareFunction+{\projectionmap}[1,]{\mathbb{P}}{#1} % projection equivalent of a linear map #1
 \DeclareFunction+{\projectionspaceover}[2,]{\mathbb{P}_{#1}}{#2} % projection of a vector space #2^{#1+1}, #2 a field
+\DeclareFunction+{\freevectorspace}[1,]{F}{#1} % free vector space over #1
 \DeclarePostFunction-{\orthogonalspace}[1]{^{\circ}}{#1} % orthogonal space (in the dual space) of a vector subspace #1
 \DeclarePostFunction-{\dualspace}[1]{^{\star}}{#1} % dual space of a vector space #1
 \DeclarePostFunction-{\bidualspace}[1]{^{\star\star}}{#1} % bidual space of a vector space #1
@@ -725,7 +730,9 @@
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
 \newcommand{\tensorproperty}{\( \otimes \)}
-\newcommand{\tensorproduct}{\otimes}
+\RequirePackage{xspace}
+\newcommand{\tensorproduct}{\otimes\xspace}
+\newcommand{\fieldtensorproduct}[1]{\otimes}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
 \DeclareRobustCommand{\texistsone}{\( \exists! \)~}
