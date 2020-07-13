@@ -382,6 +382,8 @@
 \newcommand*{\hin}{{\enquote{\( \implies \)}}}
 \newcommand*{\rueck}{\enquote{\( \impliedby \)}}
 \newcommand*{\hinrueck}{\enquote{\( \iff \)}}
+\newcommand*{\sethin}{{\enquote{\( \subset \)}}}
+\newcommand*{\setrueck}{{\enquote{\( \supset \)}}}
 
 
 % equation sign with sim sign over it
@@ -510,6 +512,8 @@
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
 \newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
 \newcommand*{\lebesgueintegrablefunctions}[1][1]{L^{#1}}
+\newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
+\DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
 
 \DeclareFunction+{\legendrepolynomial}[2,]{P_{#1}}{#2}
 \DeclareFunction+{\hermitepolynomial}[2,]{H_{#1}}{#2}
@@ -740,5 +744,7 @@
 \DeclareRobustCommand{\texists}{\( \exists \)~}
 \DeclareRobustCommand{\tnexists}{\( \nexists \)~}
 \DeclareRobustCommand{\timplies}{\( \implies \)~}
+\DeclareRobustCommand{\teq}{\( = \)~}
+\DeclareRobustCommand{\tsubset}{\( \subset \)~}
 \DeclareRobustCommand{\tiff}{\( \iff \)~}
 \DeclareRobustCommand{\tto}{\( \to \)}
