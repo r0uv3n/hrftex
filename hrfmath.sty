@@ -193,6 +193,7 @@
 \NewTheorem{folgerungbsp}{Folgerung / Beispiel}
 \NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
 \NewTheorem{folgerungen}{Folgerungen}
+\NewTheorem{folgnotation}{Folgerungen / Notation}
 \NewTheorem{frage}{Frage}
 \NewTheorem{frageuebung}{Frage / Übung}
 \NewTheorem{fragen}{Fragen}
@@ -505,6 +506,9 @@
 \let\ArcCot\relax
 \DeclareFunction-{\ArcCot}[1,]{\arccot}{#1}
 
+% from AGLA
+\newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
+
 % from DIFF
 \newcommand*{\stetigefunktionen}[1][]{C\ifstrempty{#1}{}{^{#1}}} % #1-fach stetig differenzierbare funktionen
 \newcommand{\pushforward}[2]{{#2}_{\star}{#1}} % push-forward of #1 along #2    
@@ -611,7 +615,7 @@
 \DeclareFunction+{\Spur}[1,]{\operatorname{Spur}}{#1} % Spur of #1 
 \DeclarePairedDelimiterXPP{\teilverhaeltnis}[3]{\operatorname{TV}}{\lparen}{\rparen}{}{#1,#2,#3} % Teilverhältnis
 \DeclarePairedDelimiterXPP{\doppelverhaeltnis}[4]{\operatorname{DV}}{\lparen}{\rparen}{}{#1,#2,#3,#4} % Doppelverhältnis
-\DeclareFunction+{\characteristic}[1,]{\operatorname{char}}{#1} % characteristic of #1 
+\DeclareFunction-{\characteristic}[1,]{\operatorname{char}}{#1} % characteristic of #1 
 \DeclareFunction+{\fixpunkte}[1,]{\operatorname{Fix}}{#1} % Fixpunkte of #1 
 \DeclareFunction+{\signature}[1,]{\operatorname{sign}}{#1} % signature of quadrik #1
 
