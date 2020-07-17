@@ -219,6 +219,20 @@
 \newtheorem{subsatz}{Satz}[generalthm]
 \renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
 
+\newtheoremstyle{blank}% name of the style to be used
+  {3pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {3pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bf}% name of head font
+  {.}% punctuation between head and body
+  { }% space after theorem head; " " = normal interword space
+  {\ifblank{#3}{\thmnumber{#2}}{\thmnote{#3}\thmnumber{ #2}}}% Manually specify head
+  
+\theoremstyle{blank}
+\newtheorem{blank}[generalthm]{}
+\newtheorem*{blank*}{}
+
 
 % stack below with optional argument
 \RequirePackage{stackrel}
@@ -444,7 +458,8 @@
 \newcommand*{\goesupto}{\nearrow}
 \newcommand*{\goesdownto}{\searrow}
 
-\newcommand*{\differential}{d}
+\newcommand*{\differential}{\mathop{}\!d}
+\newcommand*{\improperdifferential}[1]{d#1\,}
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
 
 % For complex
@@ -575,6 +590,7 @@
 \DeclareFunction-{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
 \DeclareFunction-{\gradient}[1,]{\nabla}{#1} % grad of #1 
 % from AGLA
+\DeclareFunction-{\exterior}[2,]{\Lambda^{#1}}{#2} % Bijections of #1 
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
 \DeclareFunction+{\bilinearities}[3,0]{\operatorname{Bil}}{#1,#2;#3} % bilinearities of #1 x #2 into #3
 % \let\endomorphisms    \relax
