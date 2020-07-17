@@ -157,7 +157,7 @@
     \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
 }
 
-
+\theoremheaderfont{\normalfont\bfseries}
 
 \NewTheorem{anwendung}{Anwendung}
 \NewTheorem{anwendungen}{Anwendungen}
@@ -218,6 +218,17 @@
 
 \newtheorem{subsatz}{Satz}[generalthm]
 \renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
+
+\theoremseparator{.}
+\theorembodyfont{\normalfont}
+\newtheoremstyle{blank}%
+{\item[\theorem@headerfont\hskip\labelsep ##1\theorem@separator]}%
+{\item[\theorem@headerfont \hskip\labelsep\relax ##2\ ##3\theorem@separator]}
+\newtheoremstyle{nonumberblank}{\item[]}%
+{\item[\theorem@headerfont \hskip\labelsep\relax ##3\theorem@separator]}
+\theoremstyle{blank}
+\newtheorem{blank}[generalthm]{}
+\renewtheorem*{blank*}{}
 
 
 % stack below with optional argument
@@ -444,7 +455,10 @@
 \newcommand*{\goesupto}{\nearrow}
 \newcommand*{\goesdownto}{\searrow}
 
-\newcommand*{\differential}{d}
+\newcommand*{\differential}{\mathop{}\!d}
+\newcommand*{\improperdifferential}[1]{d#1\,}
+\DeclareFunction-{\partialderivative}[2,]{\partial_{#1}}{#2}
+\DeclareFunction-{\derivative}[2,]{\partial_{#1}}{#2}
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
 
 % For complex
@@ -518,14 +532,15 @@
 \newcommand*{\lebesgueintegrablefunctions}[1][1]{L^{#1}}
 \newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
+\DeclareFunction-{\diffpullback}[2,]{#1^{\star}}{#2} % pullback of #2 along #1
 
 \DeclareFunction+{\legendrepolynomial}[2,]{P_{#1}}{#2}
 \DeclareFunction+{\hermitepolynomial}[2,]{H_{#1}}{#2}
 \DeclareFunction+{\laguerrepolynomial}[2,]{L_{#1}}{#2}
 \DeclareFunction+{\besselfirstkind}[2,]{J_{#1}}{#2}
 
-\DeclareFunction-{\normalenraum}[1,]{\operatorname{Na}}{#1} % \normalenraum of #1 
-\DeclareFunction-{\tangentialraum}[1,]{\operatorname{Ta}}{#1} % \tangentialraum of #1 
+\DeclareFunction-{\normalenraum}[2,]{\operatorname{N}_{#1}}{#2} % \normalenraum of #2 at #1
+\DeclareFunction-{\tangentialraum}[2,]{\operatorname{T}_{#1}}{#2} % \tangentialraum of #2 at #1
 \DeclareFunction+{\cauchyfolgenmenge}[1,]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
 \DeclareFunction+{\homogenreddglloesungsraum}[1,]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
 \DeclareFunction+{\inhomogenreddglloesungsraum}[2,0]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
@@ -575,6 +590,7 @@
 \DeclareFunction-{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
 \DeclareFunction-{\gradient}[1,]{\nabla}{#1} % grad of #1 
 % from AGLA
+\DeclareFunction-{\exterior}[2,]{\Lambda^{#1}}{#2} % Bijections of #1 
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
 \DeclareFunction+{\bilinearities}[3,0]{\operatorname{Bil}}{#1,#2;#3} % bilinearities of #1 x #2 into #3
 % \let\endomorphisms    \relax
