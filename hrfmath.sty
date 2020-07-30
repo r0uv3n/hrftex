@@ -527,8 +527,12 @@
 \newcommand{\pushforward}[2]{{#2}_{\star}{#1}} % push-forward of #1 along #2    
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
-\newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
+\DeclareFunction+{\differentialforms}[2,]{\omega_{#1}}{#2} % differential forms of degree #1 of open set #2
+\DeclareFunction+{\tensors}[3,]{T_{#1}^{#2}}{#3} % #1-times covariant, #2-times contravariant tensors of vector space #3 
+\DeclareFunction+{\covarianttensors}[2,]{T_{#1}}{#2} % #1-times covariant tensors of vector space #2 
+\DeclareFunction+{\contravarianttensors}[2,]{T^{#1}}{#2} % #1-times contravariant tensors of vector space #2
 \newcommand*{\lebesgueintegrablefunctions}[1][1]{L^{#1}}
+\newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
 \newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
 \DeclareFunction-{\diffpullback}[2,]{#1^{\star}}{#2} % pullback of #2 along #1
@@ -582,7 +586,7 @@
 \DeclareFunction+{\Urbild}[1,]{\operatorname{Urbild}}{#1} % Bild of #1 
 \DeclareFunction+{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
 \DeclareMathOperator{\Id}{Id} % Identity
-\DeclareMathOperator{\supp}{supp} % Identity
+\DeclareFunction-{\traeger}[1,]{\operatorname{supp}}{#1} % Träger of function #1
 \DeclareFunction+{\image}[1,]{\operatorname{Im}}{#1} % \image of #1 
 \DeclareFunction+{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
 \DeclareFunction-{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
