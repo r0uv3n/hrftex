@@ -655,6 +655,7 @@
 
 
 \DeclareFunction+{\ggt}[1,]{\operatorname{ggT}}{#1} % größter gemeinsamer Teiler of #1 (#1 a collection)
+\DeclarePairedDelimiterXPP{\gcd}[3]{}{\lparen}{\rparen}{}{#1;#2;#3}
 % commands
 
 % evaluate using vert
@@ -756,9 +757,9 @@
 
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
-\newcommand{\tensorproperty}{\( \otimes \)}
+\newcommand{\tensorproperty}{\( \otimes \)\xspace}
 \RequirePackage{xspace}
-\newcommand{\tensorproduct}{\otimes\xspace}
+\newcommand{\tensorproduct}{\otimes}
 \newcommand{\fieldtensorproduct}[1]{\otimes}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
