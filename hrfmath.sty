@@ -138,7 +138,7 @@
 \newlist{proofenumerate}{enumerate}{3}
 \setlist[proofenumerate]{label=\arabic*., wide}
 \newlist{proofdescription}{description}{3}
-\setlist[proofdescription]{font=\normalfont, wide}
+\setlist[proofdescription]{font=\bfseries, wide}
 % for references to description items
 \def\namedlabel#1#2{\begingroup
     #2%
@@ -444,6 +444,10 @@
 \renewcommand*{\geqq}{\geqqslant}
 \renewcommand*{\trianglelefteq}{\trianglelefteqslant}
 \renewcommand*{\trianglerighteq}{\trianglerighteqslant}
+\newcommand*{\echteuntergruppe}{\le}
+\newcommand*{\echteuebergruppe}{\ge}
+\newcommand*{\untergruppe}{\leqold}
+\newcommand*{\uebergruppe}{\geqold}
 \newcommand*{\untervektorraum}{\leqold}
 \newcommand*{\uebervektorraum}{\geqold}
 
@@ -519,6 +523,12 @@
 \let\ArcCot\relax
 \DeclareFunction-{\ArcCot}[1,]{\arccot}{#1}
 
+% from M&W
+\DeclareFunction+{\standardprobabilityspace}[3,1]{\Omega_{\Romannum{#1}}}{#2,#3}
+\DeclareFunction+{\binomialdistribution}[3,]{\operatorname{Bin}_{#1,#2}}{#3} % binomial distribution with p=#1, n=#2
+\let\complement\relax
+\DeclarePostFunction-{\complement}[1]{^{c}}{#1}
+
 % from AGLA
 \newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
 
@@ -581,14 +591,14 @@
 \DeclareFunction-{\ArcCoth}[1,]{\operatorname{arccoth}}{#1} % \ArcCoth of #1 
 \DeclareFunction+{\sgn}[1,]{\operatorname{sgn}}{#1} % \sgn of #1 
 \DeclareFunction+{\Abb}[1,]{\operatorname{Abb}}{#1} % \Abb of #1 
-\DeclareFunction+{\Ker}[1,]{\operatorname{Ker}}{#1} % \Ker of #1 
-\DeclareFunction+{\Kern}[1,]{\operatorname{Kern}}{#1} % Kern of #1 
-\DeclareFunction+{\Urbild}[1,]{\operatorname{Urbild}}{#1} % Bild of #1 
-\DeclareFunction+{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
+\DeclareFunction-{\Ker}[1,]{\operatorname{Ker}}{#1} % \Ker of #1 
+\DeclareFunction-{\Kern}[1,]{\operatorname{Kern}}{#1} % Kern of #1 
+\DeclareFunction-{\Urbild}[1,]{\operatorname{Urbild}}{#1} % Bild of #1 
+\DeclareFunction-{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
 \DeclareMathOperator{\Id}{Id} % Identity
 \DeclareFunction-{\traeger}[1,]{\operatorname{supp}}{#1} % Träger of function #1
-\DeclareFunction+{\image}[1,]{\operatorname{Im}}{#1} % \image of #1 
-\DeclareFunction+{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
+\DeclareFunction-{\image}[1,]{\operatorname{Im}}{#1} % \image of #1 
+\DeclareFunction-{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
 \DeclareFunction-{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
 \DeclareFunction-{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
 \DeclareFunction-{\gradient}[1,]{\nabla}{#1} % grad of #1 
@@ -599,6 +609,7 @@
 % \let\endomorphisms    \relax
 % \DeclareFunction+{\endomorphisms}[1,]{\operatorname{End}}{#1} % Endomorphismus of #1 
 \DeclareFunction+{\automorphisms}[1,]{\operatorname{Aut}}{#1} % Automorphismus of #1 
+\DeclareFunction+{\innerautomorphism}[1,]{\operatorname{Int}}{#1} % Automorphismus of #1 
 \DeclareFunction+{\homomorphisms}[2,]{\operatorname{Hom}}{#1,#2} % Homomorphismen of #1 into #2
 \DeclareFunction+{\fieldhomomorphisms}[3,]{\operatorname{Hom}_{#1}}{#2,#3} % Homomorphismen of #2 into #3 over field #1
 \DeclareMathOperator{\Mat}{Mat} % matrices
@@ -655,7 +666,8 @@
 
 
 \DeclareFunction+{\ggt}[1,]{\operatorname{ggT}}{#1} % größter gemeinsamer Teiler of #1 (#1 a collection)
-\DeclarePairedDelimiterXPP{\gcd}[3]{}{\lparen}{\rparen}{}{#1;#2;#3}
+\let\gcd\relax
+\DeclarePairedDelimiterXPP{\gcd}[1]{}{\lparen}{\rparen}{}{#1}
 % commands
 
 % evaluate using vert
