@@ -104,14 +104,14 @@
 
 \WithSuffix\def\DeclareMathOperatorWithDelimiter-#1[#2,#3]#4#5#6#7{ % minus variant: no parentheses, have to be activated with +, #4 only via ;
     \newcommand{#1}[#2]{#4 #7} % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
-    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{#4}{#5}{#6}{}{#7} % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
+    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{#4}{#5}{#6}{}{#7} % #1+: with delimiters , #1+*: auto scales, #1+[<size-command>] sets delimiters to size
     \WithSuffix\let#1-#1 % #1-: no delimiters
     
     \WithSuffix\newcommand#1;[\ifstrempty{#3}{\the\numexpr #2-1\relax}{#3}]{#4}  % #1;: (with #7 arguments) only prints #4
 }
 \WithSuffix\def\DeclareMathPostOperatorWithDelimiter-#1[#2]#3#4#5#6{ % minus variant :no parentheses, have to be activated with +
-    \newcommand{#1}[#2]{{#6}#3} % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
-    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{}{#4}{#5}{#3}{#6}  % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
+    \newcommand{#1}[#2]{{#6}#3} % #1+: with delimiters , #1+*: auto scales, #1[<size-command>] sets delimiters to size
+    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{}{#4}{#5}{#3}{#6}  % #1+: with delimiters , #1+*: auto scales, #1[<size-command>] sets delimiters to size
     \WithSuffix\let#1-#1 % #1-: no delimiters
 }
 % shortcuts for MOWDs and MPOWDs with parentheses as delimiters 
@@ -401,7 +401,7 @@
 % equation sign with sim sign over it
 \DeclareRobustCommand{\simeqq}{\cong}
 
-% Better logical spacing
+% Better logic spacing
 \newcommand*{\logicspace}{\hspace{0.5em}}
 
 % Make quantifiers operators
@@ -484,7 +484,7 @@
 \newcommand*{\reals}{\mathbb{R}}
 \newcommand*{\rationals}{\mathbb{Q}}
 \newcommand*{\complexs}{\mathbb{C}}
-\newcommand*{\wholes}{\mathbb{Z}}
+\newcommand*{\integers}{\mathbb{Z}}
 
 % min and max with delimiters
 \let\min\relax
