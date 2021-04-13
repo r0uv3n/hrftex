@@ -4,9 +4,6 @@
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{hrfmath}}
 \ProcessOptions\relax
 
-% add index 
-\RequirePackage{imakeidx}
-
 % this should probably (hopefully) be the same for all use cases
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
@@ -23,6 +20,8 @@
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \RequirePackage{scrlayer-scrpage}
 
+% add index 
+\RequirePackage{imakeidx}
 
 % ordinals, numbers, etc.
 \RequirePackage{fmtcount}
@@ -31,7 +30,8 @@
 \RequirePackage{aliascnt}
 
 % better enumeration
-\RequirePackage[inline]{enumitem}
+\PassOptionsToPackage{inline}{enumitem}
+\RequirePackage{enumitem}
 \newcommand{\rechtsklammer}[1]{#1)} % for avoiding warnings about single parantheses
 
 % for referencing \item[***]
@@ -56,18 +56,21 @@
 \PassOptionsToPackage{dvipsnames}{xcolor}
 
 % Should be passed if ntheorem is loaded
-\PassOptionsToPackage{hyperref,thref}{ntheorem}
+\PassOptionsToPackage{hyperref}{ntheorem}
 
-\RequirePackage{hrfgerman}
+% ngerman for Neue Rechtschreibung
+\PassOptionsToPackage{math=normal,english,ngerman}{babel}
+\RequirePackage{babel}
+
 \RequirePackage{hrfmath}
 
-% time and date
-\RequirePackage[useregional]{datetime2}
+
 
 % for links
+\RequirePackage{varioref}
 \PassOptionsToPackage{pdfpagelayout=OneColumn, linktoc=all, pdfencoding=auto, pdfusetitle, pdfstartview=FitH}{hyperref}
 \RequirePackage{hyperref}
-
+\RequirePackage{cleveref}
 
 % for cross-document references
 \RequirePackage{xr}
@@ -82,6 +85,13 @@
 
 % bibliography
 % \RequirePackage{biblatex}
+
+% needs cleveref to be loaded
+\RequirePackage{hrfgerman}
+
+% time and date
+\RequirePackage[useregional]{datetime2}
+
 
 % headings (if no other option seems right...)
 \newif\ifnostyle
