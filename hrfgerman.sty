@@ -1,12 +1,11 @@
-\ProvidesPackage{hrfgerman}[2020/04/19 Sets up common options and packages for writing in the german language.]
+\ProvidesPackage{hrfgerman}[2020/04/19 Sets up common options and packages for writing in the german language. Can also be loaded for other languages, if *afterwise* the language is changed via babel.]
 
 % this will already be loaded if used from hrftex
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 
-% ngerman for Neue Rechtschreibung
-\PassOptionsToPackage{ngerman,math=normal}{babel}
-\RequirePackage{babel}
+% \PassOptionsToPackage{english,ngerman}{babel}
+% \RequirePackage{babel}
 
 % simplest usage: \enquote{<text>} 
 % autostyle options changes quotation style automatically when changing language with babel
@@ -16,6 +15,19 @@
 % Abbreviations
 \RequirePackage{xpunctuate}
 \RequirePackage{xspace}
+
+
+\newcommand{\abbrspace}{\nobreak\,}
+\makeatletter
+\cref@addlanguagedefs{english}{%
+  % english has no space in abbreviations containing multiple words
+  \renewcommand{\abbrspace}{}}
+\cref@addlanguagedefs{ngerman}{%
+  % german has a small non-breaking space in abbreviations containing multiple words
+  \renewcommand{\abbrspace}{\nobreak\,}}
+\makeatother
+
+
 \newcommand*{\Absatz}{Abs\xperiod}
 \newcommand*{\Def}{Def\xperiod}
 \newcommand*{\Beh}{Beh\xperiod}
@@ -27,29 +39,30 @@
 \newcommand*{\Ca}{Ca\xperiod}
 \newcommand*{\ca}{ca\xperiod}
 \newcommand*{\Co}{Co\xperiod}
-\AtBeginDocument{\renewcommand*{\dh}{d.\,h\xperiod}}
-\newcommand*{\Dh}{D.\,h\xperiod}
+\AtBeginDocument{\renewcommand*{\dh}{d.\abbrspace h\xperiod}}
+\newcommand*{\Dh}{D.\abbrspace h\xperiod}
 \newcommand*{\diffbar}{differenzierbar\xspace}
 \newcommand*{\etc}{etc\xperiod}
 \newcommand*{\eg}{e.g\xperiod}
-\newcommand*{\ff}{\,ff\xperiod}
-\newcommand*{\fue}{\,f.ü\xperiod}
+\newcommand*{\ff}{ff\xperiod}
+\newcommand*{\fue}{f.ü\xperiod}
 \newcommand*{\gdw}{gdw~}
 \newcommand*{\ggf}{ggf\xperiod}
 \newcommand*{\Ggf}{Ggf\xperiod}
-\newcommand*{\ia}{i.\,A\xperiod}
+\newcommand*{\ia}{i.\abbrspace A\xperiod}
+\newcommand*{\ie}{i.\abbrspace e\xperiod}
 \newcommand*{\Nr}{Nr\xperiod}
-\newcommand*{\oae}{o.\,Ä\xperiod}
+\newcommand*{\oae}{o.\abbrspace Ä\xperiod}
 \newcommand*{\obda}{o.B.d.A\xperiod}
 \newcommand*{\Obda}{O.B.d.A\xperiod}
-\newcommand*{\og}{o.\,g\xperiod}
+\newcommand*{\og}{o.\abbrspace g\xperiod}
 \AtBeginDocument{\renewcommand*{\S}{S\xperiod}}
 \newcommand*{\s}{s\xperiod}
-\newcommand*{\sd}{s.\,d\xperiod}
-\newcommand*{\so}{s.\,o\xperiod}
-\newcommand*{\su}{s.\,u\xperiod}
-\newcommand*{\ua}{u.\,a\xperiod}
-\newcommand*{\Ua}{U.\,a\xperiod}
+\newcommand*{\sd}{s.\abbrspace d\xperiod}
+\newcommand*{\so}{s.\abbrspace o\xperiod}
+\newcommand*{\su}{s.\abbrspace u\xperiod}
+\newcommand*{\ua}{u.\abbrspace a\xperiod}
+\newcommand*{\Ua}{U.\abbrspace a\xperiod}
 \newcommand*{\undoder}{und/oder}
 \newcommand*{\Ungl}{Ungl\xperiod}
 \newcommand*{\usw}{usw\xperiod}
@@ -57,5 +70,5 @@
 \newcommand*{\vs}{vs\xperiod}
 \newcommand*{\vgl}{vgl\xperiod}
 \newcommand*{\Vgl}{Vgl\xperiod}
-\newcommand*{\zb}{z.\,B\xperiod}
-\newcommand*{\Zb}{Z.\,B\xperiod}
+\newcommand*{\zb}{z.\abbrspace B\xperiod}
+\newcommand*{\Zb}{Z.\abbrspace B\xperiod}
