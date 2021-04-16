@@ -230,7 +230,6 @@
 \newtheorem{blank}[generalthm]{}
 \renewtheorem*{blank*}{}
 
-
 % stack below with optional argument
 \RequirePackage{stackrel}
 
@@ -380,8 +379,8 @@
 
 
 % can be used in both math and text mode
-\newcommand{\zuzeigentext}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
-\newcommand{\zuzeigen}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
+\newcommand{\zuzeigen}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
+\newcommand{\zuzeigenmath}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
 
 % verbose definitions
 \newcommand*{\defines}{\eqqcolon}
@@ -465,8 +464,8 @@
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
 
 % For complex
-\newcommand*{\real}{\mathrm{Re}}
-\newcommand*{\imaginary}{\mathrm{Im}}
+\DeclareFunction-{\real}[1,]{\mathrm{Re}}{#1}
+\DeclareFunction-{\imaginary}[1,]{\mathrm{Im}}{#1}
 \newcommand{\conjugate}[1]{\widebar{#1}\nolimits}
 
 % sets
