@@ -58,9 +58,13 @@
 \newcommand{\norm}[1]{\lVert#1\rVert}
 \newcommand{\scalarproduct}[2]{\langle#1,2\rangle}
 \newcommand{\untergruppe}{\leq}
+\let\subgroup\untergruppe
 \newcommand{\echteuntergruppe}{<}
+\let\propersupgroup\echteuntergruppe
 \newcommand{\normalteiler}{\trianglelefteq}
+\let\normalsubgroup\normalteiler
 \newcommand{\echternormalteiler}{\triangleleft}
+\let\propernormalsubgroup\echternormalteier
 \newcommand{\logicspace}{\hspace{0.5em} }
 \newcommand{\divides}{\mid}
 \newcommand{\ndivides}{\nmid}

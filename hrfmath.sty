@@ -189,6 +189,8 @@
 \NewTheorem{ergaenzung}{Ergänzung}
 \NewTheorem{exkurs}{Exkurs}
 \NewTheorem{erinnerung}{Erinnerung}
+\NewTheorem{fact}{Fact}
+\NewTheorem{fakt}{Fakt}
 \NewTheorem{folgerung}{Folgerung}
 \NewTheorem{folgerungbsp}{Folgerung / Beispiel}
 \NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
@@ -304,6 +306,7 @@
 
 % end of package imports
 
+
 % allow a page break within amsmath math formulas,
 % use \\* to prohibit a page break
 \allowdisplaybreaks[1]
@@ -329,6 +332,7 @@
   \fi%
 }
 
+
 % possibility to ignore height and apply later (with SavedHeight)
 \newsavebox{\mastercontent}
 \newsavebox{\slavecontent}
@@ -339,8 +343,10 @@
 \newsavebox{\compositeheight}
 \newsavebox{\compositewidth}
 
+
 % provides \slavecontent and \mastercontent to access content, \slaveheight and \masterheight to access height, \slavewidth and \masterwidth to access width
 \newcommand\heightcontext[2]{\sbox{\slavecontent}{\( #1 \)}\sbox{\mastercontent}{\(#2\)}\sbox{\slaveheight}{\vphantom{\usebox{\slavecontent}}}\sbox{\masterheight}{\vphantom{\usebox{\mastercontent}}}\sbox{\slavewidth}{\hphantom{\usebox{\slavecontent}}}\sbox{\masterwidth}{\hphantom{\usebox{\mastercontent}}}}
+
 
 % number this specific equation
 \newcommand{\numberthis}{\addtocounter{equation}{1}\tag{\theequation}}
@@ -377,10 +383,14 @@
 \newcommand{\needed}[1]{\overset{!}{#1}}
 \newcommand{\isittrue}[1]{\overset{?}{#1}}
 
+\newcaptionname{english}{\zuzeigentext}{To be shown: }
+\newcaptionname{ngerman}{\zuzeigentext}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ }
 
 % can be used in both math and text mode
-\newcommand{\zuzeigen}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
-\newcommand{\zuzeigenmath}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ {#1} }}} \par}
+\newcommand{\zuzeigen}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{\zuzeigentext {#1} }}} \par}
+\newcommand{\zuzeigenmath}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{\zuzeigentext {#1} }}} \par}
+\let\tobeshown\zuzeigen
+\let\tobeshownmath\zuzeigenmath
 
 % verbose definitions
 \newcommand*{\defines}{\eqqcolon}
@@ -443,12 +453,14 @@
 \renewcommand*{\geqq}{\geqqslant}
 \renewcommand*{\trianglelefteq}{\trianglelefteqslant}
 \renewcommand*{\trianglerighteq}{\trianglerighteqslant}
-\newcommand*{\echteuntergruppe}{\le}
-\newcommand*{\echteuebergruppe}{\ge}
-\newcommand*{\untergruppe}{\leqold}
-\newcommand*{\uebergruppe}{\geqold}
-\newcommand*{\untervektorraum}{\leqold}
-\newcommand*{\uebervektorraum}{\geqold}
+\newcommand*{\propersubgroup}{\le}
+\newcommand{\normalsubgroup}{\trianglelefteq}
+\newcommand{\propernormalsubgroup}{\triangleleft}
+\newcommand*{\propersupgroup}{\ge}
+\newcommand*{\subgroup}{\leqold}
+\newcommand*{\supgroup}{\geqold}
+\newcommand*{\subspace}{\leqold}
+\newcommand*{\supspace}{\geqold}
 
 % easier long to
 \newcommand*{\longto}{\longrightarrow}
@@ -563,7 +575,7 @@
 \DeclareFunction+{\moebiusabbildungenmenge}[1,]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
 \DeclareFunction-{\randpunkte}[1,]{\partial}{#1} % \randpunkte of #1 
 \DeclarePostFunction-{\inneres}[1]{^{\circ}}{#1}
-\newcommand{\abschluss}[1]{\overline{#1}}
+\newcommand{\closure}[1]{\widebar{#1}}
 \newcommand*{\matrixmult}{\mathbin{.}}
 \newcommand*{\laplaceoperator}{\Delta}
 \newcommand*{\kroneckerdelta}[1]{\delta_{#1}} % Kronecker Delta of indices #1
@@ -701,6 +713,7 @@
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert} % absolute value
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \DeclarePairedDelimiterXPP{\explicitnorm}[2]{}{\|}{\|}{_{#1}}{#2}
+\let\pnorm\explicitnorm
 \DeclarePairedDelimiterXPP{\euclidiannorm}[1]{}{\|}{\|}{_{\textnormal{E}}}{#1}
 \DeclarePairedDelimiterXPP{\lebesguenorm}[1]{}{\|}{\|}{_{\lebesgueintegrablefunctions}}{#1}
 \DeclarePairedDelimiterXPP{\supnorm}[1]{}{\|}{\|}{_{\infty}}{#1}

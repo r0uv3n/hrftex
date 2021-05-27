@@ -49,8 +49,8 @@
 
 % Main Package
 \RequirePackage{hrftex}
-\RequirePackage{geometry}
 
+\RequirePackage{geometry}
 \RequirePackage{scrlayer-scrpage}
 \RequirePackage{lastpage} % Page Numbers
 
@@ -158,9 +158,10 @@
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\alph{subsection}}
 \renewcommand{\thesubsubsection}{\arabic{subsubsection}}
-\renewcommand{\sectionformat}{\taskname~\thesection\autodot}
-\renewcommand{\subsectionformat}{\subtaskname~\thesection\thesubsection\autodot}
-\renewcommand{\subsubsectionformat}{\thesection\thesubsection\thesubsubsection\autodot}
+\renewcommand{\sectionformat}{\taskname~\thesection\autodot\enskip}
+\renewcommand{\subsectionformat}{\subtaskname~\thesection\thesubsection\autodot\enskip}
+\renewcommand{\subsubsectionformat}{\thesection\thesubsection\thesubsubsection\autodot\enskip}
+
 
 \let\task\section
 \let\subtask\subsection
