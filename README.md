@@ -3,7 +3,7 @@ Personal Templates for lecture notes, exercises, homework. Uploaded to ctan for 
 
 ## Installation
 ### Via CTAN
-This package is available on CTAN as [hrftex](), but this version may be severely outdated.
+This package is available on CTAN as [hrftex](https://ctan.org/pkg/hrftex), but this version may be severely outdated.
 
 ### Installation via GitHub (for MikTeX)
 Download the source code and put the folder hrftex in a 
