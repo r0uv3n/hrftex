@@ -104,7 +104,7 @@
     \gdef\@sheetno{#1}
 }
 
-\newcommand{\id}[1]{\\\ttfamily\footnotesize(#1)}
+\newcommand{\studentid}[1]{\\\ttfamily\footnotesize(#1)}
 
 \renewcommand{\author}[2][]{
     \ifstrempty{#1}{
