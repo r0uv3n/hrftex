@@ -1,5 +1,5 @@
 # hrftex
-Personal Templates for lecture notes, exercises, homework. Uploaded to ctan for ease of access by e.g. tutors.
+Personal Templates for lecture notes, exercises, homework. Uploaded to CTAN for ease of access by e.g. tutors.
 
 ## Installation
 ### Via CTAN
