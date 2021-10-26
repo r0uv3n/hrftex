@@ -79,48 +79,27 @@
 \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
 
 
-\WithSuffix\def\DeclareMathOperatorWithDelimiter+#1[#2,#3]#4#5#6#7{ % plus variant :parentheses, have to be deactivated with -, #4 only via ;
-    \DeclarePairedDelimiterXPP{#1}[#2]{#4}{#5}{#6}{}{#7} %  by default with delimiters, #1*: auto scales, #1[<size-command>] sets delimiters to size
-    \WithSuffix\newcommand#1-[#2]{#4 #7} % #1-:no delimiters
-    \WithSuffix\let#1+#1 % #1+: with delimiters
-
-    \WithSuffix\newcommand#1;[\ifstrempty{#3}{\the\numexpr #2-1\relax}{#3}]{#4} % #1;: (with #2-1 arguments) only prints #4
+\def\DeclareMathOperatorWithDelimiter#1#2[#3,#4]#5#6#7#8{ 
+  \newcommand{#2}{}
+  \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{#5}{#6}{#7}{}{#8} %  #2+ with delimiters, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
+  \WithSuffix\newcommand#2-[#3]{#5 #8} % #1-:no delimiters
+  \WithSuffix\newcommand#2;[\ifstrempty{#4}{\the\numexpr #3-1\relax}{#4}]{#5} % #2;: (with #2-1 arguments) only prints #4
+  \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
+}
+\def\DeclareFunction#1#2[#3,#4]#5#6{
+    \DeclareMathOperatorWithDelimiter#1{#2}[#3,#4]{#5}{\lparen}{\rparen}{#6}
+}
+\def\DeclareMathPostOperatorWithDelimiter#1#2[#3]#4#5#6#7{
+    \newcommand{#2}{}
+    \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{}{#5}{#6}{#4}{#7} %  #2+ variant, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
+    \WithSuffix\newcommand#2-[#3]{{#7}#4} % #1-: no delimiters
+    \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
 }
 
-\WithSuffix\def\DeclareMathPostOperatorWithDelimiter+#1[#2]#3#4#5#6{ % plus variant :parentheses, have to be deactivated with -
-    \DeclarePairedDelimiterXPP{#1}[#2]{}{#4}{#5}{#3}{#6} %  by default with delimiters, #1*: auto scales, #1[<size-command>] sets delimiters to size
-    \WithSuffix\newcommand#1-[#2]{{#6}#3} % #1-: no delimiters
-    \WithSuffix\let#1+#1 % #1+: with delimiters
-}
-% shortcuts for MOWDs and MPOWDs with parentheses as delimiters
-\WithSuffix\def\DeclareFunction+#1[#2,#3]#4#5{ % plus variant: parentheses, have to be deactivated with -, #4 only via ;
-    \DeclareMathOperatorWithDelimiter+{#1}[#2,#3]{#4}{\lparen}{\rparen}{#5}
+\def\DeclarePostFunction#1#2[#3]#4#5{
+    \DeclareMathPostOperatorWithDelimiter#1{#2}[#3]{#4}{\lparen}{\rparen}{#5}
 }
 
-\WithSuffix\def\DeclarePostFunction+#1[#2]#3#4{ % plus variant: parentheses, have to be deactivated with -
-    \DeclareMathPostOperatorWithDelimiter+{#1}[#2]{#3}{\lparen}{\rparen}{#4}
-}
-
-
-\WithSuffix\def\DeclareMathOperatorWithDelimiter-#1[#2,#3]#4#5#6#7{ % minus variant: no parentheses, have to be activated with +, #4 only via ;
-    \newcommand{#1}[#2]{#4 #7} % #1+: with delimiters , #1*: auto scales, #1[<size-command>] sets delimiters to size
-    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{#4}{#5}{#6}{}{#7} % #1+: with delimiters , #1+*: auto scales, #1+[<size-command>] sets delimiters to size
-    \WithSuffix\let#1-#1 % #1-: no delimiters
-    
-    \WithSuffix\newcommand#1;[\ifstrempty{#3}{\the\numexpr #2-1\relax}{#3}]{#4}  % #1;: (with #7 arguments) only prints #4
-}
-\WithSuffix\def\DeclareMathPostOperatorWithDelimiter-#1[#2]#3#4#5#6{ % minus variant :no parentheses, have to be activated with +
-    \newcommand{#1}[#2]{{#6}#3} % #1+: with delimiters , #1+*: auto scales, #1[<size-command>] sets delimiters to size
-    \WithSuffix\DeclarePairedDelimiterXPP#1+[#2]{}{#4}{#5}{#3}{#6}  % #1+: with delimiters , #1+*: auto scales, #1[<size-command>] sets delimiters to size
-    \WithSuffix\let#1-#1 % #1-: no delimiters
-}
-% shortcuts for MOWDs and MPOWDs with parentheses as delimiters 
-\WithSuffix\def\DeclareFunction-#1[#2,#3]#4#5{ % minus variant :no parentheses, have to be activated with +, #4 only via ;
-    \DeclareMathOperatorWithDelimiter-{#1}[#2,#3]{#4}{\lparen}{\rparen}{#5}
-}
-\WithSuffix\def\DeclarePostFunction-#1[#2]#3#4{ % minus variant :no parentheses, have to be activated with +
-    \DeclareMathPostOperatorWithDelimiter-{#1}[#2]{#3}{\lparen}{\rparen}{#4}
-}
 
 % Note: if you want to swap the default after definition, or otherwise redefine a MOWD or MPOWD macro, first define a new MOWD or MPOWD macro with a new name and then \let it to the old macro name.
 
@@ -179,6 +158,7 @@
 \NewTheorem{bspdef}{Beispiel / Definition}
 \NewTheorem{bspidee}{Beispiel / Idee}
 \NewTheorem{checkenvironment}{Check}
+\NewTheorem{claim}{Claim}
 \NewTheorem{defbem}{Definition / Bemerkung}
 \NewTheorem{deferinnerung}{Definition / Erinnerung}
 \NewTheorem{deflemma}{Definition / Lemma}
@@ -291,8 +271,6 @@
 \Style{ArcTrig=arc, Conjugate=overline}
 
 \RequirePackage{derivative}
-\derivset{all}[scale-auto=mleftmright]
-\derivset{odv}[style-inf=\mathnormal] % \differential is not an operator
 
 % Better vector arrows
 \RequirePackage{esvect}
@@ -387,8 +365,10 @@
 \newcaptionname{ngerman}{\zuzeigentext}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ }
 
 % can be used in both math and text mode
-\newcommand{\zuzeigen}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr \textwidth - 13.6pt\relax}{\zuzeigentext {#1} }}} \par}
-\newcommand{\zuzeigenmath}[1]{ \par\fbox{\fbox{\parbox{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}{\zuzeigentext {#1} }}} \par}
+\newcommand{\zuzeigen}[1]{\par\doublebox{%
+\begin{minipage}{\the\dimexpr \textwidth - 13.6pt\relax}\zuzeigentext #1\end{minipage}}}
+\newcommand{\zuzeigenmath}[1]{\par\doublebox{%
+\begin{minipage}{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}\zuzeigentext #1\end{minipage}}}
 \let\tobeshown\zuzeigen
 \let\tobeshownmath\zuzeigenmath
 
@@ -492,10 +472,11 @@
 
 
 \newcommand*{\naturals}{\mathbb{N}}
-\newcommand*{\reals}{\mathbb{R}}
-\newcommand*{\rationals}{\mathbb{Q}}
-\newcommand*{\complexs}{\mathbb{C}}
 \newcommand*{\integers}{\mathbb{Z}}
+\newcommand*{\rationals}{\mathbb{Q}}
+\newcommand*{\reals}{\mathbb{R}}
+\newcommand*{\complexes}{\mathbb{C}}
+\newcommand*{\standardfield}{\mathbb{K}} % reals or complexes
 
 % min and max with delimiters
 \let\min\relax
@@ -758,6 +739,12 @@
 \DeclareFunction+{\treppenfunktionen}[1,]{\operatorname{\mathcal{T}}}{#1}
 \DeclarePostFunction-{\parendiff}[2]{^{\parens*{#2}}}{#1} % #2th derivative of #1
 \DeclareFunction+{\diracmeasure}[2,]{\delta_{#1}}{#2}
+\DeclareFunction+{\lebesguefunctionspace}[2,]{L^{#1}}{#2} % lebesgue (L^#1) space over a measure #2
+\DeclareFunction;{\lebesguesequencespace}[2,]{\ell^{#1}}{#2} % sequence (l^#1) space over a field #2
+\DeclareFunction;{\convergentsequencespace}[1,]{c}{#1} % space of convergent sequences over a field #1
+\DeclareFunction;{\nullsequencespace}[1,]{c}{#1} % space of null sequences over a field #1
+\DeclareFunction;{\eventuallyzerosequencespace}[1,]{c_{00}}{#1} % space of eventually zero sequences over a field #1
+
 
 
 % from AGLA
@@ -777,7 +764,8 @@
 \DeclarePostFunction-{\dualvector}[1]{^{\star}}{#1} % dual vector of a vector #1
 \newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
 \DeclarePostFunction+{\perpspace}[1]{^{\perp}}{#1} % perpendicular space to #1
-\DeclarePostFunction-{\transpose}[1]{^{T}}{#1} % perpendicular space to #1
+\DeclarePostFunction-{\transpose}[1]{^{T}}{#1} % transposed matrix of #1
+\DeclarePostFunction-{\adjoint}[1]{^{*}}{#1} % adjoint matrix of #1
 
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1

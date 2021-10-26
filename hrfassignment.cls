@@ -40,6 +40,8 @@
 \ExecuteOptions{longtitle,longheader,numberedsheets,repeatauthor}
 
 \ProcessOptions\relax
+
+\PassOptionsToClass{parskip=half-}{scrartcl}
 \LoadClassWithOptions{scrartcl}
 
 
@@ -59,9 +61,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%\fi
 
 
-\newcaptionname{english}{\taskname}{Task}
+\newcaptionname{english}{\taskname}{Problem} % alternatively: "Excercise", "Task" or "Question"
 \newcaptionname{ngerman}{\taskname}{Aufgabe}
-\newcaptionname{english}{\subtaskname}{Subtask}
+\newcaptionname{english}{\subtaskname}{Part} % alternatively: "Subtask"
 \newcaptionname{ngerman}{\subtaskname}{Teilaufgabe}
 
 \newcaptionname{ngerman}{\hrfassignment@sheetid}{Aufgabenblatt}
@@ -211,15 +213,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\setlength{\parskip}{5pt}
 
 \setkomafont{section}{\normalfont\bfseries\LARGE}
 \setkomafont{subsection}{\normalfont\bfseries\Large}
 \setkomafont{subsubsection}{\normalfont\bfseries\large}
-\RedeclareSectionCommands[afterskip=.25\baselineskip]{section}
-\RedeclareSectionCommands[
-    beforeskip=0.5\baselineskip,
-    afterskip=.125\baselineskip]{subsection}
 
 \renewcommand*{\maketitle}{%
     \thispagestyle{plain}%

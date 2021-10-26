@@ -12,6 +12,9 @@
 *.cb2
 .*.lb
 
+# latexformat files
+*.ini
+
 ## Intermediate documents:
 *.dvi
 *.xdv

@@ -42,6 +42,9 @@
 \RequirePackage{graphicx}
 \graphicspath{{figures/}}
 
+% for boxes
+\RequirePackage{fancybox}
+
 
 % better tables
 \RequirePackage{booktabs}
@@ -122,4 +125,7 @@
     \noindent\rule[0.5ex]{\linewidth}{0.5pt}
 }
 
-\providecommand{\endofdump}{\relax}
+\ifcsname endofdump\endcsname%
+\else%
+ \let\endofdump\relax%
+\fi%

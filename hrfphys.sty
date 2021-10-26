@@ -2,17 +2,19 @@
 
 \RequirePackage{hrfmath}
 
-\newcommand{\vektor}[1]{\mathbf{#1}}
+\newcommand{\vektor}[1]{\bm{#1}}
 \newcommand{\einheitsvektor}[1]{\vektor{e}_{#1}}
+\newcommand{\del}{\vektor{\nabla}}
 
 \newcommand{\eff}{\textnormal{eff}}
 \newcommand{\ges}{\textnormal{ges}}
 \newcommand{\kin}{\textnormal{kin}}
 \newcommand{\pot}{\textnormal{pot}}
 
+\DeclarePairedDelimiterX{\expectedvalue}[1]{\langle}{\rangle}{#1}
 \DeclarePairedDelimiterXPP{\poissonklammer}[4]{}{\lbrack}{\rbrack}{_{#3,#4}}{#1,#2}
 
 \newcommand*{\rungelenzvektor}{\vektor{\Lambda}}
 
-\DeclareFunction+{\lagrangian}[1]{\mathcal{L}}{#1}
-\DeclareFunction+{\hamiltonian}[1]{\mathcal{H}}{#1}
+\DeclareFunction+{\lagrangian}[1,]{\mathcal{L}}{#1}
+\DeclareFunction+{\hamiltonian}[1,]{\mathcal{H}}{#1}
