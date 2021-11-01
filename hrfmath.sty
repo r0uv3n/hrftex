@@ -656,6 +656,8 @@
 \DeclareFunction+{\ord}[1,]{\operatorname{ord}}{#1} % order of quadrik #1
 \DeclarePairedDelimiterXPP{\quadraticform}[3]{}{\langle}{\rangle}{}{#1,#2,#3} % quadratic form #1x^2+#2xy+#3y^2
 
+\DeclareFunction+{\complexity}[1,]{\mathcal{O}}{#1} % Bachmann-Landau notation for complexity
+
 
 \DeclareFunction+{\ggt}[1,]{\operatorname{ggT}}{#1} % größter gemeinsamer Teiler of #1 (#1 a collection)
 \let\gcd\relax
@@ -732,6 +734,7 @@
 
 
 \DeclarePostFunction-{\factorial}[1]{!}{#1} % factorial of #1
+\DeclarePostFunction-{\doublefactorial}[1]{!!}{#1} % double factorial of #1
 
 
 % from DIFF
