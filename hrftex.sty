@@ -15,6 +15,10 @@
 \RequirePackage{pgfkeys}
 \RequirePackage{pgfopts}
 
+\newtoggle{noenumitem}
+\newtoggle{nontheorem}
+\@ifclassloaded{beamer}{\toggletrue{noenumitem}\toggletrue{nontheorem}}{\togglefalse{noenumitem}\togglefalse{nontheorem}}
+
 % compatibility hacks for hyperref and float
 \RequirePackage{scrhack}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
@@ -30,9 +34,11 @@
 \RequirePackage{aliascnt}
 
 % better enumeration
+\iftoggle{noenumitem}{}{
 \PassOptionsToPackage{inline}{enumitem}
-\RequirePackage{enumitem}
+\RequirePackage{enumitem}}
 \newcommand{\rechtsklammer}[1]{#1)} % for avoiding warnings about single parantheses
+
 
 % for referencing \item[***]
 \RequirePackage{crossreftools}
@@ -59,7 +65,8 @@
 \PassOptionsToPackage{dvipsnames}{xcolor}
 
 % Should be passed if ntheorem is loaded
-\PassOptionsToPackage{hyperref}{ntheorem}
+\iftoggle{nontheorem}{}{
+\PassOptionsToPackage{hyperref}{ntheorem}}
 
 % ngerman for Neue Rechtschreibung
 \PassOptionsToPackage{math=normal,english,ngerman}{babel}

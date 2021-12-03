@@ -8,7 +8,7 @@
 \newtoggle{numberindividually}
 \newtoggle{nomasternumbers}
 \newtoggle{numberwithin}
-\newtoggle{empheqoverload}{}
+\newtoggle{empheqoverload}
 \pgfkeys{
         /hrftex/hrfmath/.cd,
             numberindividually/.is choice,
@@ -55,7 +55,7 @@
 
 % better boxed equations, better endtheoremmark placement
 \iftoggle{empheqoverload}{\PassOptionsToPackage{overload}{empheq}}{}
-\PassOptionsToPackage{ntheorem}{empheq}
+\iftoggle{nontheorem}{}{\PassOptionsToPackage{ntheorem}{empheq}}
 \RequirePackage{empheq}
 
 % Possibility to change between left and right equation numbers
@@ -72,12 +72,13 @@
 \RequirePackage{stmaryrd}
 
 % for theorems
+\iftoggle{nontheorem}{}{
 \PassOptionsToPackage{amsmath, thmmarks, amsthm}{ntheorem}
 \RequirePackage{ntheorem}
 \usetagform{default}
 \renewcommand{\qedsymbol}{$\blacksquare$} % so that the square can be used for subproofs
 \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
-
+}
 
 \def\DeclareMathOperatorWithDelimiter#1#2[#3,#4]#5#6#7#8{ 
   \newcommand{#2}{}
@@ -103,12 +104,16 @@
 
 % Note: if you want to swap the default after definition, or otherwise redefine a MOWD or MPOWD macro, first define a new MOWD or MPOWD macro with a new name and then \let it to the old macro name.
 
+\iftoggle{nontheorem}{}{
 \theoremstyle{definition}
 % consistent numbering
 \iftoggle{numberwithin}{\newtheorem{generalthm}{}[\numbertheoremswithinthis]}{\newtheorem{generalthm}{}}
 \renewtheorem*{generalthm*}{}
+}
+
 
 % for references to items in enumerations
+\iftoggle{noenumitem}{}{
 \setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\roman*}}
 \newlist{eigenschaftenenumerate}{enumerate}{3}
 \setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\alph*}}
@@ -123,8 +128,9 @@
     #2%
     \def\@currentlabel{#2}%
     \phantomsection\label{#1}\endgroup
-}
+}}
 
+\iftoggle{nontheorem}{}{
 \newcommand{\NewTheorem}[2]{
     % \newaliascnt{#1}{theorem}    
     \iftoggle{numberindividually}
@@ -211,15 +217,12 @@
 \theoremstyle{blank}
 \newtheorem{blank}[generalthm]{}
 \renewtheorem*{blank*}{}
-
+}
 % stack below with optional argument
 \RequirePackage{stackrel}
 
 % left and right sub- and superscripts
 \RequirePackage{leftidx}
-
-% braket and (right now more importantly) proper set notation
-\RequirePackage{braket}
 
 % for composed symbols including a colon
 \RequirePackage{colonequals}
@@ -271,6 +274,7 @@
 \Style{ArcTrig=arc, Conjugate=overline}
 
 \RequirePackage{derivative}
+\PassOptionsToPackage{upright=false}{derivative}
 
 % Better vector arrows
 \RequirePackage{esvect}
@@ -462,6 +466,26 @@
 
 % sets
 
+% Set and Braket macros
+% just to make sure it exists
+\providecommand\given{}
+% can be useful to refer to this outside \Set or \Braket
+\newcommand\SetSymbol[1][]{%
+    \nonscript\:#1\vert
+    \allowbreak
+    \nonscript\:
+    \mathopen{}
+}
+
+\DeclarePairedDelimiterX\Set[1]{\lbrace}{\rbrace}{%
+    \renewcommand\given{\SetSymbol[\delimsize]}
+    #1
+}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\SetSymbol[\delimsize] #2}
+\DeclarePairedDelimiterX\appliedbraket[3]{\langle}{\rangle}{#1\SetSymbol[\delimsize] #2\SetSymbol[\delimsize] #3}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+
 % Prettier emptyset
 \renewcommand{\emptyset}{\varnothing}
 
@@ -502,6 +526,18 @@
 \DeclareFunction-{\Csc}[1,]{\csc}{#1}
 \let\Cot\relax
 \DeclareFunction-{\Cot}[1,]{\cot}{#1}
+\let\Sinh\relax
+\DeclareFunction-{\Sinh}[1,]{\sinh}{#1}
+\let\Cosh\relax
+\DeclareFunction-{\Cosh}[1,]{\cosh}{#1}
+\let\Tanh\relax
+\DeclareFunction-{\Tanh}[1,]{\tanh}{#1}
+\let\Sech\relax
+\DeclareFunction-{\Sech}[1,]{\sech}{#1}
+\let\Csch\relax
+\DeclareFunction-{\Csch}[1,]{\csch}{#1}
+\let\Coth\relax
+\DeclareFunction-{\Coth}[1,]{\coth}{#1}
 \let\ArcSin\relax
 \DeclareFunction-{\ArcSin}[1,]{\arcsin}{#1}
 \let\ArcCos\relax
@@ -514,10 +550,24 @@
 \DeclareFunction-{\ArcCsc}[1,]{\arccsc}{#1}
 \let\ArcCot\relax
 \DeclareFunction-{\ArcCot}[1,]{\arccot}{#1}
+\let\ArcCosh\relax
+\DeclareFunction-{\ArcCosh}[1,]{\operatorname{arccosh}}{#1} % \ArcCosh of #1 
+\let\ArcSinh\relax
+\DeclareFunction-{\ArcSinh}[1,]{\operatorname{arcsinh}}{#1} % \ArcSinh of #1 
+\let\ArcTanh\relax
+\DeclareFunction-{\ArcTanh}[1,]{\operatorname{arctanh}}{#1} % \ArcTanh of #1 
+\let\ArcSech\relax
+\DeclareFunction-{\ArcSech}[1,]{\operatorname{arcsech}}{#1} % \ArcSech of #1 
+\let\ArcCsch\relax
+\DeclareFunction-{\ArcCsch}[1,]{\operatorname{arccsch}}{#1} % \ArcCsch of #1 
+\let\ArcCoth\relax
+\DeclareFunction-{\ArcCoth}[1,]{\operatorname{arccoth}}{#1} % \ArcCoth of #1 
 
 % from M&W
 \DeclareFunction+{\standardprobabilityspace}[3,1]{\Omega_{\Romannum{#1}}}{#2,#3}
 \DeclareFunction+{\binomialdistribution}[3,]{\operatorname{Bin}_{#1,#2}}{#3} % binomial distribution with p=#1, n=#2
+\DeclareFunction+{\poissondistribution}[2,]{\operatorname{Poi}_{#1}}{#2} % poisson distribution with lambda=#1
+\DeclareFunction+{\geometricdistribution}[2,]{\operatorname{Geo}_{#1}}{#2} % geometric distribution with lambda=#1
 \let\complement\relax
 \DeclarePostFunction-{\complement}[1]{^{c}}{#1}
 
@@ -525,8 +575,8 @@
 \newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
 
 % from DIFF
-\newcommand*{\stetigefunktionen}[1][]{C\ifstrempty{#1}{}{^{#1}}} % #1-fach stetig differenzierbare funktionen
-\newcommand{\pushforward}[2]{{#2}_{\star}{#1}} % push-forward of #1 along #2    
+\DeclareFunction*{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare funktionen of #2
+\DeclareFunction-{\pushforward}[2,]{{#1}_{\star}}{#2} % push-forward of #2 along #1    
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
 \DeclareFunction+{\differentialforms}[2,]{\omega_{#1}}{#2} % differential forms of degree #1 of open set #2
@@ -537,7 +587,9 @@
 \newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
 \newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
-\DeclareFunction-{\diffpullback}[2,]{#1^{\star}}{#2} % pullback of #2 along #1
+
+\DeclareFunction-{\pullback}[2,]{#1^{\star}}{#2} % pullback of #2 along #1
+\let\diffpullback\pullback % for compatibility, but deprecated
 
 \DeclareFunction+{\legendrepolynomial}[2,]{P_{#1}}{#2}
 \DeclareFunction+{\hermitepolynomial}[2,]{H_{#1}}{#2}
@@ -566,21 +618,6 @@
 \newcommand{\diffcourse}[1]{DIFF \Romannum{#1}}
 
 % operators
-
-% missing trig functions
-
-\let\ArcCosh\relax
-\DeclareFunction-{\ArcCosh}[1,]{\operatorname{arccosh}}{#1} % \ArcCosh of #1 
-\let\ArcSinh\relax
-\DeclareFunction-{\ArcSinh}[1,]{\operatorname{arcsinh}}{#1} % \ArcSinh of #1 
-\let\ArcTanh\relax
-\DeclareFunction-{\ArcTanh}[1,]{\operatorname{arctanh}}{#1} % \ArcTanh of #1 
-\let\ArcSech\relax
-\DeclareFunction-{\ArcSech}[1,]{\operatorname{arcsech}}{#1} % \ArcSech of #1 
-\let\ArcCsch\relax
-\DeclareFunction-{\ArcCsch}[1,]{\operatorname{arccsch}}{#1} % \ArcCsch of #1 
-\let\ArcCoth\relax
-\DeclareFunction-{\ArcCoth}[1,]{\operatorname{arccoth}}{#1} % \ArcCoth of #1 
 \DeclareFunction+{\sgn}[1,]{\operatorname{sgn}}{#1} % \sgn of #1 
 \DeclareFunction+{\Abb}[1,]{\operatorname{Abb}}{#1} % \Abb of #1 
 \DeclareFunction-{\Ker}[1,]{\operatorname{Ker}}{#1} % \Ker of #1 
@@ -614,7 +651,7 @@
 \DeclareFunction+{\orthogonalmatrices}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
 \DeclareFunction+{\diagonalmatrix}[1,]{\operatorname{diag}}{#1} % diagonal matrix with diagonal entries #1
 \DeclareFunction+{\Adj}[1,]{\operatorname{Adj}}{#1} % adjunction of #1 
-\DeclareFunction+{\specialinvertiblematrices}[1,]{\operatorname{SL}}{#1} % special linear group of #1 
+\DeclareFunction+{\specialinvertiblematrices}[2,]{\operatorname{SL}\ifstrempty{#1}{}{_{#1}}}{#2} % special linear group of #1 dimensions over field #2
 \DeclareFunction+{\selfadjointendomorphisms}[1,]{\operatorname{ST}}{#1} % selbstadjungierte Endomorphismen of #1 
 \DeclareFunction+{\spaltenrang}[1,]{\operatorname{SR}}{#1} % Spaltenrang of #1 
 \DeclareFunction+{\zeilenrang}[1,]{\operatorname{ZR}}{#1} % Zeilenrang of #1 
@@ -640,8 +677,9 @@
 \DeclareFunction-{\characteristic}[1,]{\operatorname{char}}{#1} % characteristic of #1 
 \DeclareFunction+{\fixpunkte}[1,]{\operatorname{Fix}}{#1} % Fixpunkte of #1 
 \DeclareFunction+{\signature}[1,]{\operatorname{sign}}{#1} % signature of quadrik #1
-
+\let\Exp\relax
 \DeclareFunction+{\exponential}[1,]{\exp}{#1} % exponential function of #1
+\let\Exp\exponential
 \DeclarePairedDelimiterXPP{\polynomials}[2]{#1}{\lbrack}{\rbrack}{}{#2} % Polynomials of variables #2 over field #1 
 \DeclarePairedDelimiterXPP{\noncommutativepolynomials}[2]{#1}{\langle}{\rangle}{}{#2} % Polynomials of non-commutative variables #2 over field #1 
 
@@ -751,6 +789,7 @@
 
 
 % from AGLA
+\DeclarePairedDelimiterX{\generated}[1]{\langle}{\rangle}{#1}
 \DeclarePairedDelimiterX{\scalarproduct}[2]{\langle}{\rangle}{#1,#2}
 \DeclarePairedDelimiterX{\spatproduct}[3]{\lparen}{\rparen}{#1,#2,#3}
 \newcommand{\compactification}[1]{\widebar{#1}} % Compactification of a topological space #1
