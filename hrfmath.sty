@@ -147,6 +147,7 @@
 \NewTheorem{anwendung}{Anwendung}
 \NewTheorem{anwendungen}{Anwendungen}
 \NewTheorem{aufwaermuebung}{Aufwärm-Übung}
+\NewTheorem{attention}{\emph{Note}}
 \NewTheorem{achtung}{\emph{Achtung}}
 \NewTheorem{beachte}{Beachte}
 \NewTheorem{beispiel}{Beispiel}
@@ -355,6 +356,9 @@
 \newcommand{\underrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\overrelate}[4][]{\overset{\underset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\underrelate[#1]{\uparrow}{#2}{#3}}
+\newcommand{\undersubset}[3][]{\underrelate[#1]{\rotatebox[origin=c]{90}{\subset}}{#2}{#3}}
+\newcommand{\undersupset}[3][]{\underrelate[#1]{\rotatebox[origin=c]{90}{\supset}}{#2}{#3}}
+
 
 \newcommand{\braceannotate}[2]{\ThisStyle{\underbrace{\SavedStyle #2}_{#1}}}
 
@@ -369,7 +373,7 @@
 \newcaptionname{ngerman}{\zuzeigentext}{$\mathrm{Z\kern-.55em\raise-0.5ex\hbox{Z}}$ }
 
 % can be used in both math and text mode
-\newcommand{\zuzeigen}[1]{\par\doublebox{%
+\newcommand{\zuzeigen}[1]{\smallskip\par\noindent\doublebox{%
 \begin{minipage}{\the\dimexpr \textwidth - 13.6pt\relax}\zuzeigentext #1\end{minipage}}}
 \newcommand{\zuzeigenmath}[1]{\par\doublebox{%
 \begin{minipage}{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}\zuzeigentext #1\end{minipage}}}
@@ -381,6 +385,7 @@
 \newcommand*{\definedas}{\coloneqq}
 \newcommand*{\definedequivalentto}{\vcentcolon\Leftrightarrow}
 \newcommand*{\maps}{\colon}
+\newcommand*{\onetoone}{\xleftrightarrow{1:1}}
 
 % for equivalence proofs
 \RequirePackage{csquotes}
@@ -460,8 +465,8 @@
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
 
 % For complex
-\DeclareFunction-{\real}[1,]{\mathrm{Re}}{#1}
-\DeclareFunction-{\imaginary}[1,]{\mathrm{Im}}{#1}
+\DeclareFunction+{\real}[1,]{\mathrm{Re}}{#1}
+\DeclareFunction+{\imaginary}[1,]{\mathrm{Im}}{#1}
 \newcommand{\conjugate}[1]{\widebar{#1}\nolimits}
 
 % sets
@@ -515,59 +520,62 @@
 
 % make trigonometric functions operators with delimiters
 \let\Sin\relax
-\DeclareFunction-{\Sin}[1,]{\sin}{#1}
+\DeclareFunction+{\Sin}[1,]{\sin}{#1}
 \let\Cos\relax
-\DeclareFunction-{\Cos}[1,]{\cos}{#1}
+\DeclareFunction+{\Cos}[1,]{\cos}{#1}
 \let\Tan\relax
-\DeclareFunction-{\Tan}[1,]{\tan}{#1}
+\DeclareFunction+{\Tan}[1,]{\tan}{#1}
 \let\Sec\relax
-\DeclareFunction-{\Sec}[1,]{\sec}{#1}
+\DeclareFunction+{\Sec}[1,]{\sec}{#1}
 \let\Csc\relax
-\DeclareFunction-{\Csc}[1,]{\csc}{#1}
+\DeclareFunction+{\Csc}[1,]{\csc}{#1}
 \let\Cot\relax
-\DeclareFunction-{\Cot}[1,]{\cot}{#1}
+\DeclareFunction+{\Cot}[1,]{\cot}{#1}
 \let\Sinh\relax
-\DeclareFunction-{\Sinh}[1,]{\sinh}{#1}
+\DeclareFunction+{\Sinh}[1,]{\sinh}{#1}
 \let\Cosh\relax
-\DeclareFunction-{\Cosh}[1,]{\cosh}{#1}
+\DeclareFunction+{\Cosh}[1,]{\cosh}{#1}
 \let\Tanh\relax
-\DeclareFunction-{\Tanh}[1,]{\tanh}{#1}
+\DeclareFunction+{\Tanh}[1,]{\tanh}{#1}
 \let\Sech\relax
-\DeclareFunction-{\Sech}[1,]{\sech}{#1}
+\DeclareFunction+{\Sech}[1,]{\sech}{#1}
 \let\Csch\relax
-\DeclareFunction-{\Csch}[1,]{\csch}{#1}
+\DeclareFunction+{\Csch}[1,]{\csch}{#1}
 \let\Coth\relax
-\DeclareFunction-{\Coth}[1,]{\coth}{#1}
+\DeclareFunction+{\Coth}[1,]{\coth}{#1}
 \let\ArcSin\relax
-\DeclareFunction-{\ArcSin}[1,]{\arcsin}{#1}
+\DeclareFunction+{\ArcSin}[1,]{\arcsin}{#1}
 \let\ArcCos\relax
-\DeclareFunction-{\ArcCos}[1,]{\arccos}{#1}
+\DeclareFunction+{\ArcCos}[1,]{\arccos}{#1}
 \let\ArcTan\relax
-\DeclareFunction-{\ArcTan}[1,]{\arctan}{#1}
+\DeclareFunction+{\ArcTan}[1,]{\arctan}{#1}
 \let\ArcSec\relax
-\DeclareFunction-{\ArcSec}[1,]{\arcsec}{#1}
+\DeclareFunction+{\ArcSec}[1,]{\arcsec}{#1}
 \let\ArcCsc\relax
-\DeclareFunction-{\ArcCsc}[1,]{\arccsc}{#1}
+\DeclareFunction+{\ArcCsc}[1,]{\arccsc}{#1}
 \let\ArcCot\relax
-\DeclareFunction-{\ArcCot}[1,]{\arccot}{#1}
+\DeclareFunction+{\ArcCot}[1,]{\arccot}{#1}
 \let\ArcCosh\relax
-\DeclareFunction-{\ArcCosh}[1,]{\operatorname{arccosh}}{#1} % \ArcCosh of #1 
+\DeclareFunction+{\ArcCosh}[1,]{\operatorname{arccosh}}{#1} % \ArcCosh of #1 
 \let\ArcSinh\relax
-\DeclareFunction-{\ArcSinh}[1,]{\operatorname{arcsinh}}{#1} % \ArcSinh of #1 
+\DeclareFunction+{\ArcSinh}[1,]{\operatorname{arcsinh}}{#1} % \ArcSinh of #1 
 \let\ArcTanh\relax
-\DeclareFunction-{\ArcTanh}[1,]{\operatorname{arctanh}}{#1} % \ArcTanh of #1 
+\DeclareFunction+{\ArcTanh}[1,]{\operatorname{arctanh}}{#1} % \ArcTanh of #1 
 \let\ArcSech\relax
-\DeclareFunction-{\ArcSech}[1,]{\operatorname{arcsech}}{#1} % \ArcSech of #1 
+\DeclareFunction+{\ArcSech}[1,]{\operatorname{arcsech}}{#1} % \ArcSech of #1 
 \let\ArcCsch\relax
-\DeclareFunction-{\ArcCsch}[1,]{\operatorname{arccsch}}{#1} % \ArcCsch of #1 
+\DeclareFunction+{\ArcCsch}[1,]{\operatorname{arccsch}}{#1} % \ArcCsch of #1 
 \let\ArcCoth\relax
-\DeclareFunction-{\ArcCoth}[1,]{\operatorname{arccoth}}{#1} % \ArcCoth of #1 
+\DeclareFunction+{\ArcCoth}[1,]{\operatorname{arccoth}}{#1} % \ArcCoth of #1 
 
 % from M&W
 \DeclareFunction+{\standardprobabilityspace}[3,1]{\Omega_{\Romannum{#1}}}{#2,#3}
-\DeclareFunction+{\binomialdistribution}[3,]{\operatorname{Bin}_{#1,#2}}{#3} % binomial distribution with p=#1, n=#2
-\DeclareFunction+{\poissondistribution}[2,]{\operatorname{Poi}_{#1}}{#2} % poisson distribution with lambda=#1
-\DeclareFunction+{\geometricdistribution}[2,]{\operatorname{Geo}_{#1}}{#2} % geometric distribution with lambda=#1
+\DeclarePairedDelimiterXPP{\binomialdistribution}[2]{\operatorname{Bin}}{\lparen}{\rparen}{}{#1,#2} % binomial distribution with p=#1, n=#2
+\DeclarePairedDelimiterXPP{\poissondistribution}[1]{\operatorname{Poi}}{\lparen}{\rparen}{}{#1} % poisson distribution with lambda=#1
+\DeclarePairedDelimiterXPP{\geometricdistribution}[1]{\operatorname{Geo}}{\lparen}{\rparen}{}{#1} % geometric distribution with lambda=#1
+\DeclarePairedDelimiterXPP{\exponentialdistribution}[1]{\operatorname{Exp}}{\lparen}{\rparen}{}{#1} % exponential distribution with lambda=#1
+\DeclarePairedDelimiterXPP{\normaldistribution}[2]{\mathcal{N}}{\lparen}{\rparen}{}{#1,#2} % normal distribution with mu=#1, sigma=#2
+\DeclarePairedDelimiterXPP{\uniformdistribution}[2]{U}{\lparen}{\rparen}{}{#1,#2} % uniform distribution on [#1,#2]
 \let\complement\relax
 \DeclarePostFunction-{\complement}[1]{^{c}}{#1}
 
@@ -575,7 +583,7 @@
 \newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
 
 % from DIFF
-\DeclareFunction*{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare funktionen of #2
+\DeclareFunction*{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
 \DeclareFunction-{\pushforward}[2,]{{#1}_{\star}}{#2} % push-forward of #2 along #1    
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
@@ -604,11 +612,13 @@
 \DeclareFunction+{\homogendglloesungsraum}[2,]{\mathcal{L}_{\textnormal{H},#1}}{#2} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=0, #1 array of matrices
 \DeclareFunction+{\inhomogendglloesungsraum}[3,1]{\mathcal{L}_{\textnormal{I},#1}}{#2,#3} % space of solutions of homogenous dgl of order #3 x^{k}+#1.(k-1)x^{k-1}+...+#1.1x'+#1.0x=#2, #1 array of matrices, #2 vector 
 \DeclareFunction+{\wronskideterminant}[1,]{W}{#1} % Wronski-Determinante an Zeitpunkt #1
-\DeclareFunction-{\Ln}[1,]{\ln}{#1} % Logarithmus naturalis of #1
+\DeclareFunction+{\Ln}[1,]{\ln}{#1} % Logarithmus naturalis of #1
 \DeclareFunction+{\moebiusabbildungenmenge}[1,]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
 \DeclareFunction-{\randpunkte}[1,]{\partial}{#1} % \randpunkte of #1 
+\DeclarePostFunction-{\interior}[1]{^{\circ}}{#1}
 \DeclarePostFunction-{\inneres}[1]{^{\circ}}{#1}
 \newcommand{\closure}[1]{\widebar{#1}}
+\let\abschluss\closure
 \newcommand*{\matrixmult}{\mathbin{.}}
 \newcommand*{\laplaceoperator}{\Delta}
 \newcommand*{\kroneckerdelta}[1]{\delta_{#1}} % Kronecker Delta of indices #1
@@ -620,19 +630,19 @@
 % operators
 \DeclareFunction+{\sgn}[1,]{\operatorname{sgn}}{#1} % \sgn of #1 
 \DeclareFunction+{\Abb}[1,]{\operatorname{Abb}}{#1} % \Abb of #1 
-\DeclareFunction-{\Ker}[1,]{\operatorname{Ker}}{#1} % \Ker of #1 
-\DeclareFunction-{\Kern}[1,]{\operatorname{Kern}}{#1} % Kern of #1 
-\DeclareFunction-{\Urbild}[1,]{\operatorname{Urbild}}{#1} % Bild of #1 
-\DeclareFunction-{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
+\DeclareFunction+{\Ker}[1,]{\operatorname{Ker}}{#1} % \Ker of #1 
+\DeclareFunction+{\Kern}[1,]{\operatorname{Kern}}{#1} % Kern of #1 
+\DeclareFunction+{\Urbild}[1,]{\operatorname{Urbild}}{#1} % Bild of #1 
+\DeclareFunction+{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
 \DeclareMathOperator{\Id}{Id} % Identity
-\DeclareFunction-{\traeger}[1,]{\operatorname{supp}}{#1} % Träger of function #1
-\DeclareFunction-{\image}[1,]{\operatorname{Im}}{#1} % \image of #1 
-\DeclareFunction-{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
-\DeclareFunction-{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
-\DeclareFunction-{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
-\DeclareFunction-{\gradient}[1,]{\nabla}{#1} % grad of #1 
+\DeclareFunction+{\traeger}[1,]{\operatorname{supp}}{#1} % Träger of function #1
+\DeclareFunction+{\image}[1,]{\operatorname{Im}}{#1} % \image of #1 
+\DeclareFunction+{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
+\DeclareFunction+{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
+\DeclareFunction+{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
+\DeclareFunction+{\gradient}[1,]{\nabla}{#1} % grad of #1 
 % from AGLA
-\DeclareFunction-{\exterior}[2,]{\Lambda^{#1}}{#2} % Bijections of #1 
+\DeclareFunction+{\exterior}[2,]{\Lambda^{#1}}{#2} % Bijections of #1 
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
 \DeclareFunction+{\bilinearities}[3,0]{\operatorname{Bil}}{#1,#2;#3} % bilinearities of #1 x #2 into #3
 % \let\endomorphisms    \relax
@@ -645,8 +655,8 @@
 \DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #3 
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
 
-\DeclareFunction-{\determinant}[1,]{\det}{#1} % determinant of #1
-\DeclareFunction-{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
+\DeclareFunction+{\determinant}[1,]{\det}{#1} % determinant of #1
+\DeclareFunction+{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
 \DeclareFunction+{\invertiblematrices}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
 \DeclareFunction+{\orthogonalmatrices}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
 \DeclareFunction+{\diagonalmatrix}[1,]{\operatorname{diag}}{#1} % diagonal matrix with diagonal entries #1
@@ -674,7 +684,7 @@
 \DeclareFunction+{\Spur}[1,]{\operatorname{Spur}}{#1} % Spur of #1 
 \DeclarePairedDelimiterXPP{\teilverhaeltnis}[3]{\operatorname{TV}}{\lparen}{\rparen}{}{#1,#2,#3} % Teilverhältnis
 \DeclarePairedDelimiterXPP{\doppelverhaeltnis}[4]{\operatorname{DV}}{\lparen}{\rparen}{}{#1,#2,#3,#4} % Doppelverhältnis
-\DeclareFunction-{\characteristic}[1,]{\operatorname{char}}{#1} % characteristic of #1 
+\DeclareFunction+{\characteristic}[1,]{\operatorname{char}}{#1} % characteristic of #1 
 \DeclareFunction+{\fixpunkte}[1,]{\operatorname{Fix}}{#1} % Fixpunkte of #1 
 \DeclareFunction+{\signature}[1,]{\operatorname{sign}}{#1} % signature of quadrik #1
 \let\Exp\relax
@@ -780,11 +790,25 @@
 \DeclareFunction+{\treppenfunktionen}[1,]{\operatorname{\mathcal{T}}}{#1}
 \DeclarePostFunction-{\parendiff}[2]{^{\parens*{#2}}}{#1} % #2th derivative of #1
 \DeclareFunction+{\diracmeasure}[2,]{\delta_{#1}}{#2}
+\DeclareFunction+{\lebesguemeasure}[1,]{\lambda}{#1}
+\DeclareFunction+{\borelalgebra}[1,]{\mathcal{B}}{#1} % borel algebra over field #1
 \DeclareFunction+{\lebesguefunctionspace}[2,]{L^{#1}}{#2} % lebesgue (L^#1) space over a measure #2
 \DeclareFunction;{\lebesguesequencespace}[2,]{\ell^{#1}}{#2} % sequence (l^#1) space over a field #2
 \DeclareFunction;{\convergentsequencespace}[1,]{c}{#1} % space of convergent sequences over a field #1
 \DeclareFunction;{\nullsequencespace}[1,]{c}{#1} % space of null sequences over a field #1
 \DeclareFunction;{\eventuallyzerosequencespace}[1,]{c_{00}}{#1} % space of eventually zero sequences over a field #1
+
+% from AlgGeo
+\newcommand{\projectivespace}[1]{\mathbb{P}^{#1}}
+\newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
+\newcommand{\localring}[2]{\mathcal{O}_{X,p}}
+\newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\localring{#1}{#2},#3)}
+\DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
+\DeclareFunction+{\twistingsheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}}{#2} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
+\DeclareFunction+{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
+\DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
+\DeclareFunction+{\zeroes}[1,]{Z}{#1} % vanishing / zeroes of ideal or function #1
+\DeclareFunction+{\projectivezeroes}[1,]{Z_+}{#1} % vanishing / zeroes of homogeneous ideal or function #1
 
 
 
