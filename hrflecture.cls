@@ -16,30 +16,39 @@
 % main package
 \RequirePackage{hrftex}
 
+
+\newcaptionname{english}{\filelisttranslation}{List of files}
+\newcaptionname{ngerman}{\filelisttranslation}{Dateienverzeichnis}
+\newcaptionname{english}{\lecturelisttranslation}{List of lectures}
+\newcaptionname{ngerman}{\lecturelisttranslation}{Vorlesungsverzeichnis}
+\newcaptionname{english}{\lecturetranslation}{Lecture}
+\newcaptionname{ngerman}{\lecturetranslation}{Vorlesungs}
+\newcaptionname{english}{\filetranslation}{File}
+\newcaptionname{ngerman}{\filetranslation}{Datei}
+
 % for \lecture macro, writes to margin
-\DeclareNewTOC[owner=hrflecture,listname=Vorlesungsverzeichnis,type=lecture,types=lectures, name=Vorlesung]{listoflectures}
+\DeclareNewTOC[owner=hrflecture,listname=\lecturelisttranslation,type=lecture,types=lectures, name=Vorlesung]{listoflectures}
 \def\@lecture{}
 \newcommand{\lecture}[3][]{%
     \stepcounter{lecture} % be sure to reset all dependent counters
     
     \ifblank{#3}{%
         \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}[\thelecture]{#2}}{\addxcontentsline{listoflectures}{section}[#1]{#2}}%
-        \def\@lecture{Vorlesung \arabic{lecture}}%
+        \def\@lecture{\lecturetranslation{} \arabic{lecture}}%
     }{%
         \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}{#3}}{\addxcontentsline{listoflectures}{section}[#1]{#3}}%
-        \def\@lecture{Vorlesung \arabic{lecture}: #3}%
+        \def\@lecture{\lecturetranslation{} \arabic{lecture}: #3}%
     }%
     \subsection*{\@lecture}%
     \marginpar{\hfuzz=10pt\small\textsf{\mbox{#2}}}%
 }
-
 \iffilemanagement
-    \DeclareNewTOC[owner=hrflecture,listname=Dateienverzeichnis,type=file,types=files, name=Datei]{listoffiles}
+    \DeclareNewTOC[owner=hrflecture,listname=\filelisttranslation,type=file,types=files, name=\filetranslation]{listoffiles}
     \def\@file{}
     \newcommand{\file}[2][]{
         \stepcounter{file} % be sure to reset all dependent counters
         \ifstrempty{#1}{\addxcontentsline{listoffiles}{section}[\thefile]{#2}}{\addxcontentsline{listoffiles}{section}[#1]{#2}}%
-        \def\@file{Datei \arabic{file}: #2}%
+        \def\@file{\filetranslation{} \arabic{file}: #2}%
         \marginpar{\raggedright\small\@file}%
     }
 \else\fi
