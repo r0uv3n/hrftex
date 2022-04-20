@@ -113,7 +113,7 @@
     \gdef\@author{#2}
 }
 
-\university[Uni Göttingen]{Universität Göttingen}
+\university[Uni Göttingen]{Georg-August-Universität Göttingen}
 \def\@course{
     \ClassWarning{uhhassignment}{No \protect\course\space given}
 }
@@ -195,9 +195,19 @@
 \setkomafont{pagefoot}{\textnormal}
 \ifhrfassignment@repeatauthor
     \ifoot[\@shortauthor]{\@shortauthor}
-    \ofoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
+    \iflanguage{english}{
+        \ofoot[Page \pagemark{} of \pageref{LastPage}]{Page \pagemark{} of \pageref{LastPage}}
+    }
+    \iflanguage{ngerman}{
+        \ofoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
+    }
 \else
-    \cfoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
+    \iflanguage{english}{
+        \cfoot[Page \pagemark{} of \pageref{LastPage}]{Page \pagemark{} of \pageref{LastPage}}
+    }
+    \iflanguage{ngerman}{
+        \cfoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
+    }
 \fi
 
 \newpagestyle{firstpage}[]{%
