@@ -176,6 +176,7 @@
 \NewTheorem{ergaenzung}{Ergänzung}
 \NewTheorem{example}{Example}
 \NewTheorem{examples}{Examples}
+\NewTheorem{exercise}{Exercise}
 \NewTheorem{exkurs}{Exkurs}
 \NewTheorem{erinnerung}{Erinnerung}
 \NewTheorem{fact}{Fact}
@@ -188,6 +189,7 @@
 \NewTheorem{frage}{Frage}
 \NewTheorem{frageuebung}{Frage / Übung}
 \NewTheorem{fragen}{Fragen}
+\NewTheorem{hint}{Hint}
 \NewTheorem{idee}{Idee}
 \NewTheorem{interpretation}{Interpretation}
 \NewTheorem{intuition}{Intuition}
@@ -205,6 +207,7 @@
 \NewTheorem{satz}{Satz}
 \NewTheorem{satzdef}{Satz / Definition}
 \NewTheorem{spezialfall}{Spezialfall}
+\NewTheorem{theorem}{Theorem}
 \NewTheorem{wiederholung}{Wiederholung}
 \NewTheorem{ziel}{Ziel}
 
@@ -813,6 +816,8 @@
 \DeclareFunction+{\zeroes}[1,]{Z}{#1} % vanishing / zeroes of ideal or function #1
 \DeclareFunction+{\projectivezeroes}[1,]{Z_+}{#1} % vanishing / zeroes of homogeneous ideal or function #1
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
+\newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
+\newcommand{\localization}[2]{#1_{#2}} % ring #1 localized at ideal #2
 
 
 
