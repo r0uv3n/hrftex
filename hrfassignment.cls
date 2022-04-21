@@ -45,7 +45,7 @@
 \LoadClassWithOptions{scrartcl}
 
 
-\PassOptionsToPackage{a4paper, left=25mm, right=25mm, top=20mm, bottom=50mm}{geometry} % Page Margins
+\PassOptionsToPackage{a4paper, left=25mm, right=25mm, top=20mm, bottom=50mm,marginparwidth=20mm}{geometry} % Page Margins
 
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage} % Header and Footer
 
