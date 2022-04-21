@@ -40,7 +40,7 @@
         \def\@lecture{\lecturetranslation{} \arabic{lecture}: #3}%
     }%
     \subsection*{\@lecture}%
-    \marginpar{\hfuzz=10pt\small\textsf{\mbox{#2}}}%
+    \marginpar{\raggedright\small\textsf{#2}}%
 }
 \iffilemanagement
     \DeclareNewTOC[owner=hrflecture,listname=\filelisttranslation,type=file,types=files, name=\filetranslation]{listoffiles}
