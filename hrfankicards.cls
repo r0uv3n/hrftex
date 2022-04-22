@@ -77,4 +77,4 @@
 
 % Document settings
 \AtBeginDocument{\pagenumbering{arabic}}
-\setlength{\parindent}{0em}
+\KOMAoption{parskip}{half-}

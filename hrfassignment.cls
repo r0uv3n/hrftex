@@ -308,7 +308,4 @@
     \endgroup%
 }
 
-\endinput
-
-%%
-%% End of file `hrfassignment.cls'.
+\KOMAoption{parskip}{half-}

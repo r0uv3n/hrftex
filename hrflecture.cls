@@ -72,7 +72,7 @@
 
 % Document settings
 \AtBeginDocument{\pagenumbering{arabic}}
-\setlength{\parindent}{0em}
+\KOMAoption{parskip}{half-}
 
 % We don't need _that_ many warnings
 \hfuzz=10pt
