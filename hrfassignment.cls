@@ -1,4 +1,5 @@
-% This Package is based on uhhassignment
+% This Package is based on uhhassignment, which can be found on CTAN.
+% License is "The LATEX Project Public License 1.3c"
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{hrfassignment}[2021/04/14 v1.0 For working on exercise sheets]
@@ -195,19 +196,9 @@
 \setkomafont{pagefoot}{\textnormal}
 \ifhrfassignment@repeatauthor
     \ifoot[\@shortauthor]{\@shortauthor}
-    \IfLanguageName{english}{
-        \ofoot[Page \pagemark{} of \pageref{LastPage}]{Page \pagemark{} of \pageref{LastPage}}
-    }{}
-    \IfLanguageName{ngerman}{
-        \ofoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
-    }{}
+    \ofoot{\IfLanguageName{ngerman}{Seite \pagemark{} von \pageref{LastPage}}{Page \pagemark{} of \pageref{LastPage}}}
 \else
-    \IfLanguageName{english}{
-        \cfoot[Page \pagemark{} of \pageref{LastPage}]{Page \pagemark{} of \pageref{LastPage}}
-    }{}
-    \IfLanguageName{ngerman}{
-        \cfoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
-    }{}
+    \cfoot{\IfLanguageName{ngerman}{Seite \pagemark{} von \pageref{LastPage}}{Page \pagemark{} of \pageref{LastPage}}}
 \fi
 
 \newpagestyle{firstpage}[]{%
