@@ -195,19 +195,19 @@
 \setkomafont{pagefoot}{\textnormal}
 \ifhrfassignment@repeatauthor
     \ifoot[\@shortauthor]{\@shortauthor}
-    \iflanguage{english}{
+    \IfLanguageName{english}{
         \ofoot[Page \pagemark{} of \pageref{LastPage}]{Page \pagemark{} of \pageref{LastPage}}
-    }
-    \iflanguage{ngerman}{
+    }{}
+    \IfLanguageName{ngerman}{
         \ofoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
-    }
+    }{}
 \else
-    \iflanguage{english}{
+    \IfLanguageName{english}{
         \cfoot[Page \pagemark{} of \pageref{LastPage}]{Page \pagemark{} of \pageref{LastPage}}
-    }
-    \iflanguage{ngerman}{
+    }{}
+    \IfLanguageName{ngerman}{
         \cfoot[Seite \pagemark{} von \pageref{LastPage}]{Seite \pagemark{} von \pageref{LastPage}}
-    }
+    }{}
 \fi
 
 \newpagestyle{firstpage}[]{%
