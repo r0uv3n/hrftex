@@ -199,11 +199,13 @@
 \NewTheorem{korollar}{Korollar}
 \NewTheorem{notation}{Notation}
 \NewTheorem{notationen}{Notationen}
+\NewTheorem{note}{Note}
 \NewTheorem{merkregel}{Merkregel}
 \NewTheorem{motivation}{Motivation}
 \NewTheorem{proposition}{Proposition}
 \NewTheorem{rechentrick}{Rechentrick}
 \NewTheorem{remark}{Remark}
+\NewTheorem{remarkdef}{Remark / Definition}
 \NewTheorem{satz}{Satz}
 \NewTheorem{satzdef}{Satz / Definition}
 \NewTheorem{spezialfall}{Spezialfall}
@@ -391,7 +393,10 @@
 \newcommand*{\definedas}{\coloneqq}
 \newcommand*{\definedequivalentto}{\vcentcolon\Leftrightarrow}
 \newcommand*{\maps}{\colon}
+\newcommand*{\isomorphic}{\simeq}
 \newcommand*{\onetoone}{\xleftrightarrow{1:1}}
+\newcommand*{\into}{\hookrightarrow}
+% \newcommand*{\onto}{\rightarrow}
 
 % for equivalence proofs
 \RequirePackage{csquotes}
@@ -805,19 +810,24 @@
 \DeclareFunction;{\eventuallyzerosequencespace}[1,]{c_{00}}{#1} % space of eventually zero sequences over a field #1
 
 % from AlgGeo
+\DeclareFunction+{\quotientfield}[1,]{\operatorname{Quot}}{#1} % quotient field of field #1
 \newcommand{\projectivespace}[1]{\mathbb{P}^{#1}}
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
 \newcommand{\localring}[2]{\mathcal{O}_{X,p}}
 \newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\localring{#1}{#2},#3)}
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\twistingsheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}}{#2} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
-\DeclareFunction+{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
+\DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
 \DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
-\DeclareFunction+{\zeroes}[1,]{Z}{#1} % vanishing / zeroes of ideal or function #1
+\DeclareFunction+{\zeroes}[1,]{Z}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
+\DeclareFunction+{\vanishing}[1,]{V}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
 \DeclareFunction+{\projectivezeroes}[1,]{Z_+}{#1} % vanishing / zeroes of homogeneous ideal or function #1
+\DeclareFunction+{\schemeideal}[1,]{I}{#1} % Ideal of a subset #1 of a scheme / variety
+\DeclareFunction+{\distinguishedopen}[1,]{D}{#1} % distinguished open of a function (or an element of a ring) #1 
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
 \newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
 \newcommand{\localization}[2]{#1_{#2}} % ring #1 localized at ideal #2
+\DeclareFunction+{\residuefield}[1,]{\mathcal{K}}{#1} % residue field at prime ideal p (point in spectrum)
 
 
 
