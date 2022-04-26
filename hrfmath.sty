@@ -819,7 +819,6 @@
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
 \newcommand{\localring}[2]{\mathcal{O}_{#1,#2}}
 \newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\localring{#1}{#2},#3)}
-\DeclareFunction+{\stalk}
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\twistingsheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}}{#2} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
