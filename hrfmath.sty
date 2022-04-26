@@ -203,6 +203,7 @@
 \NewTheorem{merkregel}{Merkregel}
 \NewTheorem{motivation}{Motivation}
 \NewTheorem{proposition}{Proposition}
+\NewTheorem{recall}{Recall}
 \NewTheorem{rechentrick}{Rechentrick}
 \NewTheorem{remark}{Remark}
 \NewTheorem{remarkdef}{Remark / Definition}
@@ -594,7 +595,9 @@
 \newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
 
 % from DIFF
-\DeclareFunction*{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
+\DeclareFunction+{\smoothmaps}[1,]{C^{\infty}}{#1} % smooth maps from #1 to the reals
+\newcommand{\complexprojectivespace}[1]{{\complexes P}^{#1}}
+\DeclareFunction+{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
 \DeclareFunction-{\pushforward}[2,]{{#1}_{\star}}{#2} % push-forward of #2 along #1    
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
@@ -808,13 +811,15 @@
 \DeclareFunction;{\convergentsequencespace}[1,]{c}{#1} % space of convergent sequences over a field #1
 \DeclareFunction;{\nullsequencespace}[1,]{c}{#1} % space of null sequences over a field #1
 \DeclareFunction;{\eventuallyzerosequencespace}[1,]{c_{00}}{#1} % space of eventually zero sequences over a field #1
+\DeclarePairedDelimiterX{\commutator}[2]{\langle}{\rangle}{#1,#2} % commutator of elements #1, #2 of non commutative ring
 
 % from AlgGeo
 \DeclareFunction+{\quotientfield}[1,]{\operatorname{Quot}}{#1} % quotient field of field #1
 \newcommand{\projectivespace}[1]{\mathbb{P}^{#1}}
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
-\newcommand{\localring}[2]{\mathcal{O}_{X,p}}
+\newcommand{\localring}[2]{\mathcal{O}_{#1,#2}}
 \newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\localring{#1}{#2},#3)}
+\DeclareFunction+{\stalk}
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\twistingsheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}}{#2} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
@@ -826,12 +831,13 @@
 \DeclareFunction+{\distinguishedopen}[1,]{D}{#1} % distinguished open of a function (or an element of a ring) #1 
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
 \newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
-\newcommand{\localization}[2]{#1_{#2}} % ring #1 localized at ideal #2
+\newcommand{\localization}[2]{#1_{#2}} % ring #1 localized at ideal or element of ring #2
 \DeclareFunction+{\residuefield}[1,]{\mathcal{K}}{#1} % residue field at prime ideal p (point in spectrum)
 
 
 
 % from AGLA
+\newcommand{\euclideanspace}[1]{\mathbb{E}^{#1}} % euclidean (affine) space of dimension 2
 \DeclarePairedDelimiterX{\generated}[1]{\langle}{\rangle}{#1}
 \DeclarePairedDelimiterX{\scalarproduct}[2]{\langle}{\rangle}{#1,#2}
 \DeclarePairedDelimiterX{\spatproduct}[3]{\lparen}{\rparen}{#1,#2,#3}
