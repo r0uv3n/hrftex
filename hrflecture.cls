@@ -36,7 +36,7 @@
         \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}[\thelecture]{#2}}{\addxcontentsline{listoflectures}{section}[#1]{#2}}%
         \def\@lecture{\lecturetranslation{} \arabic{lecture}}%
     }{%
-        \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}{#3}}{\addxcontentsline{listoflectures}{section}[#1]{#3}}%
+        \ifstrempty{#1}{\addxcontentsline{listoflectures}{section}[\thelecture]{#2: #3}}{\addxcontentsline{listoflectures}{section}[#1]{#2: #3}}%
         \def\@lecture{\lecturetranslation{} \arabic{lecture}: #3}%
     }%
     \subsection*{\@lecture}%
