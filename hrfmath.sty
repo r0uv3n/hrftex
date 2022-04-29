@@ -68,7 +68,7 @@
 % for \mathds{1}
 \RequirePackage{dsfont}
 
-% for some symbols (documented when used)
+% for some symbols (hopefully documented when used)
 \RequirePackage{stmaryrd}
 
 % for theorems
@@ -76,39 +76,20 @@
 \PassOptionsToPackage{amsmath, thmmarks, amsthm}{ntheorem}
 \RequirePackage{ntheorem}
 \usetagform{default}
-\renewcommand{\qedsymbol}{$\blacksquare$} % so that the square can be used for subproofs
-\newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
+\gdef\proofSymbol{\ensuremath{\blacksquare}} % so that the square can be used for subproofs
+\newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\def\proofSymbol{\ensuremath{\square}}}{\end{proof}}
 }
-
-\def\DeclareMathOperatorWithDelimiter#1#2[#3,#4]#5#6#7#8{ 
-  \newcommand{#2}{}
-  \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{#5}{#6}{#7}{}{#8} %  #2+ with delimiters, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
-  \WithSuffix\newcommand#2-[#3]{#5 #8} % #1-:no delimiters
-  \WithSuffix\newcommand#2;[\ifstrempty{#4}{\the\numexpr #3-1\relax}{#4}]{#5} % #2;: (with #2-1 arguments) only prints #4
-  \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
-}
-\def\DeclareFunction#1#2[#3,#4]#5#6{
-    \DeclareMathOperatorWithDelimiter#1{#2}[#3,#4]{#5}{\lparen}{\rparen}{#6}
-}
-\def\DeclareMathPostOperatorWithDelimiter#1#2[#3]#4#5#6#7{
-    \newcommand{#2}{}
-    \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{}{#5}{#6}{#4}{#7} %  #2+ variant, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
-    \WithSuffix\newcommand#2-[#3]{{#7}#4} % #1-: no delimiters
-    \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
-}
-
-\def\DeclarePostFunction#1#2[#3]#4#5{
-    \DeclareMathPostOperatorWithDelimiter#1{#2}[#3]{#4}{\lparen}{\rparen}{#5}
-}
+\RequirePackage{thmtools}
+\RequirePackage{thm-restate}
 
 
-% Note: if you want to swap the default after definition, or otherwise redefine a MOWD or MPOWD macro, first define a new MOWD or MPOWD macro with a new name and then \let it to the old macro name.
-
-\iftoggle{nontheorem}{}{
-\theoremstyle{definition}
 % consistent numbering
-\iftoggle{numberwithin}{\newtheorem{generalthm}{}[\numbertheoremswithinthis]}{\newtheorem{generalthm}{}}
-\renewtheorem*{generalthm*}{}
+\theoremstyle{definition}
+\iftoggle{numberwithin}{\declaretheorem[numberwithin=\numbertheoremswithinthis,name={}]{generalthm}}{\declaretheorem[name={}]{generalthm}}
+\iftoggle{nontheorem}{
+    \declaretheorem[name={},numbered=no]{generalthm*}
+}{
+    \renewtheorem*{generalthm*}{}
 }
 
 
@@ -130,19 +111,22 @@
     \phantomsection\label{#1}\endgroup
 }}
 
-\iftoggle{nontheorem}{}{
 \newcommand{\NewTheorem}[2]{
-    % \newaliascnt{#1}{theorem}    
     \iftoggle{numberindividually}
         {\iftoggle{numberwithin}
-            {\newtheorem{#1}{#2}[\numbertheoremswithinthis]}
-            {\newtheorem{#1}{#2}}}
-        {\newtheorem{#1}[generalthm]{#2}} 
-    \renewtheorem*{#1*}{#2}
+            {\declaretheorem[name=#2,numberwithin=\numbertheoremswithinthis]{#1}}
+            {\declaretheorem[name=#2]{#1}}}
+        {\declaretheorem[numberlike=generalthm,name=#2]{#1}} 
+    \iftoggle{nontheorem}{
+        \declaretheorem[name=#2, numbered=no]{#1}
+    }{
+        \renewtheorem*{#1*}{#2}
+    }
     \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
 }
-
+\iftoggle{nontheorem}{}{
 \theoremheaderfont{\normalfont\bfseries}
+
 
 \NewTheorem{anwendung}{Anwendung}
 \NewTheorem{anwendungen}{Anwendungen}
@@ -299,6 +283,31 @@
 % end of package imports
 
 
+\def\DeclareMathOperatorWithDelimiter#1#2[#3,#4]#5#6#7#8{ 
+  \newcommand{#2}{}
+  \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{#5}{#6}{#7}{}{#8} %  #2+ with delimiters, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
+  \WithSuffix\newcommand#2-[#3]{#5 #8} % #1-:no delimiters
+  \WithSuffix\newcommand#2;[\ifstrempty{#4}{\the\numexpr #3-1\relax}{#4}]{#5} % #2;: (with #2-1 arguments) only prints #4
+  \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
+}
+\def\DeclareFunction#1#2[#3,#4]#5#6{
+    \DeclareMathOperatorWithDelimiter#1{#2}[#3,#4]{#5}{\lparen}{\rparen}{#6}
+}
+\def\DeclareMathPostOperatorWithDelimiter#1#2[#3]#4#5#6#7{
+    \newcommand{#2}{}
+    \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{}{#5}{#6}{#4}{#7} %  #2+ variant, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
+    \WithSuffix\newcommand#2-[#3]{{#7}#4} % #1-: no delimiters
+    \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
+}
+
+\def\DeclarePostFunction#1#2[#3]#4#5{
+    \DeclareMathPostOperatorWithDelimiter#1{#2}[#3]{#4}{\lparen}{\rparen}{#5}
+}
+
+
+% Note: if you want to swap the default after definition, or otherwise redefine a MOWD or MPOWD macro, first define a new MOWD or MPOWD macro with a new name and then \let it to the old macro name.
+
+
 % allow a page break within amsmath math formulas,
 % use \\* to prohibit a page break
 \allowdisplaybreaks[1]
@@ -365,8 +374,8 @@
 \newcommand{\underrelate}[4][]{\underset{\overset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\overrelate}[4][]{\overset{\underset{\csname #1\endcsname{#2}}{\mathclap{#3}}}{#4}}
 \newcommand{\explain}[3][]{\underrelate[#1]{\uparrow}{#2}{#3}}
-\newcommand{\undersubset}[3][]{\underrelate[#1]{\rotatebox[origin=c]{90}{\subset}}{#2}{#3}}
-\newcommand{\undersupset}[3][]{\underrelate[#1]{\rotatebox[origin=c]{90}{\supset}}{#2}{#3}}
+\newcommand{\undersubset}[3][]{\underrelate[#1]{\vertrelation{\subset}}{#2}{#3}}
+\newcommand{\undersupset}[3][]{\underrelate[#1]{\vertrelation{\supset}}{#2}{#3}}
 
 
 \newcommand{\braceannotate}[2]{\ThisStyle{\underbrace{\SavedStyle #2}_{#1}}}
@@ -596,7 +605,8 @@
 
 % from DIFF
 \DeclareFunction+{\smoothmaps}[1,]{C^{\infty}}{#1} % smooth maps from #1 to the reals
-\newcommand{\complexprojectivespace}[1]{{\complexes P}^{#1}}
+\newcommand{\complexprojectivespace}[1]{{\complexes \mathbb{P}}^{#1}}
+\newcommand{\realprojectivespace}[1]{{\reals \mathbb{P}}^{#1}}
 \DeclareFunction+{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
 \DeclareFunction-{\pushforward}[2,]{{#1}_{\star}}{#2} % push-forward of #2 along #1    
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
@@ -618,8 +628,10 @@
 \DeclareFunction+{\laguerrepolynomial}[2,]{L_{#1}}{#2}
 \DeclareFunction+{\besselfirstkind}[2,]{J_{#1}}{#2}
 
-\DeclareFunction-{\normalenraum}[2,]{\operatorname{N}_{#1}}{#2} % \normalenraum of #2 at #1
-\DeclareFunction-{\tangentialraum}[2,]{\operatorname{T}_{#1}}{#2} % \tangentialraum of #2 at #1
+\DeclareFunction+{\autodiffeomorphisms}[1,]{\operatorname{Diff}}{#1} % group of diffeomorphisms from #1 into #1
+\DeclareFunction-{\normalspace}[2,]{N_{#1}}{#2} % normal space of manifold #2 at point #1
+\DeclareFunction-{\tangentspace}[2,]{T_{#1}}{#2} % tangent space of manifold #2 at point #1
+\DeclareFunction-{\tangentbundle}[1,]{T}{#1} % tangent bundle of manifold #1
 \DeclareFunction+{\cauchyfolgenmenge}[1,]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
 \DeclareFunction+{\homogenreddglloesungsraum}[1,]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
 \DeclareFunction+{\inhomogenreddglloesungsraum}[2,0]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
@@ -817,9 +829,10 @@
 \DeclareFunction+{\quotientfield}[1,]{\operatorname{Quot}}{#1} % quotient field of field #1
 \newcommand{\projectivespace}[1]{\mathbb{P}^{#1}}
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
-\newcommand{\localring}[2]{\mathcal{O}_{#1,#2}}
-\newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\localring{#1}{#2},#3)}
+\newcommand{\stalk}[2]{\mathcal{O}_{#1,#2}}
+\newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\stalk{#1}{#2},#3)}
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
+\DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\twistingsheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}}{#2} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
 \DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
@@ -873,4 +886,4 @@
 \DeclareRobustCommand{\teq}{\( = \)~}
 \DeclareRobustCommand{\tsubset}{\( \subset \)~}
 \DeclareRobustCommand{\tiff}{\( \iff \)~}
-\DeclareRobustCommand{\tto}{\( \to \)}
+\DeclareRobustCommand{\tto}{\( \to \)~}
