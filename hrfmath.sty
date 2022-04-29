@@ -32,7 +32,7 @@
 
 
 \ProcessPgfOptions{/hrftex/hrfmath}
-
+\toggletrue{nontheorem}
 % Process numberwithin
 \pgfkeys{/hrftex/hrfmath/numberwithin/.get=\numbertheoremswithinthis}
 \def\novaluegiven{\pgfkeysnovalue}
@@ -72,7 +72,11 @@
 \RequirePackage{stmaryrd}
 
 % for theorems
-\iftoggle{nontheorem}{}{
+\iftoggle{nontheorem}{
+    \RequirePackage{amsthm}
+    \renewcommand{\qedsymbol}{$\blacksquare$}
+    \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
+}{
 \PassOptionsToPackage{amsmath, thmmarks, amsthm}{ntheorem}
 \RequirePackage{ntheorem}
 \usetagform{default}
@@ -84,14 +88,11 @@
 
 
 % consistent numbering
-\theoremstyle{definition}
+\declaretheoremstyle{standardThmStyle}
+\theoremstyle{standardThmStyle}
 \iftoggle{numberwithin}{\declaretheorem[numberwithin=\numbertheoremswithinthis,name={}]{generalthm}}{\declaretheorem[name={}]{generalthm}}
-\iftoggle{nontheorem}{
-    \declaretheorem[name={},numbered=no]{generalthm*}
-}{
-    \renewtheorem*{generalthm*}{}
-}
-
+\let\generalthm*\relax
+\declaretheorem[name={},numbered=no]{generalthm*}
 
 % for references to items in enumerations
 \iftoggle{noenumitem}{}{
@@ -117,17 +118,15 @@
             {\declaretheorem[name=#2,numberwithin=\numbertheoremswithinthis]{#1}}
             {\declaretheorem[name=#2]{#1}}}
         {\declaretheorem[numberlike=generalthm,name=#2]{#1}} 
-    \iftoggle{nontheorem}{
-        \declaretheorem[name=#2, numbered=no]{#1}
-    }{
-        \renewtheorem*{#1*}{#2}
+    \iftoggle{nontheorem}{}{
+    \expandafter\let\csname #1*\endcsname\relax % ntheorem defines starred variants which we don't want
     }
+    \declaretheorem[name=#2, numbered=no]{#1*}
     \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
 }
-\iftoggle{nontheorem}{}{
-\theoremheaderfont{\normalfont\bfseries}
 
-
+% beamer defines its own theorems
+\@ifclassloaded{beamer}{}{
 \NewTheorem{anwendung}{Anwendung}
 \NewTheorem{anwendungen}{Anwendungen}
 \NewTheorem{aufwaermuebung}{Aufwärm-Übung}
@@ -200,17 +199,6 @@
 
 \newtheorem{subsatz}{Satz}[generalthm]
 \renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
-
-\theoremseparator{.}
-\theorembodyfont{\normalfont}
-\newtheoremstyle{blank}%
-{\item[\theorem@headerfont\hskip\labelsep ##1\theorem@separator]}%
-{\item[\theorem@headerfont \hskip\labelsep\relax ##2\ ##3\theorem@separator]}
-\newtheoremstyle{nonumberblank}{\item[]}%
-{\item[\theorem@headerfont \hskip\labelsep\relax ##3\theorem@separator]}
-\theoremstyle{blank}
-\newtheorem{blank}[generalthm]{}
-\renewtheorem*{blank*}{}
 }
 % stack below with optional argument
 \RequirePackage{stackrel}
