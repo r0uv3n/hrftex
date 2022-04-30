@@ -495,8 +495,8 @@
     \renewcommand\given{\SetSymbol[\delimsize]}
     #1
 }
-\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\SetSymbol[\delimsize] #2}
-\DeclarePairedDelimiterX\appliedbraket[3]{\langle}{\rangle}{#1\SetSymbol[\delimsize] #2\SetSymbol[\delimsize] #3}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\delimsize\vert #2}
+\DeclarePairedDelimiterX\appliedbraket[3]{\langle}{\rangle}{#1\delimsize\vert #2\delimsize\vert #3}
 \DeclarePairedDelimiter\bra{\langle}{\rvert}
 \DeclarePairedDelimiter\ket{\lvert}{\rangle}
 
@@ -811,7 +811,7 @@
 \DeclareFunction;{\convergentsequencespace}[1,]{c}{#1} % space of convergent sequences over a field #1
 \DeclareFunction;{\nullsequencespace}[1,]{c}{#1} % space of null sequences over a field #1
 \DeclareFunction;{\eventuallyzerosequencespace}[1,]{c_{00}}{#1} % space of eventually zero sequences over a field #1
-\DeclarePairedDelimiterX{\commutator}[2]{\langle}{\rangle}{#1,#2} % commutator of elements #1, #2 of non commutative ring
+\DeclarePairedDelimiterX{\commutator}[2]{\lbrack}{\rbrack}{#1,#2} % commutator of elements #1, #2 of non commutative ring
 
 % from AlgGeo
 \DeclareFunction+{\quotientfield}[1,]{\operatorname{Quot}}{#1} % quotient field of field #1
@@ -856,7 +856,7 @@
 \newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
 \DeclarePostFunction+{\perpspace}[1]{^{\perp}}{#1} % perpendicular space to #1
 \DeclarePostFunction-{\transpose}[1]{^{T}}{#1} % transposed matrix of #1
-\DeclarePostFunction-{\adjoint}[1]{^{*}}{#1} % adjoint matrix of #1
+\DeclarePostFunction-{\adjoint}[1]{^{\dagger}}{#1} % adjoint matrix of #1
 
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
