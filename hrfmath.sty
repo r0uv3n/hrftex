@@ -180,6 +180,7 @@
 \NewTheorem{lemma}{Lemma}
 \NewTheorem{konvention}{Konvention}
 \NewTheorem{korollar}{Korollar}
+\NewTheorem{notabene}{Nota Bene}
 \NewTheorem{notation}{Notation}
 \NewTheorem{notationen}{Notationen}
 \NewTheorem{note}{Note}
@@ -392,9 +393,12 @@
 \newcommand*{\definedequivalentto}{\vcentcolon\Leftrightarrow}
 \newcommand*{\maps}{\colon}
 \newcommand*{\isomorphic}{\simeq}
+\newcommand*{\isomorphismto}{\xrightarrow{\sim}}
 \newcommand*{\onetoone}{\xleftrightarrow{1:1}}
 \newcommand*{\into}{\hookrightarrow}
-% \newcommand*{\onto}{\rightarrow}
+\newcommand*{\onto}{\twoheadrightarrow}
+\newcommand*{\bijectionto}{\lhook\joinrel\twoheadrightarrow}
+\newcommand{\xto}[2][]{\xrightarrow[#1]{#2}} % \to with subscript #1 and supscript #2
 
 % for equivalence proofs
 \RequirePackage{csquotes}
@@ -470,8 +474,10 @@
 
 \newcommand*{\differential}{\mathop{}\!d}
 \newcommand*{\improperdifferential}[1]{d#1\,}
+\DeclareFunction-{\liederivative}[2,]{\mathcal{L}_{#1}}{#2}
 \DeclareFunction-{\directionalderivative}[2,]{\partial_{#1}}{#2}
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
+\DeclareFunction-{\tangentmap}[1,]{T}{#1}
 
 % For complex
 \DeclareFunction+{\real}[1,]{\mathrm{Re}}{#1}
@@ -592,7 +598,9 @@
 \newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
 
 % from DIFF
-\DeclareFunction+{\smoothmaps}[1,]{C^{\infty}}{#1} % smooth maps from #1 to the reals
+\DeclareFunction+{\smoothfunctions}[1,]{C^{\infty}}{#1} % smooth maps from #1 to the reals
+\DeclareFunction+{\smoothmaps}[2,]{C^{\infty}}{#1,#2} % smooth maps from #1 to #2
+\newcommand*{\smooth}{C^{\infty}}
 \newcommand{\complexprojectivespace}[1]{{\complexes \mathbb{P}}^{#1}}
 \newcommand{\realprojectivespace}[1]{{\reals \mathbb{P}}^{#1}}
 \DeclareFunction+{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
@@ -607,7 +615,7 @@
 \newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
 \newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
-
+ 
 \DeclareFunction-{\pullback}[2,]{#1^{\star}}{#2} % pullback of #2 along #1
 \let\diffpullback\pullback % for compatibility, but deprecated
 
@@ -616,10 +624,15 @@
 \DeclareFunction+{\laguerrepolynomial}[2,]{L_{#1}}{#2}
 \DeclareFunction+{\besselfirstkind}[2,]{J_{#1}}{#2}
 
+\DeclareFunction+{\alternatingforms}[2,]{\operatorname{Alt}^{#1}}{#2} % alternating #1-forms over #2
+\DeclareFunction-{\dimension}[1,]{\operatorname{dim}}{#1} % dimension of space #1
 \DeclareFunction+{\autodiffeomorphisms}[1,]{\operatorname{Diff}}{#1} % group of diffeomorphisms from #1 into #1
 \DeclareFunction-{\normalspace}[2,]{N_{#1}}{#2} % normal space of manifold #2 at point #1
 \DeclareFunction-{\tangentspace}[2,]{T_{#1}}{#2} % tangent space of manifold #2 at point #1
+\DeclareFunction-{\cotangentspace}[2,]{T^*_{#1}}{#2} % tangent space of manifold #2 at point #1
 \DeclareFunction-{\tangentbundle}[1,]{T}{#1} % tangent bundle of manifold #1
+\DeclareFunction-{\cotangentbundle}[1,]{T^*}{#1} % tangent bundle of manifold #1
+\DeclareFunction-{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
 \DeclareFunction+{\cauchyfolgenmenge}[1,]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
 \DeclareFunction+{\homogenreddglloesungsraum}[1,]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
 \DeclareFunction+{\inhomogenreddglloesungsraum}[2,0]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
