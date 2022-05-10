@@ -149,6 +149,8 @@
 \NewTheorem{bspidee}{Beispiel / Idee}
 \NewTheorem{checkenvironment}{Check}
 \NewTheorem{claim}{Claim}
+\NewTheorem{construction}{Construction}
+\NewTheorem{corollary}{Corollary}
 \NewTheorem{defbem}{Definition / Bemerkung}
 \NewTheorem{deferinnerung}{Definition / Erinnerung}
 \NewTheorem{deflemma}{Definition / Lemma}
@@ -190,11 +192,15 @@
 \NewTheorem{recall}{Recall}
 \NewTheorem{rechentrick}{Rechentrick}
 \NewTheorem{remark}{Remark}
+\NewTheorem{remarkconvention}{Remark / Convention}
 \NewTheorem{remarkdef}{Remark / Definition}
 \NewTheorem{satz}{Satz}
 \NewTheorem{satzdef}{Satz / Definition}
+\NewTheorem{slogan}{Slogan}
 \NewTheorem{spezialfall}{Spezialfall}
 \NewTheorem{theorem}{Theorem}
+\NewTheorem{thmdef}{Theorem \& Definition}
+\NewTheorem{tocome}{To Come}
 \NewTheorem{wiederholung}{Wiederholung}
 \NewTheorem{ziel}{Ziel}
 
@@ -253,11 +259,12 @@
 
 
 
-\RequirePackage{cool} % kind of bad package
-\Style{ArcTrig=arc, Conjugate=overline}
+% \RequirePackage{cool} % kind of bad package
+% \Style{ArcTrig=arc, Conjugate=overline}
 
-\RequirePackage{derivative}
 \PassOptionsToPackage{upright=false}{derivative}
+\RequirePackage{derivative}
+\derivset{\pdv}[delims-eval=. \rvert]
 
 % Better vector arrows
 \RequirePackage{esvect}
@@ -425,7 +432,7 @@
 \DeclareMathOperator{\forall}{\oldforall}
 
 % to avoid warnings about "!"
-\DeclareMathOperator{\existsone}{\exists!}
+\DeclareMathOperator{\existsunique}{\exists!}
 
 \DeclareFunction+{\anzahl}[1,]{\#}{#1}
 
@@ -473,8 +480,8 @@
 \newcommand*{\goesdownto}{\searrow}
 
 \newcommand*{\differential}{\mathop{}\!d}
-\newcommand*{\improperdifferential}[1]{d#1\,}
-\DeclareFunction-{\liederivative}[2,]{\mathcal{L}_{#1}}{#2}
+\newcommand*{\improperdifferential}[1]{d#1\,} % here for backwards compatibility, please use \odif from the package "derivative"
+\DeclareFunction-{\liederivative}[2,]{\mathcal{L}_{#1}}{#2} 
 \DeclareFunction-{\directionalderivative}[2,]{\partial_{#1}}{#2}
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
 \DeclareFunction-{\tangentmap}[1,]{T}{#1}
@@ -633,6 +640,9 @@
 \DeclareFunction-{\tangentbundle}[1,]{T}{#1} % tangent bundle of manifold #1
 \DeclareFunction-{\cotangentbundle}[1,]{T^*}{#1} % tangent bundle of manifold #1
 \DeclareFunction-{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
+
+\DeclareFunction+{\curvelength}[3,]{\ell_{#1}^{#2}}{#3} % length of curve #3 from #1 to #2
+
 \DeclareFunction+{\cauchyfolgenmenge}[1,]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
 \DeclareFunction+{\homogenreddglloesungsraum}[1,]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
 \DeclareFunction+{\inhomogenreddglloesungsraum}[2,0]{\mathcal{L}_{\textnormal{I}}}{#1,#2} % space of solutions of homogenous dgl x'=#1.x+#2, #1 matrix, #2 vector 
@@ -832,6 +842,7 @@
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
 \newcommand{\stalk}[2]{\mathcal{O}_{#1,#2}}
 \newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\stalk{#1}{#2},#3)}
+\DeclareFunction+{\functionfield}[1,]{k}{#1} % function field of integral scheme
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\twistingsheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}}{#2} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
@@ -841,11 +852,12 @@
 \DeclareFunction+{\vanishing}[1,]{V}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
 \DeclareFunction+{\projectivezeroes}[1,]{Z_+}{#1} % vanishing / zeroes of homogeneous ideal or function #1
 \DeclareFunction+{\schemeideal}[1,]{I}{#1} % Ideal of a subset #1 of a scheme / variety
+\DeclarePostFunction-{\schemeification}[1]{_{\textnormal{sch}}}{#1} % Ideal of a subset #1 of a scheme / variety
 \DeclareFunction+{\distinguishedopen}[1,]{D}{#1} % distinguished open of a function (or an element of a ring) #1 
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
 \newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
-\newcommand{\localization}[2]{#1_{#2}} % ring #1 localized at ideal or element of ring #2
-\DeclareFunction+{\residuefield}[1,]{\mathcal{K}}{#1} % residue field at prime ideal p (point in spectrum)
+\DeclarePostFunction-{\localization}[2]{_{#2}}{#1} % ring #1 localized at ideal or element of ring #2
+\DeclareFunction+{\residuefield}[1,]{\kappa}{#1} % residue field at prime ideal p (point in spectrum)
 
 
 
@@ -863,7 +875,7 @@
 \DeclareFunction+{\projectionspaceover}[2,]{\mathbb{P}_{#1}}{#2} % projection of a vector space #2^{#1+1}, #2 a field
 \DeclareFunction+{\freevectorspace}[1,]{F}{#1} % free vector space over #1
 \DeclarePostFunction-{\orthogonalspace}[1]{^{\circ}}{#1} % orthogonal space (in the dual space) of a vector subspace #1
-\DeclarePostFunction-{\dualspace}[1]{^{\star}}{#1} % dual space of a vector space #1
+\DeclarePostFunction-{\dualspace}[1]{^{*}}{#1} % dual space of a vector space #1
 \DeclarePostFunction-{\bidualspace}[1]{^{\star\star}}{#1} % bidual space of a vector space #1
 \DeclarePostFunction-{\dualvector}[1]{^{\star}}{#1} % dual vector of a vector #1
 \newcommand{\equivclass}[1]{\widebar{#1}} % under an equivalence relation
@@ -879,7 +891,7 @@
 \newcommand{\fieldtensorproduct}[1]{\otimes}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
-\DeclareRobustCommand{\texistsone}{\( \exists! \)~}
+\DeclareRobustCommand{\texistsunique}{\( \exists! \)~}
 \DeclareRobustCommand{\tforall}{\( \forall \)~}
 \DeclareRobustCommand{\texists}{\( \exists \)~}
 \DeclareRobustCommand{\tnexists}{\( \nexists \)~}
