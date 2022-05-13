@@ -10,23 +10,23 @@
 \newtoggle{numberwithin}
 \newtoggle{empheqoverload}
 \pgfkeys{
-        /hrftex/hrfmath/.cd,
-            numberindividually/.is choice,
-            numberindividually/true/.code=\toggletrue{numberindividually},
-            numberindividually/false/.code=\togglefalse{numberindividually},
-            numberindividually/.initial=false,
-            numberindividually/.default=true,
-            nomasternumbers/.is choice,
-            nomasternumbers/true/.code=\toggletrue{nomasternumbers},
-            nomasternumbers/false/.code=\togglefalse{nomasternumbers},
-            nomasternumbers/.initial=false,
-            nomasternumbers/.default=true,
-            empheqoverload/true/.code=\toggletrue{empheqoverload},
-            empheqoverload/false/.code=\togglefalse{empheqoverload},
-            empheqoverload/.initial=false,
-            empheqoverload/.default=true,
-            numberwithin/.value required,
-            numberwithin/.initial,
+    /hrftex/hrfmath/.cd,
+    numberindividually/.is choice,
+    numberindividually/true/.code=\toggletrue{numberindividually},
+    numberindividually/false/.code=\togglefalse{numberindividually},
+    numberindividually/.initial=false,
+    numberindividually/.default=true,
+    nomasternumbers/.is choice,
+    nomasternumbers/true/.code=\toggletrue{nomasternumbers},
+    nomasternumbers/false/.code=\togglefalse{nomasternumbers},
+    nomasternumbers/.initial=false,
+    nomasternumbers/.default=true,
+    empheqoverload/true/.code=\toggletrue{empheqoverload},
+    empheqoverload/false/.code=\togglefalse{empheqoverload},
+    empheqoverload/.initial=false,
+    empheqoverload/.default=true,
+    numberwithin/.value required,
+    numberwithin/.initial,
 }
 % 
 
@@ -73,9 +73,9 @@
 
 % for theorems
 \iftoggle{nontheorem}{
-    \RequirePackage{amsthm}
-    \renewcommand{\qedsymbol}{$\blacksquare$}
-    \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
+\RequirePackage{amsthm}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
 }{
 \PassOptionsToPackage{amsmath, thmmarks, amsthm}{ntheorem}
 \RequirePackage{ntheorem}
@@ -96,30 +96,30 @@
 
 % for references to items in enumerations
 \iftoggle{noenumitem}{}{
-\setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\roman*}}
-\newlist{eigenschaftenenumerate}{enumerate}{3}
-\setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\alph*}}
-\newlist{eigenschaftendescription}{description}{3}
-\setlist[eigenschaftendescription]{font=\normalfont}
-\newlist{proofenumerate}{enumerate}{3}
-\setlist[proofenumerate]{label=\arabic*., wide}
-\newlist{proofdescription}{description}{3}
-\setlist[proofdescription]{font=\bfseries, wide}
-% for references to description items
-\def\namedlabel#1#2{\begingroup
-    #2%
-    \def\@currentlabel{#2}%
-    \phantomsection\label{#1}\endgroup
-}}
+    \setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\roman*}}
+    \newlist{eigenschaftenenumerate}{enumerate}{3}
+    \setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\alph*}}
+    \newlist{eigenschaftendescription}{description}{3}
+    \setlist[eigenschaftendescription]{font=\normalfont}
+    \newlist{proofenumerate}{enumerate}{3}
+    \setlist[proofenumerate]{label=\arabic*., wide}
+    \newlist{proofdescription}{description}{3}
+    \setlist[proofdescription]{font=\bfseries, wide}
+    % for references to description items
+    \def\namedlabel#1#2{\begingroup
+        #2%
+        \def\@currentlabel{#2}%
+        \phantomsection\label{#1}\endgroup
+    }}
 
 \newcommand{\NewTheorem}[2]{
     \iftoggle{numberindividually}
-        {\iftoggle{numberwithin}
-            {\declaretheorem[name=#2,numberwithin=\numbertheoremswithinthis]{#1}}
-            {\declaretheorem[name=#2]{#1}}}
-        {\declaretheorem[numberlike=generalthm,name=#2]{#1}} 
+    {\iftoggle{numberwithin}
+        {\declaretheorem[name=#2,numberwithin=\numbertheoremswithinthis]{#1}}
+        {\declaretheorem[name=#2]{#1}}}
+    {\declaretheorem[numberlike=generalthm,name=#2]{#1}}
     \iftoggle{nontheorem}{}{
-    \expandafter\let\csname #1*\endcsname\relax % ntheorem defines starred variants which we don't want
+        \expandafter\let\csname #1*\endcsname\relax % ntheorem defines starred variants which we don't want
     }
     \declaretheorem[name=#2, numbered=no]{#1*}
     \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
@@ -127,85 +127,85 @@
 
 % beamer defines its own theorems
 \@ifclassloaded{beamer}{}{
-\NewTheorem{anwendung}{Anwendung}
-\NewTheorem{anwendungen}{Anwendungen}
-\NewTheorem{aufwaermuebung}{Aufwärm-Übung}
-\NewTheorem{attention}{\emph{Note}}
-\NewTheorem{achtung}{\emph{Achtung}}
-\NewTheorem{beachte}{Beachte}
-\NewTheorem{beispiel}{Beispiel}
-\NewTheorem{antibeispiel}{Anti-Beispiel}
-\NewTheorem{beispiele}{Beispiele}
-\NewTheorem{behauptung}{Behauptung}
-\NewTheorem{behauptungen}{Behauptungen}
-\NewTheorem{bembsp}{Bemerkung / Beispiel}
-\NewTheorem{bembspe}{Bemerkungen / Beispiele}
-\NewTheorem{bemdef}{Bemerkung / Definition}
-\NewTheorem{bemnotation}{Bemerkung / Notation}
-\NewTheorem{bemuebung}{Bemerkung / Übung}
-\NewTheorem{bemerkung}{Bemerkung}
-\NewTheorem{bemerkungen}{Bemerkungen}
-\NewTheorem{bspdef}{Beispiel / Definition}
-\NewTheorem{bspidee}{Beispiel / Idee}
-\NewTheorem{checkenvironment}{Check}
-\NewTheorem{claim}{Claim}
-\NewTheorem{construction}{Construction}
-\NewTheorem{corollary}{Corollary}
-\NewTheorem{defbem}{Definition / Bemerkung}
-\NewTheorem{deferinnerung}{Definition / Erinnerung}
-\NewTheorem{deflemma}{Definition / Lemma}
-\NewTheorem{defsatz}{Definition / Satz}
-\NewTheorem{definition}{Definition}
-\NewTheorem{definitionen}{Definitionen}
-\NewTheorem{einschub}{Einschub}
-\NewTheorem{ergaenzung}{Ergänzung}
-\NewTheorem{example}{Example}
-\NewTheorem{examples}{Examples}
-\NewTheorem{exercise}{Exercise}
-\NewTheorem{exkurs}{Exkurs}
-\NewTheorem{erinnerung}{Erinnerung}
-\NewTheorem{fact}{Fact}
-\NewTheorem{fakt}{Fakt}
-\NewTheorem{folgerung}{Folgerung}
-\NewTheorem{folgerungbsp}{Folgerung / Beispiel}
-\NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
-\NewTheorem{folgerungen}{Folgerungen}
-\NewTheorem{folgnotation}{Folgerungen / Notation}
-\NewTheorem{frage}{Frage}
-\NewTheorem{frageuebung}{Frage / Übung}
-\NewTheorem{fragen}{Fragen}
-\NewTheorem{hint}{Hint}
-\NewTheorem{idee}{Idee}
-\NewTheorem{interpretation}{Interpretation}
-\NewTheorem{intuition}{Intuition}
-\NewTheorem{lemmadef}{Lemma + Def}
-\NewTheorem{lemma}{Lemma}
-\NewTheorem{konvention}{Konvention}
-\NewTheorem{korollar}{Korollar}
-\NewTheorem{notabene}{Nota Bene}
-\NewTheorem{notation}{Notation}
-\NewTheorem{notationen}{Notationen}
-\NewTheorem{note}{Note}
-\NewTheorem{merkregel}{Merkregel}
-\NewTheorem{motivation}{Motivation}
-\NewTheorem{proposition}{Proposition}
-\NewTheorem{recall}{Recall}
-\NewTheorem{rechentrick}{Rechentrick}
-\NewTheorem{remark}{Remark}
-\NewTheorem{remarkconvention}{Remark / Convention}
-\NewTheorem{remarkdef}{Remark / Definition}
-\NewTheorem{satz}{Satz}
-\NewTheorem{satzdef}{Satz / Definition}
-\NewTheorem{slogan}{Slogan}
-\NewTheorem{spezialfall}{Spezialfall}
-\NewTheorem{theorem}{Theorem}
-\NewTheorem{thmdef}{Theorem \& Definition}
-\NewTheorem{tocome}{To Come}
-\NewTheorem{wiederholung}{Wiederholung}
-\NewTheorem{ziel}{Ziel}
+    \NewTheorem{anwendung}{Anwendung}
+    \NewTheorem{anwendungen}{Anwendungen}
+    \NewTheorem{aufwaermuebung}{Aufwärm-Übung}
+    \NewTheorem{attention}{\emph{Note}}
+    \NewTheorem{achtung}{\emph{Achtung}}
+    \NewTheorem{beachte}{Beachte}
+    \NewTheorem{beispiel}{Beispiel}
+    \NewTheorem{antibeispiel}{Anti-Beispiel}
+    \NewTheorem{beispiele}{Beispiele}
+    \NewTheorem{behauptung}{Behauptung}
+    \NewTheorem{behauptungen}{Behauptungen}
+    \NewTheorem{bembsp}{Bemerkung / Beispiel}
+    \NewTheorem{bembspe}{Bemerkungen / Beispiele}
+    \NewTheorem{bemdef}{Bemerkung / Definition}
+    \NewTheorem{bemnotation}{Bemerkung / Notation}
+    \NewTheorem{bemuebung}{Bemerkung / Übung}
+    \NewTheorem{bemerkung}{Bemerkung}
+    \NewTheorem{bemerkungen}{Bemerkungen}
+    \NewTheorem{bspdef}{Beispiel / Definition}
+    \NewTheorem{bspidee}{Beispiel / Idee}
+    \NewTheorem{checkenvironment}{Check}
+    \NewTheorem{claim}{Claim}
+    \NewTheorem{construction}{Construction}
+    \NewTheorem{corollary}{Corollary}
+    \NewTheorem{defbem}{Definition / Bemerkung}
+    \NewTheorem{deferinnerung}{Definition / Erinnerung}
+    \NewTheorem{deflemma}{Definition / Lemma}
+    \NewTheorem{defsatz}{Definition / Satz}
+    \NewTheorem{definition}{Definition}
+    \NewTheorem{definitionen}{Definitionen}
+    \NewTheorem{einschub}{Einschub}
+    \NewTheorem{ergaenzung}{Ergänzung}
+    \NewTheorem{example}{Example}
+    \NewTheorem{examples}{Examples}
+    \NewTheorem{exercise}{Exercise}
+    \NewTheorem{exkurs}{Exkurs}
+    \NewTheorem{erinnerung}{Erinnerung}
+    \NewTheorem{fact}{Fact}
+    \NewTheorem{fakt}{Fakt}
+    \NewTheorem{folgerung}{Folgerung}
+    \NewTheorem{folgerungbsp}{Folgerung / Beispiel}
+    \NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
+    \NewTheorem{folgerungen}{Folgerungen}
+    \NewTheorem{folgnotation}{Folgerungen / Notation}
+    \NewTheorem{frage}{Frage}
+    \NewTheorem{frageuebung}{Frage / Übung}
+    \NewTheorem{fragen}{Fragen}
+    \NewTheorem{hint}{Hint}
+    \NewTheorem{idee}{Idee}
+    \NewTheorem{interpretation}{Interpretation}
+    \NewTheorem{intuition}{Intuition}
+    \NewTheorem{lemmadef}{Lemma + Def}
+    \NewTheorem{lemma}{Lemma}
+    \NewTheorem{konvention}{Konvention}
+    \NewTheorem{korollar}{Korollar}
+    \NewTheorem{notabene}{Nota Bene}
+    \NewTheorem{notation}{Notation}
+    \NewTheorem{notationen}{Notationen}
+    \NewTheorem{note}{Note}
+    \NewTheorem{merkregel}{Merkregel}
+    \NewTheorem{motivation}{Motivation}
+    \NewTheorem{proposition}{Proposition}
+    \NewTheorem{recall}{Recall}
+    \NewTheorem{rechentrick}{Rechentrick}
+    \NewTheorem{remark}{Remark}
+    \NewTheorem{remarkconvention}{Remark / Convention}
+    \NewTheorem{remarkdef}{Remark / Definition}
+    \NewTheorem{satz}{Satz}
+    \NewTheorem{satzdef}{Satz / Definition}
+    \NewTheorem{slogan}{Slogan}
+    \NewTheorem{spezialfall}{Spezialfall}
+    \NewTheorem{theorem}{Theorem}
+    \NewTheorem{thmdef}{Theorem \& Definition}
+    \NewTheorem{tocome}{To Come}
+    \NewTheorem{wiederholung}{Wiederholung}
+    \NewTheorem{ziel}{Ziel}
 
-\newtheorem{subsatz}{Satz}[generalthm]
-\renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
+    \newtheorem{subsatz}{Satz}[generalthm]
+    \renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
 }
 % stack below with optional argument
 \RequirePackage{stackrel}
@@ -279,21 +279,21 @@
 % end of package imports
 
 
-\def\DeclareMathOperatorWithDelimiter#1#2[#3,#4]#5#6#7#8{ 
-  \newcommand{#2}{}
-  \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{#5}{#6}{#7}{}{#8} %  #2+ with delimiters, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
-  \WithSuffix\newcommand#2-[#3]{#5 #8} % #1-:no delimiters
-  \WithSuffix\newcommand#2;[\ifstrempty{#4}{\the\numexpr #3-1\relax}{#4}]{#5} % #2;: (with #2-1 arguments) only prints #4
-  \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
+\def\DeclareMathOperatorWithDelimiter#1#2[#3,#4]#5#6#7#8{
+\newcommand{#2}{}
+\WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{#5}{#6}{#7}{}{#8} %  #2+ with delimiters, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
+\WithSuffix\newcommand#2-[#3]{#5 #8} % #1-:no delimiters
+\WithSuffix\newcommand#2;[\ifstrempty{#4}{\the\numexpr #3-1\relax}{#4}]{#5} % #2;: (with #2-1 arguments) only prints #4
+\expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
 }
 \def\DeclareFunction#1#2[#3,#4]#5#6{
     \DeclareMathOperatorWithDelimiter#1{#2}[#3,#4]{#5}{\lparen}{\rparen}{#6}
 }
 \def\DeclareMathPostOperatorWithDelimiter#1#2[#3]#4#5#6#7{
-    \newcommand{#2}{}
-    \WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{}{#5}{#6}{#4}{#7} %  #2+ variant, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
-    \WithSuffix\newcommand#2-[#3]{{#7}#4} % #1-: no delimiters
-    \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
+\newcommand{#2}{}
+\WithSuffix\DeclarePairedDelimiterXPP#2+[#3]{}{#5}{#6}{#4}{#7} %  #2+ variant, #2+*: auto scales, #2+[<size-command>] sets delimiters to size
+\WithSuffix\newcommand#2-[#3]{{#7}#4} % #1-: no delimiters
+\expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
 }
 
 \def\DeclarePostFunction#1#2[#3]#4#5{
@@ -317,16 +317,16 @@
 \def\SavedStyle{\csname @mstyle\m@switch\endcsname}
 %
 \newcommand\ThisStyle[1]{%
-  \ifmmode%
-    \def\@mmode{T}\mathchoice%
-      {\edef\m@switch{D}#1}%
-      {\edef\m@switch{T}#1}%
-      {\edef\m@switch{S}#1}%
-      {\edef\m@switch{s}#1}%
-  \else%
-    \def\@mmode{F}%
-    \edef\m@switch{T}#1%
-  \fi%
+    \ifmmode%
+        \def\@mmode{T}\mathchoice%
+        {\edef\m@switch{D}#1}%
+        {\edef\m@switch{T}#1}%
+        {\edef\m@switch{S}#1}%
+        {\edef\m@switch{s}#1}%
+    \else%
+        \def\@mmode{F}%
+        \edef\m@switch{T}#1%
+    \fi%
 }
 
 
@@ -388,9 +388,9 @@
 
 % can be used in both math and text mode
 \newcommand{\zuzeigen}[1]{\smallskip\par\noindent\doublebox{%
-\begin{minipage}{\the\dimexpr \textwidth - 13.6pt\relax}\zuzeigentext #1\end{minipage}}}
+        \begin{minipage}{\the\dimexpr \textwidth - 13.6pt\relax}\zuzeigentext #1\end{minipage}}}
 \newcommand{\zuzeigenmath}[1]{\par\doublebox{%
-\begin{minipage}{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}\zuzeigentext #1\end{minipage}}}
+        \begin{minipage}{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}\zuzeigentext #1\end{minipage}}}
 \let\tobeshown\zuzeigen
 \let\tobeshownmath\zuzeigenmath
 
@@ -481,10 +481,11 @@
 
 \newcommand*{\differential}{\mathop{}\!d}
 \newcommand*{\improperdifferential}[1]{d#1\,} % here for backwards compatibility, please use \odif from the package "derivative"
-\DeclareFunction-{\liederivative}[2,]{\mathcal{L}_{#1}}{#2} 
+\DeclareFunction-{\liederivative}[2,]{\mathcal{L}_{#1}}{#2}
 \DeclareFunction-{\directionalderivative}[2,]{\partial_{#1}}{#2}
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
 \DeclareFunction-{\tangentmap}[1,]{T}{#1}
+\newcommand{\curvevectorderivative}[2][]{\frac{\odif{D}#1}{\odif{#2}}}
 
 % For complex
 \DeclareFunction+{\real}[1,]{\mathrm{Re}}{#1}
@@ -622,7 +623,7 @@
 \newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
 \newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
- 
+
 \DeclareFunction-{\pullback}[2,]{#1^{\star}}{#2} % pullback of #2 along #1
 \let\diffpullback\pullback % for compatibility, but deprecated
 
@@ -765,12 +766,12 @@
 
 \newcommand{\eqstep}[2][]{
     {\pgfkeys{
-        /eqstep/.cd,
-        m=true,
-        p=true,
-        v=true,
-        #1
-    }}
+                /eqstep/.cd,
+                m=true,
+                p=true,
+                v=true,
+                #1
+            }}
     && \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #2\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
 }
 
@@ -798,20 +799,20 @@
 \DeclareFunction+{\lineangle}[2,0]{\angle}{#1,#2}
 \newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\SavedStyle #1$}\left/\raisebox{-.2em}{$\SavedStyle #2$}\right.}}}
 \newcommand{\quot}[2]{{
-    \mathchoice
-        {% \displaystyle
-            \quotient{#1}{#2}%
-        }
-        {% \textstyle
-            \quotient{#1}{#2}%
-        }
-        {% \scriptstyle
-            #1\mathbin{/}#2%
-        }
-        {% \scriptscriptstyle  
-            #1\mathbin{/}#2%
-        }
-}} % quotient set and "side fractions"      
+            \mathchoice
+            {% \displaystyle
+                \quotient{#1}{#2}%
+            }
+            {% \textstyle
+                \quotient{#1}{#2}%
+            }
+            {% \scriptstyle
+                #1\mathbin{/}#2%
+            }
+            {% \scriptscriptstyle  
+                #1\mathbin{/}#2%
+            }
+        }} % quotient set and "side fractions"      
 
 \newcommand{\logicaland}{\mathbin{\wedge}}
 \newcommand{\logicalor}{\mathbin{\vee}}
@@ -837,6 +838,8 @@
 \DeclarePairedDelimiterX{\commutator}[2]{\lbrack}{\rbrack}{#1,#2} % commutator of elements #1, #2 of non commutative ring
 
 % from AlgGeo
+\DeclareFunction-{\degree}[1,]{\operatorname{deg}}{#1} % degree of element #1 of graded ring
+\DeclarePostFunction-{\gradedpart}[2]{_{#2}}{#1} % graded part of degree #1 of graded ring #2
 \DeclareFunction+{\quotientfield}[1,]{\operatorname{Quot}}{#1} % quotient field of field #1
 \newcommand{\projectivespace}[1]{\mathbb{P}^{#1}}
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
@@ -856,10 +859,13 @@
 \DeclareFunction+{\distinguishedopen}[1,]{D}{#1} % distinguished open of a function (or an element of a ring) #1 
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
 \newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
+\DeclarePostFunction-{\gradedlocalization}[2]{_{(#2)}}{#1} % ring #1 localized at ideal or element of ring #2
 \DeclarePostFunction-{\localization}[2]{_{#2}}{#1} % ring #1 localized at ideal or element of ring #2
 \DeclareFunction+{\residuefield}[1,]{\kappa}{#1} % residue field at prime ideal p (point in spectrum)
-
-
+\DeclarePostFunction-{\irrelevantideal}[1]{_{+}}{#1} % the irrelevant ideal of graded ring #1
+\DeclareFunction+{\projectivescheme}[1,]{\operatorname{Proj}}{#1} % projective scheme over graded ring #1
+\DeclareFunction+{\projectivevanishing}[1,]{I_p}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
+\DeclareFunction+{\projectivedistinguishedopen}[1,]{D_+}{#1} % projective distinguished open of homogenous element #1  of positive degree of graded ring
 
 % from AGLA
 \newcommand{\euclideanspace}[1]{\mathbb{E}^{#1}} % euclidean (affine) space of dimension 2
