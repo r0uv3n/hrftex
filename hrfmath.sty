@@ -189,6 +189,7 @@
     \NewTheorem{merkregel}{Merkregel}
     \NewTheorem{motivation}{Motivation}
     \NewTheorem{proposition}{Proposition}
+    \NewTheorem{question}{Question}
     \NewTheorem{recall}{Recall}
     \NewTheorem{rechentrick}{Rechentrick}
     \NewTheorem{remark}{Remark}
@@ -265,6 +266,9 @@
 \PassOptionsToPackage{upright=false}{derivative}
 \RequirePackage{derivative}
 \derivset{\pdv}[delims-eval=. \rvert]
+
+% tensors
+\RequirePackage{tensor} 
 
 % Better vector arrows
 \RequirePackage{esvect}
@@ -485,7 +489,7 @@
 \DeclareFunction-{\directionalderivative}[2,]{\partial_{#1}}{#2}
 \DeclareFunction-{\totalderivative}[1,]{D}{#1}
 \DeclareFunction-{\tangentmap}[1,]{T}{#1}
-\newcommand{\curvevectorderivative}[2][]{\frac{\odif{D}#1}{\odif{#2}}}
+\newcommand{\covariantderivativealongcurve}[2]{\frac{D#1}{\odif{#2}}}
 
 % For complex
 \DeclareFunction+{\real}[1,]{\mathrm{Re}}{#1}
@@ -617,6 +621,7 @@
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
 \DeclareFunction+{\differentialforms}[2,]{\omega_{#1}}{#2} % differential forms of degree #1 of open set #2
 \DeclareFunction+{\tensors}[3,]{T_{#1}^{#2}}{#3} % #1-times covariant, #2-times contravariant tensors of vector space #3 
+\DeclareFunction+{\exponentialmap}[2,]{\exp_{#1}}{#2} % exponential map at point #1
 \DeclareFunction+{\covarianttensors}[2,]{T_{#1}}{#2} % #1-times covariant tensors of vector space #2 
 \DeclareFunction+{\contravarianttensors}[2,]{T^{#1}}{#2} % #1-times contravariant tensors of vector space #2
 \newcommand*{\lebesgueintegrablefunctions}[1][1]{L^{#1}}
@@ -640,7 +645,7 @@
 \DeclareFunction-{\cotangentspace}[2,]{T^*_{#1}}{#2} % tangent space of manifold #2 at point #1
 \DeclareFunction-{\tangentbundle}[1,]{T}{#1} % tangent bundle of manifold #1
 \DeclareFunction-{\cotangentbundle}[1,]{T^*}{#1} % tangent bundle of manifold #1
-\DeclareFunction-{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
+\DeclareFunction+{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
 
 \DeclareFunction+{\curvelength}[3,]{\ell_{#1}^{#2}}{#3} % length of curve #3 from #1 to #2
 
