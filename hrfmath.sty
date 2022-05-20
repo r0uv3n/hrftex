@@ -68,6 +68,11 @@
 % for \mathds{1}
 \RequirePackage{dsfont}
 
+% add \warning symbol
+\newcommand*{\TakeFourierOrnament}[1]{{%
+\fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
+\newcommand*{\warning}{\TakeFourierOrnament{66}}
+
 % for some symbols (hopefully documented when used)
 \RequirePackage{stmaryrd}
 
@@ -130,7 +135,7 @@
     \NewTheorem{anwendung}{Anwendung}
     \NewTheorem{anwendungen}{Anwendungen}
     \NewTheorem{aufwaermuebung}{Aufwärm-Übung}
-    \NewTheorem{attention}{\emph{Note}}
+    \NewTheorem{attention}{\warning}
     \NewTheorem{achtung}{\emph{Achtung}}
     \NewTheorem{beachte}{Beachte}
     \NewTheorem{beispiel}{Beispiel}
@@ -247,6 +252,7 @@
 % Add \contra symbol to denote contradiction
 \RequirePackage{stmaryrd} % for \lightning
 \newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
 
 \definecolor{correct}{HTML}{009900}
 \newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
@@ -610,12 +616,16 @@
 \newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
 
 % from DIFF
-\DeclareFunction+{\smoothfunctions}[1,]{C^{\infty}}{#1} % smooth maps from #1 to the reals
-\DeclareFunction+{\smoothmaps}[2,]{C^{\infty}}{#1,#2} % smooth maps from #1 to #2
-\newcommand*{\smooth}{C^{\infty}}
+\newcommand*{\ndifferentiable}[1]{C\ifstrempty{#1}{}{^{#1}}} 
+\newcommand*{\smooth}{\ndifferentiable{\infty}}
+\DeclareFunction+{\smoothfunctions}[1,]{\smooth}{#1} % smooth maps from #1 to the reals
+\DeclareFunction+{\smoothmaps}[2,]{\smooth}{#1,#2} % smooth maps from #1 to #2
+\newcommand*{\continuous}{\ndifferentiable{0}}
 \newcommand{\complexprojectivespace}[1]{{\complexes \mathbb{P}}^{#1}}
 \newcommand{\realprojectivespace}[1]{{\reals \mathbb{P}}^{#1}}
-\DeclareFunction+{\stetigefunktionen}[2,1]{C\ifstrempty{#1}{}{^{#1}}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
+\DeclareFunction+{\ndifferentiablemaps}[3,]{\ndifferentiable{#1}}{#2,#3} % #1-times continuously differentiable maps from #2 to #3
+\DeclareFunction+{\ndifferentiablefunctions}[2,]{\ndifferentiable{#1}}{#2} % #1-times continuously differentiable  functions of #2
+\DeclareFunction+{\stetigefunktionen}[2,1]{\ndifferentiable{#1}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
 \DeclareFunction-{\pushforward}[2,]{{#1}_{\star}}{#2} % push-forward of #2 along #1    
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
@@ -647,7 +657,8 @@
 \DeclareFunction-{\cotangentbundle}[1,]{T^*}{#1} % tangent bundle of manifold #1
 \DeclareFunction+{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
 
-\DeclareFunction+{\curvelength}[3,]{\ell_{#1}^{#2}}{#3} % length of curve #3 from #1 to #2
+\DeclareFunction+{\curvelengthfromto}[3,]{\ell_{#1}^{#2}}{#3} % length of curve #3 from #1 to #2
+\DeclareFunction+{\curvelength}[1,]{\ell}{#1} % length of curve #1
 
 \DeclareFunction+{\cauchyfolgenmenge}[1,]{\mathcal{C}}{#1} % \cauchyfolgenmenge of #1 
 \DeclareFunction+{\homogenreddglloesungsraum}[1,]{\mathcal{L}_{\textnormal{H}}}{#1} % space of solutions of homogenous dgl x'=#1.x, #1 matrix
@@ -658,6 +669,7 @@
 \DeclareFunction+{\Ln}[1,]{\ln}{#1} % Logarithmus naturalis of #1
 \DeclareFunction+{\moebiusabbildungenmenge}[1,]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
 \DeclareFunction-{\randpunkte}[1,]{\partial}{#1} % \randpunkte of #1 
+\DeclareFunction-{\boundary}[1,]{\partial}{#1} % \randpunkte of #1 
 \DeclarePostFunction-{\interior}[1]{^{\circ}}{#1}
 \DeclarePostFunction-{\inneres}[1]{^{\circ}}{#1}
 \newcommand{\closure}[1]{\widebar{#1}}
@@ -847,15 +859,23 @@
 \DeclarePostFunction-{\gradedpart}[2]{_{#2}}{#1} % graded part of degree #1 of graded ring #2
 \DeclareFunction+{\quotientfield}[1,]{\operatorname{Quot}}{#1} % quotient field of field #1
 \newcommand{\projectivespace}[1]{\mathbb{P}^{#1}}
+\newcommand{\projectivespaceover}[2]{\mathbb{P}^{#1}_{#2}} % projective #1-space over #2
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
+\newcommand{\affinespaceover}[2]{\mathbb{A}^{#1}_{#2}} % affine #1-space over #2
 \newcommand{\stalk}[2]{\mathcal{O}_{#1,#2}}
 \newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\stalk{#1}{#2},#3)}
+\newcommand{\fibreproduct}{\times}
+\newcommand{\fibreproductover}[1]{\times_{#1}}
 \DeclareFunction+{\functionfield}[1,]{k}{#1} % function field of integral scheme
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
-\DeclareFunction+{\twistingsheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}}{#2} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
+\DeclareFunction+{\tangentsheaf}[2,]{T_{#1}}{#2} % tangent bundle to smooth variety #1 of open subset #2 of #1
+\newcommand{\tangentstalk}[2]{T_{#1,#2}} % stalk of tangent bundle to smooth variety #1 at #2
+\DeclareFunction+{\twistingsheaf}[3,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}{#3} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
+\DeclareFunction+{\explicittwistingsheaf}[3,]{\p*{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}}{#3} % Serre twisting sheaf with parantheses
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
 \DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
+\DeclareFunction+{\homogeneouscoordinatering}[1,]{S}{#1} % homogeneous coordinate ring of a projective variety #1
 \DeclareFunction+{\zeroes}[1,]{Z}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
 \DeclareFunction+{\vanishing}[1,]{V}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
 \DeclareFunction+{\projectivezeroes}[1,]{Z_+}{#1} % vanishing / zeroes of homogeneous ideal or function #1
@@ -864,13 +884,17 @@
 \DeclareFunction+{\distinguishedopen}[1,]{D}{#1} % distinguished open of a function (or an element of a ring) #1 
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
 \newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
+\newcommand{\saturation}[1]{\widebar{#1}} % saturation of the homogeneous ideal #1 inside a graded ring
 \DeclarePostFunction-{\gradedlocalization}[2]{_{(#2)}}{#1} % ring #1 localized at ideal or element of ring #2
 \DeclarePostFunction-{\localization}[2]{_{#2}}{#1} % ring #1 localized at ideal or element of ring #2
 \DeclareFunction+{\residuefield}[1,]{\kappa}{#1} % residue field at prime ideal p (point in spectrum)
 \DeclarePostFunction-{\irrelevantideal}[1]{_{+}}{#1} % the irrelevant ideal of graded ring #1
 \DeclareFunction+{\projectivescheme}[1,]{\operatorname{Proj}}{#1} % projective scheme over graded ring #1
-\DeclareFunction+{\projectivevanishing}[1,]{I_p}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
+\DeclareFunction+{\projectivevanishing}[1,]{V_p}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
 \DeclareFunction+{\projectivedistinguishedopen}[1,]{D_+}{#1} % projective distinguished open of homogenous element #1  of positive degree of graded ring
+\DeclarePostFunction-{\veronese}[2]{^{(#1)}}{#2} % image of veronese embedding of degree #1 of graded ring #2
+\DeclareFunction+{\veroneseembedding}[2,]{V_{#1}}{#2} % Veronese embedding of degree d of element #2 of projective scheme
+\newcommand{\finitefield}[1]{#1} % finite field with #1 elements
 
 % from AGLA
 \newcommand{\euclideanspace}[1]{\mathbb{E}^{#1}} % euclidean (affine) space of dimension 2
@@ -899,6 +923,9 @@
 \newcommand{\tensorproperty}{\( \otimes \)\xspace}
 \RequirePackage{xspace}
 \newcommand{\tensorproduct}{\otimes}
+\newcommand{\directsum}{\oplus}
+\newcommand{\bigtensorproduct}{\bigotimes}
+\newcommand{\bigdirectsum}{\bigoplus}
 \newcommand{\fieldtensorproduct}[1]{\otimes}
 
 % text macros (should not be used in real texts, ok for scripts and notes)
