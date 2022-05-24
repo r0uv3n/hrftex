@@ -46,6 +46,10 @@
 \newcommand\hmmax{0}
 \newcommand\bmmax{0}
 
+% lowercase mathcal
+\usepackage{dutchcal} % \mathcal: also small letters. \mathbcal = bold ones. 
+
+
 % main math package
 \RequirePackage{mathtools}
 
@@ -71,7 +75,7 @@
 % add \warning symbol
 \newcommand*{\TakeFourierOrnament}[1]{{%
 \fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
-\newcommand*{\warning}{\TakeFourierOrnament{66}}
+\newcommand*{\warning}{\TakeFourierOrnament{49}}
 
 % for some symbols (hopefully documented when used)
 \RequirePackage{stmaryrd}
@@ -180,6 +184,7 @@
     \NewTheorem{frageuebung}{Frage / Übung}
     \NewTheorem{fragen}{Fragen}
     \NewTheorem{hint}{Hint}
+    \NewTheorem{idea}{Idea}
     \NewTheorem{idee}{Idee}
     \NewTheorem{interpretation}{Interpretation}
     \NewTheorem{intuition}{Intuition}
@@ -474,6 +479,7 @@
 \renewcommand*{\trianglerighteq}{\trianglerighteqslant}
 \newcommand*{\propersubgroup}{\le}
 \newcommand{\normalsubgroup}{\trianglelefteq}
+\newcommand{\ideal}{\trianglelefteq}
 \newcommand{\propernormalsubgroup}{\triangleleft}
 \newcommand*{\propersupgroup}{\ge}
 \newcommand*{\subgroup}{\leqold}
@@ -626,7 +632,7 @@
 \DeclareFunction+{\ndifferentiablemaps}[3,]{\ndifferentiable{#1}}{#2,#3} % #1-times continuously differentiable maps from #2 to #3
 \DeclareFunction+{\ndifferentiablefunctions}[2,]{\ndifferentiable{#1}}{#2} % #1-times continuously differentiable  functions of #2
 \DeclareFunction+{\stetigefunktionen}[2,1]{\ndifferentiable{#1}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
-\DeclareFunction-{\pushforward}[2,]{{#1}_{\star}}{#2} % push-forward of #2 along #1    
+\DeclareFunction-{\pushforward}[2,]{{#1}_{*}}{#2} % push-forward of #2 along #1    
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
 \DeclareFunction+{\differentialforms}[2,]{\omega_{#1}}{#2} % differential forms of degree #1 of open set #2
@@ -639,7 +645,7 @@
 \newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
 
-\DeclareFunction-{\pullback}[2,]{#1^{\star}}{#2} % pullback of #2 along #1
+\DeclareFunction-{\pullback}[2,]{#1^{*}}{#2} % pullback of #2 along #1
 \let\diffpullback\pullback % for compatibility, but deprecated
 
 \DeclareFunction+{\legendrepolynomial}[2,]{P_{#1}}{#2}
@@ -863,16 +869,22 @@
 \newcommand{\affinespace}[1]{\mathbb{A}^{#1}}
 \newcommand{\affinespaceover}[2]{\mathbb{A}^{#1}_{#2}} % affine #1-space over #2
 \newcommand{\stalk}[2]{\mathcal{O}_{#1,#2}}
+\DeclarePostFunction-{\genericstalk}[2]{_{#2}}{#1} % stalk of sheaf #1 at point #2 of some scheme
 \newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\stalk{#1}{#2},#3)}
 \newcommand{\fibreproduct}{\times}
 \newcommand{\fibreproductover}[1]{\times_{#1}}
 \DeclareFunction+{\functionfield}[1,]{k}{#1} % function field of integral scheme
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
+\DeclareFunction+{\quotientsheaf}[3,]{\quot{#1}{#2}}{#3} % quotient sheaf of sheaves #1 and #2 on open subset #3
 \DeclareFunction+{\tangentsheaf}[2,]{T_{#1}}{#2} % tangent bundle to smooth variety #1 of open subset #2 of #1
 \newcommand{\tangentstalk}[2]{T_{#1,#2}} % stalk of tangent bundle to smooth variety #1 at #2
 \DeclareFunction+{\twistingsheaf}[3,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}{#3} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
+\DeclareFunction+{\skyscrapersheaf}[2,]{\mathcal{k}_{#1}}{#2} % skyscraper sheaf at point #1 (of open set #2 of scheme containing point #1)
 \DeclareFunction+{\explicittwistingsheaf}[3,]{\p*{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}}{#3} % Serre twisting sheaf with parantheses
+\DeclareFunction+{\imagepresheaf}[1,]{\operatorname{im}'}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
+\DeclareFunction+{\imagesheaf}[1,]{\operatorname{im}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
+\DeclareFunction+{\kernelsheaf}[1,]{\operatorname{ker}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
 \DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
 \DeclareFunction+{\homogeneouscoordinatering}[1,]{S}{#1} % homogeneous coordinate ring of a projective variety #1
@@ -894,7 +906,7 @@
 \DeclareFunction+{\projectivedistinguishedopen}[1,]{D_+}{#1} % projective distinguished open of homogenous element #1  of positive degree of graded ring
 \DeclarePostFunction-{\veronese}[2]{^{(#1)}}{#2} % image of veronese embedding of degree #1 of graded ring #2
 \DeclareFunction+{\veroneseembedding}[2,]{V_{#1}}{#2} % Veronese embedding of degree d of element #2 of projective scheme
-\newcommand{\finitefield}[1]{#1} % finite field with #1 elements
+\newcommand{\finitefield}[1]{\mathbb{F}_{#1}} % finite field with #1 elements
 
 % from AGLA
 \newcommand{\euclideanspace}[1]{\mathbb{E}^{#1}} % euclidean (affine) space of dimension 2
