@@ -710,7 +710,7 @@
 % \DeclareFunction+{\endomorphisms}[1,]{\operatorname{End}}{#1} % Endomorphismus of #1 
 \DeclareFunction+{\automorphisms}[1,]{\operatorname{Aut}}{#1} % Automorphismus of #1 
 \DeclareFunction+{\innerautomorphism}[1,]{\operatorname{Int}}{#1} % Automorphismus of #1 
-\DeclareFunction+{\homomorphisms}[2,]{\operatorname{Hom}}{#1,#2} % Homomorphismen of #1 into #2
+\DeclareFunction+{\homomorphisms}[2,0]{\operatorname{Hom}}{#1,#2} % Homomorphismen of #1 into #2
 \DeclareFunction+{\fieldhomomorphisms}[3,]{\operatorname{Hom}_{#1}}{#2,#3} % Homomorphismen of #2 into #3 over field #1
 \DeclareMathOperator{\Mat}{Mat} % matrices
 \DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #3 
@@ -752,6 +752,7 @@
 \DeclareFunction+{\exponential}[1,]{\exp}{#1} % exponential function of #1
 \let\Exp\exponential
 \DeclarePairedDelimiterXPP{\polynomials}[2]{#1}{\lbrack}{\rbrack}{}{#2} % Polynomials of variables #2 over field #1 
+\DeclarePairedDelimiterXPP{\polynomialfield}[2]{#1}{\lparen}{\rparen}{}{#2} % Quotient field of the Polynomials of variables #2 over field #1 
 \DeclarePairedDelimiterXPP{\noncommutativepolynomials}[2]{#1}{\langle}{\rangle}{}{#2} % Polynomials of non-commutative variables #2 over field #1 
 
 
@@ -873,6 +874,7 @@
 \newcommand{\derivations}[3]{\operatorname{Der}_{#3}(\stalk{#1}{#2},#3)}
 \newcommand{\fibreproduct}{\times}
 \newcommand{\fibreproductover}[1]{\times_{#1}}
+\newcommand{\tensorproductover}[1]{\otimes_{#1}}
 \DeclareFunction+{\functionfield}[1,]{k}{#1} % function field of integral scheme
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
@@ -885,6 +887,9 @@
 \DeclareFunction+{\imagepresheaf}[1,]{\operatorname{im}'}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
 \DeclareFunction+{\imagesheaf}[1,]{\operatorname{im}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
 \DeclareFunction+{\kernelsheaf}[1,]{\operatorname{ker}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
+\DeclareFunction+{\tildesheaf}[2,]{\widetilde{#1}}{#2} % sheaf associated to module #1 evaluated on #2
+\DeclarePostFunction-{\dualsheaf}[1]{^{\vee}}{#1} % dual vector of a vector #1
+\DeclareFunction-{\homsheaf}[3,1]{\operatorname{\text{\usefont{U}{BOONDOX-cal}{m}{n}Hom}}\ifstrempty{#1}{_{\structuresheaf;{#1}}}}{#2,#3} % Hom sheaf over O_#1 from #2 to #3
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
 \DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
 \DeclareFunction+{\homogeneouscoordinatering}[1,]{S}{#1} % homogeneous coordinate ring of a projective variety #1
