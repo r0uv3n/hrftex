@@ -726,8 +726,10 @@
 \DeclareFunction+{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
 \DeclareFunction+{\invertiblematrices}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
 \DeclareFunction+{\generallineargroup}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
-\DeclareFunction+{\unitarymatrices}[1,]{\operatorname{U}}{#1} % unitary matrices of #1 
-\DeclareFunction+{\orthogonalmatrices}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
+\DeclareFunction+{\unitarygroup}[1,]{\operatorname{U}}{#1} % unitary matrices of #1 
+\DeclareFunction+{\specialunitarygroup}[1,]{\operatorname{SU}}{#1} % unitary matrices of #1 with determinant 1
+\DeclareFunction+{\orthogonalgroup}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
+\DeclareFunction+{\specialorthogonalgroup}[1,]{\operatorname{SO}}{#1} % orthogonal matrices of #1 with determinant 1
 \DeclareFunction+{\diagonalmatrix}[1,]{\operatorname{diag}}{#1} % diagonal matrix with diagonal entries #1
 \DeclareFunction+{\Adj}[1,]{\operatorname{Adj}}{#1} % adjunction of #1 
 \DeclareFunction+{\specialinvertiblematrices}[2,]{\operatorname{SL}\ifstrempty{#1}{}{_{#1}}}{#2} % special linear group of #1 dimensions over field #2
