@@ -46,9 +46,6 @@
 \newcommand\hmmax{0}
 \newcommand\bmmax{0}
 
-% lowercase mathcal
-\usepackage{dutchcal} % \mathcal: also small letters. \mathbcal = bold ones. 
-
 
 % main math package
 \RequirePackage{mathtools}
@@ -77,8 +74,17 @@
 \fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
 \newcommand*{\warning}{\TakeFourierOrnament{49}}
 
+% 
+
 % for some symbols (hopefully documented when used)
 \RequirePackage{stmaryrd}
+
+
+% lowercase mathcal
+\RequirePackage{dutchcal} % \mathcal: also small letters. \mathbcal = bold ones. 
+
+% mathscr and calligraphic font (e.g. for curly Hom)
+\RequirePackage{mathrsfs}
 
 % for theorems
 \iftoggle{nontheorem}{
@@ -105,9 +111,9 @@
 
 % for references to items in enumerations
 \iftoggle{noenumitem}{}{
-    \setlist[enumerate,1]{label=\rechtsklammer{\roman*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\roman*}}
+    \setlist[enumerate,1]{label=(\roman*), ref=\iftoggle{numberindividually}{}{\thegeneralthm.}(\roman*)}
     \newlist{eigenschaftenenumerate}{enumerate}{3}
-    \setlist[eigenschaftenenumerate]{label=\rechtsklammer{\alph*}, ref=\iftoggle{numberindividually}{}{\thegeneralthm.}\rechtsklammer{\alph*}}
+    \setlist[eigenschaftenenumerate]{label=(\alph*), ref=\iftoggle{numberindividually}{}{\thegeneralthm.}(\alph*)}
     \newlist{eigenschaftendescription}{description}{3}
     \setlist[eigenschaftendescription]{font=\normalfont}
     \newlist{proofenumerate}{enumerate}{3}
@@ -162,10 +168,11 @@
     \NewTheorem{corollary}{Corollary}
     \NewTheorem{defbem}{Definition / Bemerkung}
     \NewTheorem{deferinnerung}{Definition / Erinnerung}
-    \NewTheorem{deflemma}{Definition / Lemma}
-    \NewTheorem{defsatz}{Definition / Satz}
     \NewTheorem{definition}{Definition}
     \NewTheorem{definitionen}{Definitionen}
+    \NewTheorem{deflemma}{Definition / Lemma}
+    \NewTheorem{defprop}{Definition / Proposition}
+    \NewTheorem{defsatz}{Definition / Satz}
     \NewTheorem{einschub}{Einschub}
     \NewTheorem{ergaenzung}{Ergänzung}
     \NewTheorem{example}{Example}
@@ -183,6 +190,7 @@
     \NewTheorem{frage}{Frage}
     \NewTheorem{frageuebung}{Frage / Übung}
     \NewTheorem{fragen}{Fragen}
+    \NewTheorem{goal}{Goal}
     \NewTheorem{hint}{Hint}
     \NewTheorem{idea}{Idea}
     \NewTheorem{idee}{Idee}
@@ -196,6 +204,7 @@
     \NewTheorem{notation}{Notation}
     \NewTheorem{notationen}{Notationen}
     \NewTheorem{note}{Note}
+    \NewTheorem{notice}{Notice}
     \NewTheorem{merkregel}{Merkregel}
     \NewTheorem{motivation}{Motivation}
     \NewTheorem{proposition}{Proposition}
@@ -323,27 +332,6 @@
 % use \\* to prohibit a page break
 \allowdisplaybreaks[1]
 
-% possibility to save styles
-\def\@mstyleD{\displaystyle}
-\def\@mstyleT{\textstyle}
-\def\@mstyleS{\scriptstyle}
-\def\@mstyles{\scriptscriptstyle}
-%
-\def\SavedStyle{\csname @mstyle\m@switch\endcsname}
-%
-\newcommand\ThisStyle[1]{%
-    \ifmmode%
-        \def\@mmode{T}\mathchoice%
-        {\edef\m@switch{D}#1}%
-        {\edef\m@switch{T}#1}%
-        {\edef\m@switch{S}#1}%
-        {\edef\m@switch{s}#1}%
-    \else%
-        \def\@mmode{F}%
-        \edef\m@switch{T}#1%
-    \fi%
-}
-
 
 % possibility to ignore height and apply later (with SavedHeight)
 \newsavebox{\mastercontent}
@@ -462,6 +450,17 @@
 
 % overline replacement
 \newcommand{\widebar}[1]{\mathop{\overline{#1}}}
+
+% wider widetilde 
+\RequirePackage{scalerel}
+\RequirePackage{stackengine,wasysym}
+\newcommand\reallywidetilde[1]{\ThisStyle{%
+  \setbox0=\hbox{$\SavedStyle#1$}%
+  \stackengine{-.1\LMpt}{$\SavedStyle#1$}{%
+    \stretchto{\scaleto{\SavedStyle\mkern.2mu\AC}{.5150\wd0}}{.6\ht0}%
+  }{O}{c}{F}{T}{S}%
+}}
+
 
 
 % Replace leq and req signs
@@ -663,6 +662,12 @@
 \DeclareFunction-{\cotangentbundle}[1,]{T^*}{#1} % tangent bundle of manifold #1
 \DeclareFunction+{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
 
+\DeclareFunction+{\sectionalcurvature}[1,]{K}{#1} % sectional curvature of two dimensional subspace #1 of tangentspace at a manifold
+\DeclareFunction+{\scalarcurvature}[1,]{K}{#1} % scalar curvature at point #1
+\DeclareFunction+{\riccicurvature}[2,]{\operatorname{Ric}_{#1}}{#2} % Ricci curvature along vector #2 of tangent space at point #1
+\DeclarePairedDelimiterX{\appliedriemanntensor}[4]{\lparen}{\rparen}{#1,#2,#3,#4} % (#1,#2,#3,4)=<R(#1,#2,#3),#4>
+
+
 \DeclareFunction+{\curvelengthfromto}[3,]{\ell_{#1}^{#2}}{#3} % length of curve #3 from #1 to #2
 \DeclareFunction+{\curvelength}[1,]{\ell}{#1} % length of curve #1
 
@@ -697,7 +702,9 @@
 \DeclareFunction+{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
 \DeclareMathOperator{\Id}{Id} % Identity
 \DeclareFunction+{\traeger}[1,]{\operatorname{supp}}{#1} % Träger of function #1
-\DeclareFunction+{\image}[1,]{\operatorname{Im}}{#1} % \image of #1 
+\DeclareFunction+{\kernel}[1,]{\operatorname{ker}}{#1} % \image of #1 
+\DeclareFunction+{\image}[1,]{\operatorname{im}}{#1} % \image of #1 
+\DeclareFunction+{\Image}[1,]{\operatorname{im}}{#1} % \image of #1 
 \DeclareFunction+{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
 \DeclareFunction+{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
 \DeclareFunction+{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
@@ -706,8 +713,7 @@
 \DeclareFunction+{\exterior}[2,]{\Lambda^{#1}}{#2} % Bijections of #1 
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
 \DeclareFunction+{\bilinearities}[3,0]{\operatorname{Bil}}{#1,#2;#3} % bilinearities of #1 x #2 into #3
-% \let\endomorphisms    \relax
-% \DeclareFunction+{\endomorphisms}[1,]{\operatorname{End}}{#1} % Endomorphismus of #1 
+\DeclareFunction+{\Endomorphisms}[1,]{\operatorname{End}}{#1} % Endomorphismus of #1 
 \DeclareFunction+{\automorphisms}[1,]{\operatorname{Aut}}{#1} % Automorphismus of #1 
 \DeclareFunction+{\innerautomorphism}[1,]{\operatorname{Int}}{#1} % Automorphismus of #1 
 \DeclareFunction+{\homomorphisms}[2,0]{\operatorname{Hom}}{#1,#2} % Homomorphismen of #1 into #2
@@ -719,6 +725,8 @@
 \DeclareFunction+{\determinant}[1,]{\det}{#1} % determinant of #1
 \DeclareFunction+{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
 \DeclareFunction+{\invertiblematrices}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
+\DeclareFunction+{\generallineargroup}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
+\DeclareFunction+{\unitarymatrices}[1,]{\operatorname{U}}{#1} % unitary matrices of #1 
 \DeclareFunction+{\orthogonalmatrices}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
 \DeclareFunction+{\diagonalmatrix}[1,]{\operatorname{diag}}{#1} % diagonal matrix with diagonal entries #1
 \DeclareFunction+{\Adj}[1,]{\operatorname{Adj}}{#1} % adjunction of #1 
@@ -757,7 +765,7 @@
 
 
 % from DIFF
-\DeclareFunction+{\diameter}[1,]{\operatorname{diam}}{#1} % Durchmesser of #1
+\DeclareFunction+{\setdiameter}[1,]{\operatorname{diam}}{#1} % Durchmesser of #1
 \DeclareFunction+{\normdiameter}[2,]{\operatorname{diam}_{#1}}{#2} % Durchmesser of #2 under norm #1
 
 % \DeclareFunction+{\distance}[1,]{\operatorname{dist}}{#1} % Distanz of #1
@@ -776,6 +784,7 @@
 
 % evaluate using vert
 \newcommand{\evaluateat}[2]{\left.#1\right|_{#2}}
+\newcommand{\restrict}[2]{\left.#1\right|_{#2}}
 \newcommand{\evaluatebetween}[3]{\left.#1\right|_{#2}^{#3}}
 
 
@@ -819,7 +828,7 @@
 \DeclarePairedDelimiter{\parens}{(}{)}
 \let\p\parens % shortcut, lots of "\parens" make the .tex really cluttered
 
-\DeclarePairedDelimiterXPP{\distance}[2]{d}{\lparen}{\rparen}{}{#1,#2}
+\DeclareFunction+{\distance}[2,0]{d}{#1,#2}
 \DeclareFunction+{\lineangle}[2,0]{\angle}{#1,#2}
 \newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\SavedStyle #1$}\left/\raisebox{-.2em}{$\SavedStyle #2$}\right.}}}
 \newcommand{\quot}[2]{{
@@ -848,6 +857,8 @@
 
 
 % from DIFF
+\DeclareFunction+{\residuum}[2,]{\operatorname{Res}_{#1}}{#2} % residuum of function #2 at point #1
+\DeclareFunction+{\windingnumber}[2,]{\operatorname{Ind}_{#1}}{#2} % winding number of path #1 at point #2
 \DeclareFunction+{\regelfunktionen}[1,]{\operatorname{\mathcal{R}}}{#1}
 \DeclareFunction+{\treppenfunktionen}[1,]{\operatorname{\mathcal{T}}}{#1}
 \DeclarePostFunction-{\parendiff}[2]{^{\parens*{#2}}}{#1} % #2th derivative of #1
@@ -881,15 +892,19 @@
 \DeclareFunction+{\quotientsheaf}[3,]{\quot{#1}{#2}}{#3} % quotient sheaf of sheaves #1 and #2 on open subset #3
 \DeclareFunction+{\tangentsheaf}[2,]{T_{#1}}{#2} % tangent bundle to smooth variety #1 of open subset #2 of #1
 \newcommand{\tangentstalk}[2]{T_{#1,#2}} % stalk of tangent bundle to smooth variety #1 at #2
-\DeclareFunction+{\twistingsheaf}[3,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}{#3} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
+\DeclareFunction+{\serretwistingsheaf}[3,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}{#3} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
+\DeclareFunction+{\twistingsheaf}[3,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}(#2)}{#3} % Serre twisting sheaf of degree #2 over projective scheme #1
+\DeclareFunction+{\twistedmodule}[2,]{#1}{#2} % twisted graded #1-module with n=#2
 \DeclareFunction+{\skyscrapersheaf}[2,]{\mathcal{k}_{#1}}{#2} % skyscraper sheaf at point #1 (of open set #2 of scheme containing point #1)
 \DeclareFunction+{\explicittwistingsheaf}[3,]{\p*{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}}{#3} % Serre twisting sheaf with parantheses
 \DeclareFunction+{\imagepresheaf}[1,]{\operatorname{im}'}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
 \DeclareFunction+{\imagesheaf}[1,]{\operatorname{im}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
 \DeclareFunction+{\kernelsheaf}[1,]{\operatorname{ker}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
-\DeclareFunction+{\tildesheaf}[2,]{\widetilde{#1}}{#2} % sheaf associated to module #1 evaluated on #2
+\DeclareFunction+{\idealsheaf}[3,]{I_{\quot{#1}{#2}}}{#3} % ideal sheaf of #1 in #2 evaluated on #3
+\DeclareFunction+{\tildesheaf}[2,]{\reallywidetilde{#1}}{#2} % sheaf associated to module #1 evaluated on #2
+\DeclareFunction+{\vectorbundlesheaf}[2,]{\mathcal{E}\ifstrempty{#1}{}{_{#1}}}{#2} % sheaf associated to vector bundle #1 evaluated on #2
 \DeclarePostFunction-{\dualsheaf}[1]{^{\vee}}{#1} % dual vector of a vector #1
-\DeclareFunction-{\homsheaf}[3,1]{\operatorname{\text{\usefont{U}{BOONDOX-cal}{m}{n}Hom}}\ifstrempty{#1}{_{\structuresheaf;{#1}}}}{#2,#3} % Hom sheaf over O_#1 from #2 to #3
+\DeclareFunction+{\homsheaf}[3,1]{\operatorname{\mathcal{H}\kern -.5pt \mathit{om}}\ifstrempty{#1}{}{_{\structuresheaf;{#1}}}}{#2,#3} % Hom sheaf over O_#1 from #2 to #3
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
 \DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
 \DeclareFunction+{\homogeneouscoordinatering}[1,]{S}{#1} % homogeneous coordinate ring of a projective variety #1
@@ -898,6 +913,8 @@
 \DeclareFunction+{\projectivezeroes}[1,]{Z_+}{#1} % vanishing / zeroes of homogeneous ideal or function #1
 \DeclareFunction+{\schemeideal}[1,]{I}{#1} % Ideal of a subset #1 of a scheme / variety
 \DeclarePostFunction-{\schemeification}[1]{_{\textnormal{sch}}}{#1} % Ideal of a subset #1 of a scheme / variety
+\DeclarePostFunction-{\sheafification}[1]{_{\textnormal{sh}}}{#1} % Sheafification of a presheaf #1 on a scheme
+\DeclareFunction+{\modulesheafification}[2,]{\reallywidetilde{#1}}{#2} % Sheafification of R-module #1 giving module sheaf on X=Spec(R)
 \DeclareFunction+{\distinguishedopen}[1,]{D}{#1} % distinguished open of a function (or an element of a ring) #1 
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
 \newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
