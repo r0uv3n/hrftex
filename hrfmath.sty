@@ -749,7 +749,7 @@
 \DeclareFunction+{\fieldspan}[2,]{\operatorname{Span}_{#1}}{#2} % Span of #1 over field #2 
 \let\dim\relax
 \DeclareFunction+{\dim }[1,]{\operatorname{dim}}{#1} % dimension of #1 
-\DeclareFunction+{\fielddim}[2,]{\operatorname{dim}_{#1}}{#2} % dimension of #2 over field #1
+\DeclareFunction+{\dimensionover}[2,]{\operatorname{dim}_{#1}}{#2} % dimension of #2 over ring #1
 \DeclareFunction+{\affindim}[1,]{\operatorname{dim}}{#1} % dimension of affine space #1 
 \DeclareFunction+{\projectivedim}[1,]{\operatorname{dim}}{#1} % dimension of projection space #1 
 
@@ -876,6 +876,7 @@
 \DeclarePairedDelimiterX{\commutator}[2]{\lbrack}{\rbrack}{#1,#2} % commutator of elements #1, #2 of non commutative ring
 
 % from AlgGeo
+\DeclareFunction;{\jacobsonradical}[1,]{J}{#1} % jacobson radical of ring #1
 \DeclareFunction-{\degree}[1,]{\operatorname{deg}}{#1} % degree of element #1 of graded ring
 \DeclarePostFunction-{\gradedpart}[2]{_{#2}}{#1} % graded part of degree #1 of graded ring #2
 \DeclareFunction+{\quotientfield}[1,]{\operatorname{Quot}}{#1} % quotient field of field #1
@@ -906,6 +907,8 @@
 \DeclareFunction+{\idealsheaf}[3,]{I_{\quot{#1}{#2}}}{#3} % ideal sheaf of #1 in #2 evaluated on #3
 \DeclareFunction+{\tildesheaf}[2,]{\reallywidetilde{#1}}{#2} % sheaf associated to module #1 evaluated on #2
 \DeclareFunction+{\vectorbundlesheaf}[2,]{\mathcal{E}\ifstrempty{#1}{}{_{#1}}}{#2} % sheaf associated to vector bundle #1 evaluated on #2
+\DeclareFunction;{\tautologicalprojectivebundle}[1,]{\mathbb{L}}{#1} % universal family of lines over P^{#1}
+\DeclarePostFunction-{\dualbundle}[1]{^\vee}{#1} % dual bundle of a vector bundle #1
 \DeclarePostFunction-{\dualsheaf}[1]{^{\vee}}{#1} % dual vector of a vector #1
 \DeclareFunction+{\homsheaf}[3,1]{\operatorname{\mathcal{H}\kern -.5pt \mathit{om}}\ifstrempty{#1}{}{_{\structuresheaf;{#1}}}}{#2,#3} % Hom sheaf over O_#1 from #2 to #3
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
