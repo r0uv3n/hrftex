@@ -10,23 +10,23 @@
 \newtoggle{numberwithin}
 \newtoggle{empheqoverload}
 \pgfkeys{
-    /hrftex/hrfmath/.cd,
-    numberindividually/.is choice,
-    numberindividually/true/.code=\toggletrue{numberindividually},
-    numberindividually/false/.code=\togglefalse{numberindividually},
-    numberindividually/.initial=false,
-    numberindividually/.default=true,
-    nomasternumbers/.is choice,
-    nomasternumbers/true/.code=\toggletrue{nomasternumbers},
-    nomasternumbers/false/.code=\togglefalse{nomasternumbers},
-    nomasternumbers/.initial=false,
-    nomasternumbers/.default=true,
-    empheqoverload/true/.code=\toggletrue{empheqoverload},
-    empheqoverload/false/.code=\togglefalse{empheqoverload},
-    empheqoverload/.initial=false,
-    empheqoverload/.default=true,
-    numberwithin/.value required,
-    numberwithin/.initial,
+	/hrftex/hrfmath/.cd,
+	numberindividually/.is choice,
+	numberindividually/true/.code=\toggletrue{numberindividually},
+	numberindividually/false/.code=\togglefalse{numberindividually},
+	numberindividually/.initial=false,
+	numberindividually/.default=true,
+	nomasternumbers/.is choice,
+	nomasternumbers/true/.code=\toggletrue{nomasternumbers},
+	nomasternumbers/false/.code=\togglefalse{nomasternumbers},
+	nomasternumbers/.initial=false,
+	nomasternumbers/.default=true,
+	empheqoverload/true/.code=\toggletrue{empheqoverload},
+	empheqoverload/false/.code=\togglefalse{empheqoverload},
+	empheqoverload/.initial=false,
+	empheqoverload/.default=true,
+	numberwithin/.value required,
+	numberwithin/.initial,
 }
 % 
 
@@ -71,7 +71,7 @@
 
 % add \warning symbol
 \newcommand*{\TakeFourierOrnament}[1]{{%
-\fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
+			\fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
 \newcommand*{\warning}{\TakeFourierOrnament{49}}
 
 % 
@@ -111,121 +111,122 @@
 
 % for references to items in enumerations
 \iftoggle{noenumitem}{}{
-    \setlist[enumerate,1]{label=(\roman*), ref=\iftoggle{numberindividually}{}{\thegeneralthm.}(\roman*)}
-    \newlist{eigenschaftenenumerate}{enumerate}{3}
-    \setlist[eigenschaftenenumerate]{label=(\alph*), ref=\iftoggle{numberindividually}{}{\thegeneralthm.}(\alph*)}
-    \newlist{eigenschaftendescription}{description}{3}
-    \setlist[eigenschaftendescription]{font=\normalfont}
-    \newlist{proofenumerate}{enumerate}{3}
-    \setlist[proofenumerate]{label=\arabic*., wide}
-    \newlist{proofdescription}{description}{3}
-    \setlist[proofdescription]{font=\bfseries, wide}
-    % for references to description items
-    \def\namedlabel#1#2{\begingroup
-        #2%
-        \def\@currentlabel{#2}%
-        \phantomsection\label{#1}\endgroup
-    }}
+	\setlist[enumerate,1]{label=(\roman*), ref=\iftoggle{numberindividually}{}{\thegeneralthm.}(\roman*)}
+	\newlist{eigenschaftenenumerate}{enumerate}{3}
+	\setlist[eigenschaftenenumerate]{label=(\alph*), ref=\iftoggle{numberindividually}{}{\thegeneralthm.}(\alph*)}
+	\newlist{eigenschaftendescription}{description}{3}
+	\setlist[eigenschaftendescription]{font=\normalfont}
+	\newlist{proofenumerate}{enumerate}{3}
+	\setlist[proofenumerate]{label=\arabic*., wide}
+	\newlist{proofdescription}{description}{3}
+	\setlist[proofdescription]{font=\bfseries, wide}
+	% for references to description items
+	\def\namedlabel#1#2{\begingroup
+		#2%
+		\def\@currentlabel{#2}%
+		\phantomsection\label{#1}\endgroup
+	}}
 
 \newcommand{\NewTheorem}[2]{
-    \iftoggle{numberindividually}
-    {\iftoggle{numberwithin}
-        {\declaretheorem[name=#2,numberwithin=\numbertheoremswithinthis]{#1}}
-        {\declaretheorem[name=#2]{#1}}}
-    {\declaretheorem[numberlike=generalthm,name=#2]{#1}}
-    \iftoggle{nontheorem}{}{
-        \expandafter\let\csname #1*\endcsname\relax % ntheorem defines starred variants which we don't want
-    }
-    \declaretheorem[name=#2, numbered=no]{#1*}
-    \iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
+	\iftoggle{numberindividually}
+	{\iftoggle{numberwithin}
+		{\declaretheorem[name=#2,numberwithin=\numbertheoremswithinthis]{#1}}
+		{\declaretheorem[name=#2]{#1}}}
+	{\declaretheorem[numberlike=generalthm,name=#2]{#1}}
+	\iftoggle{nontheorem}{}{
+		\expandafter\let\csname #1*\endcsname\relax % ntheorem defines starred variants which we don't want
+	}
+	\declaretheorem[name=#2, numbered=no]{#1*}
+	\iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
 }
 
 % beamer defines its own theorems
 \@ifclassloaded{beamer}{}{
-    \NewTheorem{anwendung}{Anwendung}
-    \NewTheorem{anwendungen}{Anwendungen}
-    \NewTheorem{aufwaermuebung}{Aufwärm-Übung}
-    \NewTheorem{attention}{\warning}
-    \NewTheorem{achtung}{\emph{Achtung}}
-    \NewTheorem{beachte}{Beachte}
-    \NewTheorem{beispiel}{Beispiel}
-    \NewTheorem{antibeispiel}{Anti-Beispiel}
-    \NewTheorem{beispiele}{Beispiele}
-    \NewTheorem{behauptung}{Behauptung}
-    \NewTheorem{behauptungen}{Behauptungen}
-    \NewTheorem{bembsp}{Bemerkung / Beispiel}
-    \NewTheorem{bembspe}{Bemerkungen / Beispiele}
-    \NewTheorem{bemdef}{Bemerkung / Definition}
-    \NewTheorem{bemnotation}{Bemerkung / Notation}
-    \NewTheorem{bemuebung}{Bemerkung / Übung}
-    \NewTheorem{bemerkung}{Bemerkung}
-    \NewTheorem{bemerkungen}{Bemerkungen}
-    \NewTheorem{bspdef}{Beispiel / Definition}
-    \NewTheorem{bspidee}{Beispiel / Idee}
-    \NewTheorem{checkenvironment}{Check}
-    \NewTheorem{claim}{Claim}
-    \NewTheorem{construction}{Construction}
-    \NewTheorem{corollary}{Corollary}
-    \NewTheorem{defbem}{Definition / Bemerkung}
-    \NewTheorem{deferinnerung}{Definition / Erinnerung}
-    \NewTheorem{definition}{Definition}
-    \NewTheorem{definitionen}{Definitionen}
-    \NewTheorem{deflemma}{Definition / Lemma}
-    \NewTheorem{defprop}{Definition / Proposition}
-    \NewTheorem{defsatz}{Definition / Satz}
-    \NewTheorem{einschub}{Einschub}
-    \NewTheorem{ergaenzung}{Ergänzung}
-    \NewTheorem{example}{Example}
-    \NewTheorem{examples}{Examples}
-    \NewTheorem{exercise}{Exercise}
-    \NewTheorem{exkurs}{Exkurs}
-    \NewTheorem{erinnerung}{Erinnerung}
-    \NewTheorem{fact}{Fact}
-    \NewTheorem{fakt}{Fakt}
-    \NewTheorem{folgerung}{Folgerung}
-    \NewTheorem{folgerungbsp}{Folgerung / Beispiel}
-    \NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
-    \NewTheorem{folgerungen}{Folgerungen}
-    \NewTheorem{folgnotation}{Folgerungen / Notation}
-    \NewTheorem{frage}{Frage}
-    \NewTheorem{frageuebung}{Frage / Übung}
-    \NewTheorem{fragen}{Fragen}
-    \NewTheorem{goal}{Goal}
-    \NewTheorem{hint}{Hint}
-    \NewTheorem{idea}{Idea}
-    \NewTheorem{idee}{Idee}
-    \NewTheorem{interpretation}{Interpretation}
-    \NewTheorem{intuition}{Intuition}
-    \NewTheorem{lemmadef}{Lemma + Def}
-    \NewTheorem{lemma}{Lemma}
-    \NewTheorem{konvention}{Konvention}
-    \NewTheorem{korollar}{Korollar}
-    \NewTheorem{notabene}{Nota Bene}
-    \NewTheorem{notation}{Notation}
-    \NewTheorem{notationen}{Notationen}
-    \NewTheorem{note}{Note}
-    \NewTheorem{notice}{Notice}
-    \NewTheorem{merkregel}{Merkregel}
-    \NewTheorem{motivation}{Motivation}
-    \NewTheorem{proposition}{Proposition}
-    \NewTheorem{question}{Question}
-    \NewTheorem{recall}{Recall}
-    \NewTheorem{rechentrick}{Rechentrick}
-    \NewTheorem{remark}{Remark}
-    \NewTheorem{remarkconvention}{Remark / Convention}
-    \NewTheorem{remarkdef}{Remark / Definition}
-    \NewTheorem{satz}{Satz}
-    \NewTheorem{satzdef}{Satz / Definition}
-    \NewTheorem{slogan}{Slogan}
-    \NewTheorem{spezialfall}{Spezialfall}
-    \NewTheorem{theorem}{Theorem}
-    \NewTheorem{thmdef}{Theorem \& Definition}
-    \NewTheorem{tocome}{To Come}
-    \NewTheorem{wiederholung}{Wiederholung}
-    \NewTheorem{ziel}{Ziel}
+	\NewTheorem{anwendung}{Anwendung}
+	\NewTheorem{anwendungen}{Anwendungen}
+	\NewTheorem{aufwaermuebung}{Aufwärm-Übung}
+	\NewTheorem{attention}{\warning}
+	\NewTheorem{achtung}{\emph{Achtung}}
+	\NewTheorem{beachte}{Beachte}
+	\NewTheorem{beispiel}{Beispiel}
+	\NewTheorem{antibeispiel}{Anti-Beispiel}
+	\NewTheorem{beispiele}{Beispiele}
+	\NewTheorem{behauptung}{Behauptung}
+	\NewTheorem{behauptungen}{Behauptungen}
+	\NewTheorem{bembsp}{Bemerkung / Beispiel}
+	\NewTheorem{bembspe}{Bemerkungen / Beispiele}
+	\NewTheorem{bemdef}{Bemerkung / Definition}
+	\NewTheorem{bemnotation}{Bemerkung / Notation}
+	\NewTheorem{bemuebung}{Bemerkung / Übung}
+	\NewTheorem{bemerkung}{Bemerkung}
+	\NewTheorem{bemerkungen}{Bemerkungen}
+	\NewTheorem{bspdef}{Beispiel / Definition}
+	\NewTheorem{bspidee}{Beispiel / Idee}
+	\NewTheorem{checkenvironment}{Check}
+	\NewTheorem{claim}{Claim}
+	\NewTheorem{claims}{Claims}
+	\NewTheorem{construction}{Construction}
+	\NewTheorem{corollary}{Corollary}
+	\NewTheorem{defbem}{Definition / Bemerkung}
+	\NewTheorem{deferinnerung}{Definition / Erinnerung}
+	\NewTheorem{definition}{Definition}
+	\NewTheorem{definitionen}{Definitionen}
+	\NewTheorem{deflemma}{Definition / Lemma}
+	\NewTheorem{defprop}{Definition / Proposition}
+	\NewTheorem{defsatz}{Definition / Satz}
+	\NewTheorem{einschub}{Einschub}
+	\NewTheorem{ergaenzung}{Ergänzung}
+	\NewTheorem{example}{Example}
+	\NewTheorem{examples}{Examples}
+	\NewTheorem{exercise}{Exercise}
+	\NewTheorem{exkurs}{Exkurs}
+	\NewTheorem{erinnerung}{Erinnerung}
+	\NewTheorem{fact}{Fact}
+	\NewTheorem{fakt}{Fakt}
+	\NewTheorem{folgerung}{Folgerung}
+	\NewTheorem{folgerungbsp}{Folgerung / Beispiel}
+	\NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
+	\NewTheorem{folgerungen}{Folgerungen}
+	\NewTheorem{folgnotation}{Folgerungen / Notation}
+	\NewTheorem{frage}{Frage}
+	\NewTheorem{frageuebung}{Frage / Übung}
+	\NewTheorem{fragen}{Fragen}
+	\NewTheorem{goal}{Goal}
+	\NewTheorem{hint}{Hint}
+	\NewTheorem{idea}{Idea}
+	\NewTheorem{idee}{Idee}
+	\NewTheorem{interpretation}{Interpretation}
+	\NewTheorem{intuition}{Intuition}
+	\NewTheorem{lemmadef}{Lemma + Def}
+	\NewTheorem{lemma}{Lemma}
+	\NewTheorem{konvention}{Konvention}
+	\NewTheorem{korollar}{Korollar}
+	\NewTheorem{notabene}{Nota Bene}
+	\NewTheorem{notation}{Notation}
+	\NewTheorem{notationen}{Notationen}
+	\NewTheorem{note}{Note}
+	\NewTheorem{notice}{Notice}
+	\NewTheorem{merkregel}{Merkregel}
+	\NewTheorem{motivation}{Motivation}
+	\NewTheorem{proposition}{Proposition}
+	\NewTheorem{question}{Question}
+	\NewTheorem{recall}{Recall}
+	\NewTheorem{rechentrick}{Rechentrick}
+	\NewTheorem{remark}{Remark}
+	\NewTheorem{remarkconvention}{Remark / Convention}
+	\NewTheorem{remarkdef}{Remark / Definition}
+	\NewTheorem{satz}{Satz}
+	\NewTheorem{satzdef}{Satz / Definition}
+	\NewTheorem{slogan}{Slogan}
+	\NewTheorem{spezialfall}{Spezialfall}
+	\NewTheorem{theorem}{Theorem}
+	\NewTheorem{thmdef}{Theorem \& Definition}
+	\NewTheorem{tocome}{To Come}
+	\NewTheorem{wiederholung}{Wiederholung}
+	\NewTheorem{ziel}{Ziel}
 
-    \newtheorem{subsatz}{Satz}[generalthm]
-    \renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
+	\newtheorem{subsatz}{Satz}[generalthm]
+	\renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
 }
 % stack below with optional argument
 \RequirePackage{stackrel}
@@ -288,7 +289,7 @@
 \derivset{\pdv}[delims-eval=. \rvert]
 
 % tensors
-\RequirePackage{tensor} 
+\RequirePackage{tensor}
 
 % Better vector arrows
 \RequirePackage{esvect}
@@ -296,8 +297,8 @@
 % Intervals
 \RequirePackage{interval}
 \intervalconfig{
-    soft open fences,
-    scaled
+	soft open fences,
+	scaled
 }
 
 % end of package imports
@@ -311,7 +312,7 @@
 \expandafter\let\csname  \NoSuffixName#2\expandafter\endcsname\csname\SuffixName#2#1\endcsname
 }
 \def\DeclareFunction#1#2[#3,#4]#5#6{
-    \DeclareMathOperatorWithDelimiter#1{#2}[#3,#4]{#5}{\lparen}{\rparen}{#6}
+	\DeclareMathOperatorWithDelimiter#1{#2}[#3,#4]{#5}{\lparen}{\rparen}{#6}
 }
 \def\DeclareMathPostOperatorWithDelimiter#1#2[#3]#4#5#6#7{
 \newcommand{#2}{}
@@ -321,7 +322,7 @@
 }
 
 \def\DeclarePostFunction#1#2[#3]#4#5{
-    \DeclareMathPostOperatorWithDelimiter#1{#2}[#3]{#4}{\lparen}{\rparen}{#5}
+	\DeclareMathPostOperatorWithDelimiter#1{#2}[#3]{#4}{\lparen}{\rparen}{#5}
 }
 
 
@@ -391,9 +392,9 @@
 
 % can be used in both math and text mode
 \newcommand{\zuzeigen}[1]{\smallskip\par\noindent\doublebox{%
-        \begin{minipage}{\the\dimexpr \textwidth - 13.6pt\relax}\zuzeigentext #1\end{minipage}}}
+		\begin{minipage}{\the\dimexpr \textwidth - 13.6pt\relax}\zuzeigentext #1\end{minipage}}}
 \newcommand{\zuzeigenmath}[1]{\par\doublebox{%
-        \begin{minipage}{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}\zuzeigentext #1\end{minipage}}}
+		\begin{minipage}{\the\dimexpr\textwidth-\mathindent-13.6pt\relax}\zuzeigentext #1\end{minipage}}}
 \let\tobeshown\zuzeigen
 \let\tobeshownmath\zuzeigenmath
 
@@ -455,11 +456,11 @@
 \RequirePackage{scalerel}
 \RequirePackage{stackengine,wasysym}
 \newcommand\reallywidetilde[1]{\ThisStyle{%
-  \setbox0=\hbox{$\SavedStyle#1$}%
-  \stackengine{-.1\LMpt}{$\SavedStyle#1$}{%
-    \stretchto{\scaleto{\SavedStyle\mkern.2mu\AC}{.5150\wd0}}{.6\ht0}%
-  }{O}{c}{F}{T}{S}%
-}}
+		\setbox0=\hbox{$\SavedStyle#1$}%
+		\stackengine{-.1\LMpt}{$\SavedStyle#1$}{%
+			\stretchto{\scaleto{\SavedStyle\mkern.2mu\AC}{.5150\wd0}}{.6\ht0}%
+		}{O}{c}{F}{T}{S}%
+	}}
 
 
 
@@ -514,15 +515,15 @@
 \providecommand\given{}
 % can be useful to refer to this outside \Set or \Braket
 \newcommand\SetSymbol[1][]{%
-    \nonscript\:#1\vert
-    \allowbreak
-    \nonscript\:
-    \mathopen{}
+	\nonscript\:#1\vert
+	\allowbreak
+	\nonscript\:
+	\mathopen{}
 }
 
 \DeclarePairedDelimiterX\Set[1]{\lbrace}{\rbrace}{%
-    \renewcommand\given{\SetSymbol[\delimsize]}
-    #1
+	\renewcommand\given{\SetSymbol[\delimsize]}
+	#1
 }
 \DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\delimsize\vert #2}
 \DeclarePairedDelimiterX\appliedbraket[3]{\langle}{\rangle}{#1\delimsize\vert #2\delimsize\vert #3}
@@ -621,7 +622,7 @@
 \newcommand{\permutations}[1]{S_{#1}} % permutations of {1,...,#1}
 
 % from DIFF
-\newcommand*{\ndifferentiable}[1]{C\ifstrempty{#1}{}{^{#1}}} 
+\newcommand*{\ndifferentiable}[1]{C\ifstrempty{#1}{}{^{#1}}}
 \newcommand*{\smooth}{\ndifferentiable{\infty}}
 \DeclareFunction+{\smoothfunctions}[1,]{\smooth}{#1} % smooth maps from #1 to the reals
 \DeclareFunction+{\smoothmaps}[2,]{\smooth}{#1,#2} % smooth maps from #1 to #2
@@ -653,6 +654,8 @@
 \DeclareFunction+{\besselfirstkind}[2,]{J_{#1}}{#2}
 
 \DeclareFunction+{\alternatingforms}[2,]{\operatorname{Alt}^{#1}}{#2} % alternating #1-forms over #2
+\DeclareFunction-{\codimension}[1,]{\operatorname{codim}}{#1} % codimension of space #1 (in some other space)
+\DeclareFunction-{\codimensionover}[2,]{\operatorname{codim}}{#1,#2} % codimension of space #1 in #2
 \DeclareFunction-{\dimension}[1,]{\operatorname{dim}}{#1} % dimension of space #1
 \DeclareFunction+{\autodiffeomorphisms}[1,]{\operatorname{Diff}}{#1} % group of diffeomorphisms from #1 into #1
 \DeclareFunction-{\normalspace}[2,]{N_{#1}}{#2} % normal space of manifold #2 at point #1
@@ -661,6 +664,7 @@
 \DeclareFunction-{\tangentbundle}[1,]{T}{#1} % tangent bundle of manifold #1
 \DeclareFunction-{\cotangentbundle}[1,]{T^*}{#1} % tangent bundle of manifold #1
 \DeclareFunction+{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
+\DeclareFunction+{\decktransformations}[2,0]{\operatorname{Deck}}{\quot{#1}{#2}} % deck transformations of Y over X.
 
 \DeclareFunction+{\sectionalcurvature}[1,]{K}{#1} % sectional curvature of two dimensional subspace #1 of tangentspace at a manifold
 \DeclareFunction+{\scalarcurvature}[1,]{K}{#1} % scalar curvature at point #1
@@ -717,6 +721,9 @@
 \DeclareFunction+{\automorphisms}[1,]{\operatorname{Aut}}{#1} % Automorphismus of #1 
 \DeclareFunction+{\innerautomorphism}[1,]{\operatorname{Int}}{#1} % Automorphismus of #1 
 \DeclareFunction+{\homomorphisms}[2,0]{\operatorname{Hom}}{#1,#2} % Homomorphismen of #1 into #2
+\DeclareFunction+{\homomorphismsover}[3,1]{\operatorname{Hom}_{#1}}{#2,#3} % Homomorphismen of #2 into #3 over base space #1
+\DeclareFunction+{\morphisms}[2,0]{\operatorname{Mor}}{#1,#2} % Homomorphismen of #1 into #2
+\DeclareFunction+{\morphismsof}[3,1]{\operatorname{Mor}_{#1}}{#1,#2} % morphisms of #2 into #3 in category #1
 \DeclareFunction+{\fieldhomomorphisms}[3,]{\operatorname{Hom}_{#1}}{#2,#3} % Homomorphismen of #2 into #3 over field #1
 \DeclareMathOperator{\Mat}{Mat} % matrices
 \DeclarePairedDelimiterXPP{\matrices}[3]{\Mat}{\lparen}{\rparen}{}{#1 \times #2, #3} % #1*#2 matrices over field #3 
@@ -724,8 +731,18 @@
 
 \DeclareFunction+{\determinant}[1,]{\det}{#1} % determinant of #1
 \DeclareFunction+{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
-\DeclareFunction+{\invertiblematrices}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
-\DeclareFunction+{\generallineargroup}[2,]{\operatorname{GL}\ifstrempty{#1}{}{_{#1}}}{#2} % general linear group of #1 dimensions over field #2
+\DeclareFunction+{\invertiblematrices}[1,]{\operatorname{GL}}{#1}
+\DeclareFunction+{\generallineargroup}[1,]{\operatorname{GL}}{#1}
+\DeclareFunction+{\generallineargroupover}[2,]{\operatorname{GL}_{#1}}{#2}
+\DeclareFunction+{\speciallineargroup}[1,]{\operatorname{SL}}{#1}
+\DeclareFunction+{\speciallineargroupover}[2,]{\operatorname{SL}_{#1}}{#2}
+\DeclareFunction+{\generallinearliealgebra}[1,]{\mathfrak{gl}}{#1}
+\DeclareFunction+{\speciallinearliealgebra}[1,]{\mathfrak{sl}}{#1}
+\DeclareFunction+{\unitaryliealgebra}[1,]{\mathfrak{u}}{#1}
+\DeclareFunction+{\specialunitaryliealgebra}[1,]{\mathfrak{su}}{#1}
+\DeclareFunction+{\orthogonalliealgebra}[1,]{\mathfrak{o}}{#1}
+\DeclareFunction+{\specialorthogonalliealgebra}[1,]{\mathfrak{so}}{#1}
+\DeclareFunction+{\specialsymplecticliealgebra}[1,]{\mathfrak{sp}}{#1}
 \DeclareFunction+{\unitarygroup}[1,]{\operatorname{U}}{#1} % unitary matrices of #1 
 \DeclareFunction+{\specialunitarygroup}[1,]{\operatorname{SU}}{#1} % unitary matrices of #1 with determinant 1
 \DeclareFunction+{\orthogonalgroup}[1,]{\operatorname{O}}{#1} % orthogonal matrices of #1 
@@ -787,7 +804,7 @@
 
 % evaluate using vert
 \newcommand{\evaluateat}[2]{\left.#1\right|_{#2}}
-\newcommand{\restrict}[2]{\left.#1\right|_{#2}}
+\DeclarePostFunction+{\restrict}[2]{\right|_{#2}}{\left.#1}
 \newcommand{\evaluatebetween}[3]{\left.#1\right|_{#2}^{#3}}
 
 
@@ -796,19 +813,19 @@
 \newif\ifincludevert
 \newif\iftextmode
 \pgfkeys{/eqstep/.cd,
-    m/.is if=includemit,
-    p/.is if=includeparantheses,
-    v/.is if=includevert}
+	m/.is if=includemit,
+	p/.is if=includeparantheses,
+	v/.is if=includevert}
 
 \newcommand{\eqstep}[2][]{
-    {\pgfkeys{
-                /eqstep/.cd,
-                m=true,
-                p=true,
-                v=true,
-                #1
-            }}
-    && \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #2\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
+	{\pgfkeys{
+				/eqstep/.cd,
+				m=true,
+				p=true,
+				v=true,
+				#1
+			}}
+	&& \ifincludevert\left|\else\fi \;\ifincludeparantheses\left(\else\fi\ifincludemit\text{mit }\else\fi #2\ifincludeparantheses\right)\else\fi\ifincludevert\right.\else\fi
 }
 
 
@@ -835,20 +852,20 @@
 \DeclareFunction+{\lineangle}[2,0]{\angle}{#1,#2}
 \newcommand{\quotient}[2]{\ThisStyle{{\raisebox{.2em}{$\SavedStyle #1$}\left/\raisebox{-.2em}{$\SavedStyle #2$}\right.}}}
 \newcommand{\quot}[2]{{
-            \mathchoice
-            {% \displaystyle
-                \quotient{#1}{#2}%
-            }
-            {% \textstyle
-                \quotient{#1}{#2}%
-            }
-            {% \scriptstyle
-                #1\mathbin{/}#2%
-            }
-            {% \scriptscriptstyle  
-                #1\mathbin{/}#2%
-            }
-        }} % quotient set and "side fractions"      
+			\mathchoice
+			{% \displaystyle
+				\quotient{#1}{#2}%
+			}
+			{% \textstyle
+				\quotient{#1}{#2}%
+			}
+			{% \scriptstyle
+				#1\mathbin{/}#2%
+			}
+			{% \scriptscriptstyle  
+				#1\mathbin{/}#2%
+			}
+		}} % quotient set and "side fractions"      
 
 \newcommand{\logicaland}{\mathbin{\wedge}}
 \newcommand{\logicalor}{\mathbin{\vee}}
@@ -860,7 +877,7 @@
 
 
 % from DIFF
-\DeclareFunction+{\residuum}[2,]{\operatorname{Res}_{#1}}{#2} % residuum of function #2 at point #1
+\DeclareFunction+{\residue}[2,]{\operatorname{Res}_{#1}}{#2} % residue of function #2 at point #1
 \DeclareFunction+{\windingnumber}[2,]{\operatorname{Ind}_{#1}}{#2} % winding number of path #1 at point #2
 \DeclareFunction+{\regelfunktionen}[1,]{\operatorname{\mathcal{R}}}{#1}
 \DeclareFunction+{\treppenfunktionen}[1,]{\operatorname{\mathcal{T}}}{#1}
@@ -876,6 +893,9 @@
 \DeclarePairedDelimiterX{\commutator}[2]{\lbrack}{\rbrack}{#1,#2} % commutator of elements #1, #2 of non commutative ring
 
 % from AlgGeo
+\DeclarePostFunction-{\ringunits}[1]{^*}{#1} % invertible elements of a ring #1
+\DeclareFunction+{\height}[1,]{\operatorname{ht}}{#1} % height of a prime ideal #1
+\DeclareFunction+{\transcendencedegreeover}[2,]{\operatorname{tr.deg}_{#1}}{#2} % transcendence degree of #2 over #1
 \DeclareFunction;{\jacobsonradical}[1,]{J}{#1} % jacobson radical of ring #1
 \DeclareFunction-{\degree}[1,]{\operatorname{deg}}{#1} % degree of element #1 of graded ring
 \DeclarePostFunction-{\gradedpart}[2]{_{#2}}{#1} % graded part of degree #1 of graded ring #2
@@ -902,25 +922,37 @@
 \DeclareFunction+{\skyscrapersheaf}[2,]{\mathcal{k}_{#1}}{#2} % skyscraper sheaf at point #1 (of open set #2 of scheme containing point #1)
 \DeclareFunction+{\explicittwistingsheaf}[3,]{\p*{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}}{#3} % Serre twisting sheaf with parantheses
 \DeclareFunction+{\imagepresheaf}[1,]{\operatorname{im}'}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
+\DeclareFunction+{\constantsheaf}[1,]{\mathcal{K}^*}{#1} % constant sheaf on open set #1
 \DeclareFunction+{\imagesheaf}[1,]{\operatorname{im}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
 \DeclareFunction+{\kernelsheaf}[1,]{\operatorname{ker}}{#1} % sadly does not work properly as a presheaf (need to manually set parentheses)
+\DeclareFunction+{\sheafofideals}[2,]{I_{#1}}{#2} % sheaf of ideals of closed subset #1 evaluated on #2
+\DeclarePostFunction+{\reducedscheme}[1]{_{\mathnormal{red}}}{#1} % #1 with induced reduced scheme structure
 \DeclareFunction+{\idealsheaf}[3,]{I_{\quot{#1}{#2}}}{#3} % ideal sheaf of #1 in #2 evaluated on #3
 \DeclareFunction+{\tildesheaf}[2,]{\reallywidetilde{#1}}{#2} % sheaf associated to module #1 evaluated on #2
 \DeclareFunction+{\vectorbundlesheaf}[2,]{\mathcal{E}\ifstrempty{#1}{}{_{#1}}}{#2} % sheaf associated to vector bundle #1 evaluated on #2
+\DeclareFunction+{\weildivisorsheaf}[2,]{\mathcal{O}(#1)}{#2} % sheaf associated to weil divisor #1
+\DeclareFunction+{\weildivisorsheafover}[3,]{\mathcal{O}_{#1}(#2)}{#3} % sheaf associated to weil divisor #2 over scheme #1
+\DeclareFunction+{\cartierdivisorsheaf}[2,]{\mathcal{O}(#1)}{#2} % sheaf associated to cartier divisor #1
+\DeclareFunction+{\cartierdivisorsheafover}[3,]{\mathcal{O}_{#1}(#2)}{#3} % sheaf associated to cartier divisor #2 over scheme #1
+\DeclareFunction+{\divisorsheaf}[2,]{\mathcal{O}(#1)}{#2} % sheaf associated to divisor #1
+\DeclareFunction-{\picardgroup}[1,]{\operatorname{Pic}}{#1} % Picard group of sheaf #1
 \DeclareFunction;{\tautologicalprojectivebundle}[1,]{\mathbb{L}}{#1} % universal family of lines over P^{#1}
 \DeclarePostFunction-{\dualbundle}[1]{^\vee}{#1} % dual bundle of a vector bundle #1
 \DeclarePostFunction-{\dualsheaf}[1]{^{\vee}}{#1} % dual vector of a vector #1
-\DeclareFunction+{\homsheaf}[3,1]{\operatorname{\mathcal{H}\kern -.5pt \mathit{om}}\ifstrempty{#1}{}{_{\structuresheaf;{#1}}}}{#2,#3} % Hom sheaf over O_#1 from #2 to #3
+\DeclareFunction+{\homsheaf}[2,]{\operatorname{\mathcal{H}\kern -.5pt \mathit{om}}}{#1,#2} % Hom sheaf from #2 to #3
+\DeclareFunction+{\homsheafover}[3,1]{\operatorname{\mathcal{H}\kern -.5pt \mathit{om}}_{#1}}{#2,#3} % Hom sheaf over O_#1 from #2 to #3
 \DeclareFunction-{\spectrum}[1,]{\operatorname{Spec}}{#1} % spectrum over ring #1
 \DeclareFunction+{\coordinatering}[1,]{A}{#1} % coordinate ring of variety #1
 \DeclareFunction+{\homogeneouscoordinatering}[1,]{S}{#1} % homogeneous coordinate ring of a projective variety #1
 \DeclareFunction+{\zeroes}[1,]{Z}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
 \DeclareFunction+{\vanishing}[1,]{V}{#1} % vanishing / zeroes of ideal or function (or element of a ring) #1
 \DeclareFunction+{\projectivezeroes}[1,]{Z_+}{#1} % vanishing / zeroes of homogeneous ideal or function #1
-\DeclareFunction+{\schemeideal}[1,]{I}{#1} % Ideal of a subset #1 of a scheme / variety
+\DeclareFunction+{\schemeideal}[1,]{I}{#1} % Ideal of a subset #1 of an affine scheme / variety
 \DeclarePostFunction-{\schemeification}[1]{_{\textnormal{sch}}}{#1} % Ideal of a subset #1 of a scheme / variety
 \DeclarePostFunction-{\sheafification}[1]{_{\textnormal{sh}}}{#1} % Sheafification of a presheaf #1 on a scheme
 \DeclareFunction+{\modulesheafification}[2,]{\reallywidetilde{#1}}{#2} % Sheafification of R-module #1 giving module sheaf on X=Spec(R)
+\newcommand{\schemenormalisation}[1]{\widebar{#1}} % normalisation of an integral scheme #1
+\newcommand{\idnormalisation}[1]{\reallywidetilde{#1}} % normalisation of integral domain #1
 \DeclareFunction+{\distinguishedopen}[1,]{D}{#1} % distinguished open of a function (or an element of a ring) #1 
 \newcommand{\radicalideal}[1]{\sqrt{#1}} % the radical of an ideal #1
 \newcommand{\nilradical}{\radicalideal{(0)}} % radical of the ideal (0)
@@ -935,6 +967,14 @@
 \DeclarePostFunction-{\veronese}[2]{^{(#1)}}{#2} % image of veronese embedding of degree #1 of graded ring #2
 \DeclareFunction+{\veroneseembedding}[2,]{V_{#1}}{#2} % Veronese embedding of degree d of element #2 of projective scheme
 \newcommand{\finitefield}[1]{\mathbb{F}_{#1}} % finite field with #1 elements
+\DeclareFunction+{\weildivisor}[1,]{\operatorname{div}}{#1} %  weil divisors corresponding to invertible function #1 in function field
+\DeclareFunction+{\weildivisors}[1,]{\operatorname{Div}}{#1} % group of weil divisors over scheme (integral, normal, Noetherian) #1
+\DeclareFunction+{\weilclassgroup}[1,]{\operatorname{Cl}}{#1} % Weil class group over scheme (integral, normal, Noetherian) #1
+\DeclareFunction+{\principalweildivisors}[1,]{\operatorname{Div}_0}{#1} % group of weil divisors div(f) over scheme (integral, normal, Noetherian) #1 
+
+\DeclareFunction+{\cartierdivisors}[1,]{\operatorname{CaDiv}}{#1} % group of cartier divisors over scheme #1
+\DeclareFunction+{\principalcartierdivisors}[1,]{\operatorname{CaDiv}_0}{#1} % group of principal cartier divisors over scheme #1
+\DeclareFunction+{\cartierclassgroup}[1,]{\operatorname{CaCl}}{#1} % class group of cartier divisors over scheme #1
 
 % from AGLA
 \newcommand{\euclideanspace}[1]{\mathbb{E}^{#1}} % euclidean (affine) space of dimension 2
