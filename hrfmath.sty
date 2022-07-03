@@ -403,7 +403,7 @@
 \newcommand*{\definedas}{\coloneqq}
 \newcommand*{\definedequivalentto}{\vcentcolon\Leftrightarrow}
 \newcommand*{\maps}{\colon}
-\newcommand*{\isomorphic}{\simeq}
+\newcommand*{\isomorphic}{\cong}
 \newcommand*{\isomorphismto}{\xrightarrow{\sim}}
 \newcommand*{\onetoone}{\xleftrightarrow{1:1}}
 \newcommand*{\into}{\hookrightarrow}
@@ -935,6 +935,7 @@
 \DeclareFunction+{\cartierdivisorsheaf}[2,]{\mathcal{O}(#1)}{#2} % sheaf associated to cartier divisor #1
 \DeclareFunction+{\cartierdivisorsheafover}[3,]{\mathcal{O}_{#1}(#2)}{#3} % sheaf associated to cartier divisor #2 over scheme #1
 \DeclareFunction+{\divisorsheaf}[2,]{\mathcal{O}(#1)}{#2} % sheaf associated to divisor #1
+\DeclarePairedDelimiter{\linearsystem}{\lvert}{\rvert} % linear system associated to cartier divisor
 \DeclareFunction-{\picardgroup}[1,]{\operatorname{Pic}}{#1} % Picard group of sheaf #1
 \DeclareFunction;{\tautologicalprojectivebundle}[1,]{\mathbb{L}}{#1} % universal family of lines over P^{#1}
 \DeclarePostFunction-{\dualbundle}[1]{^\vee}{#1} % dual bundle of a vector bundle #1
