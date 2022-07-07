@@ -668,7 +668,8 @@
 
 \DeclareFunction+{\sectionalcurvature}[1,]{K}{#1} % sectional curvature of two dimensional subspace #1 of tangentspace at a manifold
 \DeclareFunction+{\scalarcurvature}[1,]{K}{#1} % scalar curvature at point #1
-\DeclareFunction+{\riccicurvature}[2,]{\operatorname{Ric}_{#1}}{#2} % Ricci curvature along vector #2 of tangent space at point #1
+\DeclareFunction+{\riccicurvature}[1,]{\operatorname{Ric}}{#1} % Ricci curvature along vector #2 of tangent space at point #1
+\DeclareFunction+{\riccicurvatureat}[2,]{\operatorname{Ric}_{#1}}{#2} % Ricci curvature along vector #2 of tangent space at point #1
 \DeclarePairedDelimiterX{\appliedriemanntensor}[4]{\lparen}{\rparen}{#1,#2,#3,#4} % (#1,#2,#3,4)=<R(#1,#2,#3),#4>
 
 
@@ -893,6 +894,7 @@
 \DeclarePairedDelimiterX{\commutator}[2]{\lbrack}{\rbrack}{#1,#2} % commutator of elements #1, #2 of non commutative ring
 
 % from AlgGeo
+\DeclareFunction+{\derivationsover}[3,1]{\operatorname{Der}_{#1}}{#2,#3} % derivations of an #1-algebra #2 over #1 into #2-module #3
 \DeclarePostFunction-{\ringunits}[1]{^*}{#1} % invertible elements of a ring #1
 \DeclareFunction+{\height}[1,]{\operatorname{ht}}{#1} % height of a prime ideal #1
 \DeclareFunction+{\transcendencedegreeover}[2,]{\operatorname{tr.deg}_{#1}}{#2} % transcendence degree of #2 over #1
@@ -911,6 +913,8 @@
 \newcommand{\fibreproductover}[1]{\times_{#1}}
 \newcommand{\tensorproductover}[1]{\otimes_{#1}}
 \DeclareFunction+{\functionfield}[1,]{k}{#1} % function field of integral scheme
+\DeclareFunction+{\cotangentsheaf}[2,]{\Omega'\ifstrempty{#1}{}{_{#1}}}{#2} % cotangent sheaf over scheme #1 at open set #2 (#1 can be empty)
+\newcommand{\kaehlerdifferentials}[2]{\Omega_{\quot{#1}{#2}}} % module of kähler differentials of #1 over #2
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\quotientsheaf}[3,]{\quot{#1}{#2}}{#3} % quotient sheaf of sheaves #1 and #2 on open subset #3
