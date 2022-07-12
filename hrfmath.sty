@@ -913,8 +913,9 @@
 \newcommand{\fibreproductover}[1]{\times_{#1}}
 \newcommand{\tensorproductover}[1]{\otimes_{#1}}
 \DeclareFunction+{\functionfield}[1,]{k}{#1} % function field of integral scheme
-\DeclareFunction+{\cotangentsheaf}[2,]{\Omega'\ifstrempty{#1}{}{_{#1}}}{#2} % cotangent sheaf over scheme #1 at open set #2 (#1 can be empty)
-\newcommand{\kaehlerdifferentials}[2]{\Omega_{\quot{#1}{#2}}} % module of kähler differentials of #1 over #2
+\DeclareFunction+{\cotangentsheaf}[2,]{\Omega_{#1}}{#2} % cotangent sheaf of scheme (over some Ring R) #1 over Spec(R) at open set #2
+\DeclareFunction+{\cotangentsheafover}[3,]{\Omega_{\quot{#1}{#2}}}{#3} % cotangent sheaf of #1 over #2 at #3
+\newcommand{\kaehlerdifferentials}[2]{\Omega_{\quot{#1}{#2}}} % module of Kähler differentials of #1 over #2
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\quotientsheaf}[3,]{\quot{#1}{#2}}{#3} % quotient sheaf of sheaves #1 and #2 on open subset #3
