@@ -141,7 +141,9 @@
 }
 
 % beamer defines its own theorems
-\@ifclassloaded{beamer}{}{
+\@ifclassloaded{beamer}{
+	\newtheorem{proposition}{Proposition}
+}{
 	\NewTheorem{anwendung}{Anwendung}
 	\NewTheorem{anwendungen}{Anwendungen}
 	\NewTheorem{aufwaermuebung}{Aufwärm-Übung}
@@ -643,7 +645,9 @@
 \newcommand*{\lebesgueintegrablefunctions}[1][1]{L^{#1}}
 \newcommand*{\stufenfunktionen}[1][0]{\mathcal{R}_{#1}}
 \newcommand{\sphere}[1]{\mathbb{S}^{#1}} % unit sphere of dimension #1
+\newcommand{\disk}[1]{\mathbb{D}^{#1}}   % unit disk of dimension #1
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
+\DeclareFunction+{\originball}[1,]{B}{#1} % ball of radius #1 around origin
 
 \DeclareFunction-{\pullback}[2,]{#1^{*}}{#2} % pullback of #2 along #1
 \let\diffpullback\pullback % for compatibility, but deprecated
@@ -805,7 +809,7 @@
 
 % evaluate using vert
 \newcommand{\evaluateat}[2]{\left.#1\right|_{#2}}
-\DeclarePostFunction+{\restrict}[2]{\right|_{#2}}{\left.#1}
+\let\restrict\evaluateat
 \newcommand{\evaluatebetween}[3]{\left.#1\right|_{#2}^{#3}}
 
 
@@ -914,12 +918,17 @@
 \newcommand{\tensorproductover}[1]{\otimes_{#1}}
 \DeclareFunction+{\functionfield}[1,]{k}{#1} % function field of integral scheme
 \DeclareFunction+{\cotangentsheaf}[2,]{\Omega_{#1}}{#2} % cotangent sheaf of scheme (over some Ring R) #1 over Spec(R) at open set #2
+\DeclareFunction+{\kaehlerforms}[3,]{\Omega_{#1}^{#2}}{#3} % cotangent sheaf of scheme (over some Ring R) #1 over Spec(R) at open set #2
+\DeclareFunction+{\kaehlerformsover}[4,]{\Omega_{\quot{#1}{#2}}^{#3}}{#4} % cotangent sheaf of scheme (over some Ring R) #1 over Spec(R) at open set #2
+\DeclareFunction+{\canonicalsheaf}[2,]{\omega_{#1}}{#2} % canonical sheaf of scheme #1
+\newcommand{\canonicaldivisor}[1]{K_{#1}} % canonical divisor of scheme #1
+\DeclareFunction+{\tangentsheaf}[2,]{T_{#1}}{#2} % tangent sheaf of scheme (over some field) #1 at open set #2
 \DeclareFunction+{\cotangentsheafover}[3,]{\Omega_{\quot{#1}{#2}}}{#3} % cotangent sheaf of #1 over #2 at #3
+\DeclareFunction+{\normalsheaf}[3,]{N_{\quot{#1}{#2}}}{#3} % normal sheaf of #1 over #2 at #3
 \newcommand{\kaehlerdifferentials}[2]{\Omega_{\quot{#1}{#2}}} % module of Kähler differentials of #1 over #2
 \DeclareFunction+{\structuresheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\sheaf}[2,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}}{#2} % structure sheaf over topological space #1 at open set #2 (#1 can be empty)
 \DeclareFunction+{\quotientsheaf}[3,]{\quot{#1}{#2}}{#3} % quotient sheaf of sheaves #1 and #2 on open subset #3
-\DeclareFunction+{\tangentsheaf}[2,]{T_{#1}}{#2} % tangent bundle to smooth variety #1 of open subset #2 of #1
 \newcommand{\tangentstalk}[2]{T_{#1,#2}} % stalk of tangent bundle to smooth variety #1 at #2
 \DeclareFunction+{\serretwistingsheaf}[3,]{\mathcal{O}\ifstrempty{#1}{}{_{\projectivespace{#1}}}(#2)}{#3} % Serre twisting sheaf of degree #2 over #1-dimensional projective space (#1 can be empty)
 \DeclareFunction+{\twistingsheaf}[3,]{\mathcal{O}\ifstrempty{#1}{}{_{#1}}(#2)}{#3} % Serre twisting sheaf of degree #2 over projective scheme #1
@@ -996,6 +1005,7 @@
 \DeclareFunction+{\projectionspaceover}[2,]{\mathbb{P}_{#1}}{#2} % projection of a vector space #2^{#1+1}, #2 a field
 \DeclareFunction+{\freevectorspace}[1,]{F}{#1} % free vector space over #1
 \DeclarePostFunction-{\orthogonalspace}[1]{^{\circ}}{#1} % orthogonal space (in the dual space) of a vector subspace #1
+\DeclarePostFunction-{\dualmap}[1]{^{*}}{#1} % dual space of a vector space #1
 \DeclarePostFunction-{\dualspace}[1]{^{*}}{#1} % dual space of a vector space #1
 \DeclarePostFunction-{\bidualspace}[1]{^{\star\star}}{#1} % bidual space of a vector space #1
 \DeclarePostFunction-{\dualvector}[1]{^{\star}}{#1} % dual vector of a vector #1
@@ -1003,6 +1013,16 @@
 \DeclarePostFunction+{\perpspace}[1]{^{\perp}}{#1} % perpendicular space to #1
 \DeclarePostFunction-{\transpose}[1]{^{T}}{#1} % transposed matrix of #1
 \DeclarePostFunction-{\adjoint}[1]{^{\dagger}}{#1} % adjoint matrix of #1
+
+% category theory
+\newcommand{\doubleto}{\rightrightarrows}
+\DeclarePostFunction-{\catepis}[1]{_{\mathrm{epi}}}{#1} % subcategory of epimorphisms
+\DeclarePostFunction-{\catmonos}[1]{_{\mathrm{mono}}}{#1} % subcategory of monomorphisms
+\DeclarePostFunction-{\catisos}[1]{^*}{#1} % subcategory of isomorphisms
+\DeclarePostFunction-{\catopp}[1]{^{\mathrm{op}}}{#1} % opposite category
+\newcommand{\catname}[1]{\bm{#1}}
+\newcommand{\normedspaces}{\catname{Nor}}
+\newcommand{\sets}{\catname{Set}}
 
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
