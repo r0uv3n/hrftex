@@ -39,7 +39,7 @@
 \ifdefequal{\numbertheoremswithinthis}{\novaluegiven}{\togglefalse{numberwithin}}{\toggletrue{numberwithin}}
 
 % this will already be loaded if used from hrftex
-\RequirePackage[utf8]{inputenc}
+\RequirePackage[utf8]{luainputenc}
 \RequirePackage[T1]{fontenc}
 
 % Fix problems with too many math fonts
@@ -400,6 +400,18 @@
 \let\tobeshown\zuzeigen
 \let\tobeshownmath\zuzeigenmath
 
+% this is a bit for category theory, but might be helpful in general
+\newcommand*\cocolon{%
+        \nobreak
+        \mskip6mu plus1mu
+        \mathpunct{}%
+        \nonscript
+        \mkern-\thinmuskip
+        {:}%
+        \mskip2mu
+        \relax
+}
+
 % verbose definitions
 \newcommand*{\defines}{\eqqcolon}
 \newcommand*{\definedas}{\coloneqq}
@@ -410,8 +422,16 @@
 \newcommand*{\onetoone}{\xleftrightarrow{1:1}}
 \newcommand*{\into}{\hookrightarrow}
 \newcommand*{\onto}{\twoheadrightarrow}
+\newcommand*{\from}{\leftarrow}
 \newcommand*{\bijectionto}{\lhook\joinrel\twoheadrightarrow}
 \newcommand{\xto}[2][]{\xrightarrow[#1]{#2}} % \to with subscript #1 and supscript #2
+\newcommand*{\longto}{\longrightarrow}
+
+
+% verbose limits
+\newcommand*{\goesto}{\to}
+\newcommand*{\goesupto}{\nearrow}
+\newcommand*{\goesdownto}{\searrow}
 
 % for equivalence proofs
 \RequirePackage{csquotes}
@@ -489,13 +509,6 @@
 \newcommand*{\subspace}{\leqold}
 \newcommand*{\supspace}{\geqold}
 
-% easier long to
-\newcommand*{\longto}{\longrightarrow}
-
-% verbose limits
-\newcommand*{\goesto}{\to}
-\newcommand*{\goesupto}{\nearrow}
-\newcommand*{\goesdownto}{\searrow}
 
 \newcommand*{\differential}{\mathop{}\!d}
 \newcommand*{\improperdifferential}[1]{d#1\,} % here for backwards compatibility, please use \odif from the package "derivative"
@@ -634,7 +647,7 @@
 \DeclareFunction+{\ndifferentiablemaps}[3,]{\ndifferentiable{#1}}{#2,#3} % #1-times continuously differentiable maps from #2 to #3
 \DeclareFunction+{\ndifferentiablefunctions}[2,]{\ndifferentiable{#1}}{#2} % #1-times continuously differentiable  functions of #2
 \DeclareFunction+{\stetigefunktionen}[2,1]{\ndifferentiable{#1}}{#2} % #1-fach stetig differenzierbare Funktionen of #2
-\DeclareFunction-{\pushforward}[2,]{{#1}_{*}}{#2} % push-forward of #2 along #1    
+\DeclarePostFunction-{\pushforward}[1]{_{*}}{#1} % push-forward along #1  
 \DeclareFunction+{\volume}[1,]{\operatorname{vol}}{#1}
 \DeclareFunction+{\characteristicfunction}[2,]{\chi_{#1}}{#2}
 \DeclareFunction+{\differentialforms}[2,]{\omega_{#1}}{#2} % differential forms of degree #1 of open set #2
@@ -649,8 +662,8 @@
 \DeclareFunction+{\ball}[2,]{B_{#1}}{#2} % ball of radius #1 around point #2
 \DeclareFunction+{\originball}[1,]{B}{#1} % ball of radius #1 around origin
 
-\DeclareFunction-{\pullback}[2,]{#1^{*}}{#2} % pullback of #2 along #1
-\let\diffpullback\pullback % for compatibility, but deprecated
+\DeclareFunction-{\diffpullback}[2,]{#1^{*}}{#2} % pullback of #2 along #1. For compatibility, but deprecated
+\DeclarePostFunction-{\pullback}[1]{^{*}}{#1}
 
 \DeclareFunction+{\legendrepolynomial}[2,]{P_{#1}}{#2}
 \DeclareFunction+{\hermitepolynomial}[2,]{H_{#1}}{#2}
@@ -705,21 +718,24 @@
 % operators
 \DeclareFunction+{\sgn}[1,]{\operatorname{sgn}}{#1} % \sgn of #1 
 \DeclareFunction+{\Abb}[1,]{\operatorname{Abb}}{#1} % \Abb of #1 
-\DeclareFunction+{\Ker}[1,]{\operatorname{Ker}}{#1} % \Ker of #1 
-\DeclareFunction+{\Kern}[1,]{\operatorname{Kern}}{#1} % Kern of #1 
+\DeclareFunction-{\Ker}[1,]{\operatorname{Ker}}{#1} % \Ker of #1 
+\DeclareFunction-{\Kern}[1,]{\operatorname{Kern}}{#1} % Kern of #1 
 \DeclareFunction+{\Urbild}[1,]{\operatorname{Urbild}}{#1} % Bild of #1 
 \DeclareFunction+{\Bild}[1,]{\operatorname{Bild}}{#1} % Bild of #1 
-\DeclareMathOperator{\Id}{Id} % Identity
-\DeclareFunction+{\traeger}[1,]{\operatorname{supp}}{#1} % Träger of function #1
-\DeclareFunction+{\kernel}[1,]{\operatorname{ker}}{#1} % \image of #1 
-\DeclareFunction+{\image}[1,]{\operatorname{im}}{#1} % \image of #1 
-\DeclareFunction+{\Image}[1,]{\operatorname{im}}{#1} % \image of #1 
+\newcommand{\Id}{\mathrm{Id}} % Identity
+\DeclareFunction-{\traeger}[1,]{\operatorname{supp}}{#1} % Träger of function #1
+\DeclareFunction-{\kernel}[1,]{\operatorname{ker}}{#1} % \image of #1 
+\DeclareFunction-{\cokernel}[1,]{\operatorname{coker}}{#1} % \image of #1 
+\DeclareFunction-{\limit}[1,]{\operatorname{ker}}{#1} % \image of #1 
+\DeclareFunction-{\colimit}[1,]{\operatorname{coker}}{#1} % \image of #1 
+\DeclareFunction-{\image}[1,]{\operatorname{im}}{#1} % \image of #1 
+\DeclareFunction-{\Image}[1,]{\operatorname{im}}{#1} % \image of #1 
 \DeclareFunction+{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
-\DeclareFunction+{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
-\DeclareFunction+{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
-\DeclareFunction+{\gradient}[1,]{\nabla}{#1} % grad of #1 
+\DeclareFunction-{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
+\DeclareFunction-{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
+\DeclareFunction-{\gradient}[1,]{\nabla}{#1} % grad of #1 
 % from AGLA
-\DeclareFunction+{\exterior}[2,]{\Lambda^{#1}}{#2} % Bijections of #1 
+\DeclareFunction-{\exterior}[2,]{\bigwedge^{#1}}{#2} % #1-th exterior product of #2
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
 \DeclareFunction+{\bilinearities}[3,0]{\operatorname{Bil}}{#1,#2;#3} % bilinearities of #1 x #2 into #3
 \DeclareFunction+{\Endomorphisms}[1,]{\operatorname{End}}{#1} % Endomorphismus of #1 
@@ -787,6 +803,11 @@
 \DeclarePairedDelimiterXPP{\polynomials}[2]{#1}{\lbrack}{\rbrack}{}{#2} % Polynomials of variables #2 over field #1 
 \DeclarePairedDelimiterXPP{\polynomialfield}[2]{#1}{\lparen}{\rparen}{}{#2} % Quotient field of the Polynomials of variables #2 over field #1 
 \DeclarePairedDelimiterXPP{\noncommutativepolynomials}[2]{#1}{\langle}{\rangle}{}{#2} % Polynomials of non-commutative variables #2 over field #1 
+
+% from AlgTop
+\DeclarePostFunction-{\skeleton}[2]{^{(#2)}}{#1} % #2-skeleton of #1
+\newcommand{\pathinverse}[1]{\overline{#1}}
+\newcommand{\pointset}{\Set{\text{pt}}}
 
 
 % from DIFF
@@ -993,7 +1014,7 @@
 
 % from AGLA
 \newcommand{\euclideanspace}[1]{\mathbb{E}^{#1}} % euclidean (affine) space of dimension 2
-\DeclarePairedDelimiterX{\generated}[1]{\langle}{\rangle}{#1}
+\DeclarePairedDelimiterX{\generated}[1]{\langle}{\rangle}{\renewcommand\given{\SetSymbol[\delimsize]}#1}
 \DeclarePairedDelimiterX{\scalarproduct}[2]{\langle}{\rangle}{#1,#2}
 \DeclarePairedDelimiterX{\spatproduct}[3]{\lparen}{\rparen}{#1,#2,#3}
 \newcommand{\compactification}[1]{\widebar{#1}} % Compactification of a topological space #1
@@ -1015,14 +1036,45 @@
 \DeclarePostFunction-{\adjoint}[1]{^{\dagger}}{#1} % adjoint matrix of #1
 
 % category theory
+\newcommand{\blank}{{-}}
+\DeclareFunction+{\cones}[2,0]{\operatorname{Cone}}{#1,#2} % #1 is the summit, #2 the functor
+\DeclareFunction+{\cocones}[2,0]{\operatorname{Cone}}{#1,#2} % #1 is the functor, #2 the nadir
+\DeclarePairedDelimiterXPP{\conefunctor}[1]{\operatorname{Cone}}{\lparen}{\rparen}{}{\blank,#1}
+\DeclarePairedDelimiterXPP{\coconefunctor}[1]{\operatorname{Cone}}{\lparen}{\rparen}{}{#1,\blank}
+\newcommand{\leftadjoint}{\mathbin{\vdash}}
+\newcommand{\rightadjoint}{\mathbin{\dashv}}
+\DeclarePostFunction-{\eilenbergmoore}[2]{^{#2}}{#1}
+
+\DeclareFunction-{\categoryofelements}[1,]{\int}{#1}
+\let\elcat\categoryofelements
+
 \newcommand{\doubleto}{\rightrightarrows}
 \DeclarePostFunction-{\catepis}[1]{_{\mathrm{epi}}}{#1} % subcategory of epimorphisms
 \DeclarePostFunction-{\catmonos}[1]{_{\mathrm{mono}}}{#1} % subcategory of monomorphisms
 \DeclarePostFunction-{\catisos}[1]{^*}{#1} % subcategory of isomorphisms
-\DeclarePostFunction-{\catopp}[1]{^{\mathrm{op}}}{#1} % opposite category
-\newcommand{\catname}[1]{\bm{#1}}
-\newcommand{\normedspaces}{\catname{Nor}}
-\newcommand{\sets}{\catname{Set}}
+\DeclarePostFunction-{\opposite}[1]{^{\mathrm{op}}}{#1} % categorical dual
+
+\newcommand{\category}[1]{\mathcal{#1}}
+\newcommand{\namedcategory}[1]{\mathfrak{#1}}
+\DeclarePostFunction-{\objects}[1]{^{0}}{#1}
+
+\newcommand{\naturaltransformationto}{\Rightarrow}
+\newcommand{\commacat}{\mathbin{\downarrow}}
+\newcommand{\horizontalcomposition}{\mathbin{*}}
+\let\hcomp\horizontalcomposition
+
+\DeclareFunction-{\colim}[1,]{\operatorname{colim}}{#1}
+\DeclareFunction-{\domain}[1,]{\operatorname{domain}}{#1}
+\DeclareFunction-{\codomain}[1,]{\operatorname{domain}}{#1}
+
+% categories
+\DeclareFunction-{\groupcategory}[1,]{\mathrm{B}}{#1}
+\newcommand{\normedspaces}{\namedcategory{Nor}}
+\newcommand{\sets}{\namedcategory{Set}}
+\newcommand{\categories}{\namedcategory{Cat}}
+\newcommand{\abeliangroups}{\namedcategory{Ab}}
+\newcommand{\modulesover}[1]{\namedcategory{Mod}_{#1}}
+
 
 % basechange lower index Notation
 \newcommand{\basechange}[3]{\leftidx{{_{#1}}}{{#2}}{{_{#3}}}} % Map #2 from space under base #3 to space under base #1
@@ -1030,6 +1082,11 @@
 \RequirePackage{xspace}
 \newcommand{\tensorproduct}{\otimes}
 \newcommand{\directsum}{\oplus}
+\newcommand{\intersection}{\cap}
+\newcommand{\union}{\cup}
+\newcommand{\disjointunion}{\sqcup}
+\newcommand{\bigunion}{\bigcup}
+\newcommand{\bigintersection}{\bigcap}
 \newcommand{\bigtensorproduct}{\bigotimes}
 \newcommand{\bigdirectsum}{\bigoplus}
 \newcommand{\fieldtensorproduct}[1]{\otimes}

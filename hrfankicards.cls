@@ -4,7 +4,7 @@
 % actual documentclass
 \LoadClass[parskip=half-,a4paper, headsepline, chapterprefix=true]{scrreprt}
 
-\RequirePackage[utf8]{inputenc}
+\RequirePackage[utf8]{luainputenc}
 
 \RequirePackage[ngerman]{babel} % sets \frenchspacing, yay! 
 \RequirePackage{amssymb,amsmath}
