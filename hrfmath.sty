@@ -141,8 +141,9 @@
 }
 
 % beamer defines its own theorems
-\@ifclassloaded{beamer}{
-	\newtheorem{proposition}{Proposition}
+\iftoggle{beamerloaded}{
+	\newtheorem{proposition}[theorem]{Proposition}
+	\newtheorem{remark}[theorem]{Remark}
 }{
 	\NewTheorem{anwendung}{Anwendung}
 	\NewTheorem{anwendungen}{Anwendungen}
@@ -797,6 +798,7 @@
 \DeclareFunction+{\characteristic}[1,]{\operatorname{char}}{#1} % characteristic of #1 
 \DeclareFunction+{\fixpunkte}[1,]{\operatorname{Fix}}{#1} % Fixpunkte of #1 
 \DeclareFunction+{\signature}[1,]{\operatorname{sign}}{#1} % signature of quadrik #1
+\DeclareFunction+{\sign}[1,]{\operatorname{sign}}{#1} % sign of real number #1
 \let\Exp\relax
 \DeclareFunction+{\exponential}[1,]{\exp}{#1} % exponential function of #1
 \let\Exp\exponential
@@ -808,7 +810,10 @@
 \DeclarePostFunction-{\skeleton}[2]{^{(#2)}}{#1} % #2-skeleton of #1
 \newcommand{\pathinverse}[1]{\overline{#1}}
 \newcommand{\pointset}{\Set{\text{pt}}}
-
+\DeclareFunction+{\homology}[2,1]{H_{#1}}{#2}
+\DeclareFunction+{\cellularhomology}[2,1]{H_{#1}^{\text{cell}}}{#2}
+\newcommand{\cellularboundary}[1][]{\partial^{\text{cell}}\ifstrempty{#1}{}{_{#1}}}
+\DeclareFunction+{\cellcomplex}[2,1]{C^{\text{cell}}_k}{#1}
 
 % from DIFF
 \DeclareFunction+{\setdiameter}[1,]{\operatorname{diam}}{#1} % Durchmesser of #1

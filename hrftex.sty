@@ -17,7 +17,12 @@
 
 \newtoggle{noenumitem}
 \newtoggle{nontheorem}
-\@ifclassloaded{beamer}{\toggletrue{noenumitem}\toggletrue{nontheorem}}{\togglefalse{noenumitem}\togglefalse{nontheorem}}
+\newtoggle{beamerloaded}
+
+\togglefalse{beamerloaded}
+\@ifclassloaded{beamer}{\toggletrue{beamerloaded}}{}
+\@ifpackageloaded{beamerarticle}{\toggletrue{beamerloaded}}{}
+\iftoggle{beamerloaded}{\toggletrue{noenumitem}\toggletrue{nontheorem}}{\togglefalse{noenumitem}\togglefalse{nontheorem}}
 
 % compatibility hacks for hyperref and float
 \RequirePackage{scrhack}

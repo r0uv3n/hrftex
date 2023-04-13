@@ -32,6 +32,11 @@
     \hrfhandout@shortheaderfalse
 }
 
+\newif\ifhrfhandout@beamerarticle
+\DeclareOption{beamerarticle}{
+    \hrfhandout@beamerarticletrue
+}
+
 
 \hrfhandout@numberedtalksfalse
 \hrfhandout@shorttitlefalse
@@ -39,6 +44,10 @@
 \ProcessOptions\relax
 
 \LoadClass{scrartcl}
+\ifhrfhandout@beamerarticle
+    \RequirePackage{beamerarticle}
+\else
+\fi
 
 
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage} % Header and Footer
