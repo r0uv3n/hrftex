@@ -1,20 +1,34 @@
 \ProvidesPackage{hrfphys}[2020/04/19 For physics]  % should be loaded after hrfmath
 
 \RequirePackage{hrfmath}
-
-\newcommand{\vektor}[1]{\bm{#1}}
-\newcommand{\einheitsvektor}[1]{\vektor{e}_{#1}}
+\RequirePackage{simpler-wick}
+\RequirePackage{tikz-feynman}
+\newcommand{\vektor}[1]{\vector{#1}}
+\newcommand{\unitvector}[1]{\vector{e}_{#1}}
+\newcommand{\einheitsvektor}[1]{\unitvector{#1}}
 \newcommand{\del}{\vektor{\nabla}}
 
 \newcommand{\eff}{\textnormal{eff}}
 \newcommand{\ges}{\textnormal{ges}}
 \newcommand{\kin}{\textnormal{kin}}
 \newcommand{\pot}{\textnormal{pot}}
+\newcommand{\phys}{\textnormal{phys}}
+\newcommand{\total}{\textnormal{tot}}
 
-\DeclarePairedDelimiterX{\expectedvalue}[1]{\langle}{\rangle}{#1}
-\DeclarePairedDelimiterXPP{\poissonklammer}[2]{}{\lbrace}{\rbrace}{}{#1,#2}
+\newcommand{\applieduniverse}[1]{\prescript{}{+\infty}{\appliedbraket{\Omega}{#1}{\Omega}}_{-\infty}}
+
+\DeclareFunction+{\principalpart}[1,]{\mathbb{PP}}{#1}
+
+\newcommand\normalorder[1]{\mathopen{:}#1\mathclose{:}}
 
 \newcommand*{\rungelenzvektor}{\vektor{\Lambda}}
 
 \DeclareFunction+{\lagrangian}[1,]{\mathcal{L}}{#1}
 \DeclareFunction+{\hamiltonian}[1,]{\mathcal{H}}{#1}
+
+% From QFT
+\def\dbar{{\mkern3mu\mathchar'26\mkern-12mu d}}
+% \def\dbar{\mathit{\dj{}}}
+\def\deltabar{{\mathchar '26\mkern -10mu\delta}}
+\DeclareDifferential{\dbardif}{\textnormal{\dj{}}} 
+\DeclareDifferential{\deltabardif}{\mathrm{\deltabar}} 

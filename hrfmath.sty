@@ -150,6 +150,7 @@
 	\NewTheorem{aufwaermuebung}{Aufwärm-Übung}
 	\NewTheorem{attention}{\warning}
 	\NewTheorem{achtung}{\emph{Achtung}}
+	\NewTheorem{application}{Application}
 	\NewTheorem{beachte}{Beachte}
 	\NewTheorem{beispiel}{Beispiel}
 	\NewTheorem{antibeispiel}{Anti-Beispiel}
@@ -703,13 +704,24 @@
 \DeclareFunction+{\Ln}[1,]{\ln}{#1} % Logarithmus naturalis of #1
 \DeclareFunction+{\moebiusabbildungenmenge}[1,]{\mathcal{C}}{#1} % \moebiusabbildungenmenge of #1 
 \DeclareFunction-{\randpunkte}[1,]{\partial}{#1} % \randpunkte of #1 
-\DeclareFunction-{\boundary}[1,]{\partial}{#1} % \randpunkte of #1 
+\DeclareFunction-{\boundarypoints	}[1,]{\partial}{#1} % \randpunkte of #1 
+
+\ifluatex
+\else
+	\DeclareFunction-{\boundary}[1,]{\partial}{#1} % \randpunkte of #1
+\fi
+
 \DeclarePostFunction-{\interior}[1]{^{\circ}}{#1}
 \DeclarePostFunction-{\inneres}[1]{^{\circ}}{#1}
 \newcommand{\closure}[1]{\widebar{#1}}
 \let\abschluss\closure
 \newcommand*{\matrixmult}{\mathbin{.}}
 \newcommand*{\laplaceoperator}{\Delta}
+\let\laplacian\laplaceoperator
+\newcommand*{\dalembertoperator}{\Box}
+\let\dalembertian\dalembertoperator
+\let\waveoperator\dalembertoperator
+\let\boxoperator\dalembertoperator
 \newcommand*{\kroneckerdelta}[1]{\delta_{#1}} % Kronecker Delta of indices #1
 
 % visited courses
@@ -811,9 +823,19 @@
 \newcommand{\pathinverse}[1]{\overline{#1}}
 \newcommand{\pointset}{\Set{\text{pt}}}
 \DeclareFunction+{\homology}[2,1]{H_{#1}}{#2}
+\DeclareFunction+{\reducedhomology}[2,1]{\tilde{H}_{#1}}{#2}
+\DeclareFunction+{\relativehomology}[3,1]{H_{#1}}{#2;#3}
+\DeclareFunction+{\cohomology}[2,1]{H^{#1}}{#2}
+\DeclareFunction+{\extfunctor}[2,0]{\operatorname{Ext}}{#1;#2}
+\DeclareFunction+{\extfunctorover}[3,1]{\operatorname{Ext}_{#1}}{#2,#3}
+\DeclareFunction+{\reducedcohomology}[2,1]{\tilde{H}^{#1}}{#2}
+\DeclareFunction+{\reducedcohomologyover}[3,1]{\tilde{H}^{#1}}{#2;#3}
+\DeclareFunction+{\cohomologyover}[3,1]{H^{#1}}{#2;#3}
 \DeclareFunction+{\cellularhomology}[2,1]{H_{#1}^{\text{cell}}}{#2}
 \newcommand{\cellularboundary}[1][]{\partial^{\text{cell}}\ifstrempty{#1}{}{_{#1}}}
 \DeclareFunction+{\cellcomplex}[2,1]{C^{\text{cell}}_k}{#1}
+\DeclareFunction+{\eulercharacteristic}[1,]{\xi}{#1}
+
 
 % from DIFF
 \DeclareFunction+{\setdiameter}[1,]{\operatorname{diam}}{#1} % Durchmesser of #1
@@ -1040,6 +1062,12 @@
 \DeclarePostFunction-{\transpose}[1]{^{T}}{#1} % transposed matrix of #1
 \DeclarePostFunction-{\adjoint}[1]{^{\dagger}}{#1} % adjoint matrix of #1
 
+\let\vector\relax
+\newcommand{\vector}[1]{\bm{#1}}
+\DeclarePairedDelimiterX{\expectedvalue}[1]{\langle}{\rangle}{#1}
+\DeclarePairedDelimiterXPP{\poissonklammer}[2]{}{\lbrace}{\rbrace}{}{#1,#2}
+\DeclarePairedDelimiterXPP{\poissonbracket}[2]{}{\lbrace}{\rbrace}{}{#1,#2}
+
 % category theory
 \newcommand{\blank}{{-}}
 \DeclareFunction+{\cones}[2,0]{\operatorname{Cone}}{#1,#2} % #1 is the summit, #2 the functor
@@ -1086,6 +1114,7 @@
 \newcommand{\tensorproperty}{\( \otimes \)\xspace}
 \RequirePackage{xspace}
 \newcommand{\tensorproduct}{\otimes}
+\newcommand{\symmetricproduct}{\odot}
 \newcommand{\directsum}{\oplus}
 \newcommand{\intersection}{\cap}
 \newcommand{\union}{\cup}
