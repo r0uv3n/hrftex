@@ -9,6 +9,7 @@
 \newtoggle{nomasternumbers}
 \newtoggle{numberwithin}
 \newtoggle{empheqoverload}
+\newtoggle{definetheorems}
 \pgfkeys{
 	/hrftex/hrfmath/.cd,
 	numberindividually/.is choice,
@@ -27,6 +28,11 @@
 	empheqoverload/.default=true,
 	numberwithin/.value required,
 	numberwithin/.initial,
+	definetheorems/.is choice,
+	definetheorems/true/.code=\toggletrue{definetheorems},
+	definetheorems/false/.code=\togglefalse{numberindividually},
+	definetheorems/.initial=false,
+	definetheorems/.default=true,
 }
 % 
 
@@ -140,11 +146,36 @@
 	\iftoggle{nomasternumbers}{\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}}{}
 }
 
+\iftoggle{definetheorems}{
 % beamer defines its own theorems
 \iftoggle{beamerloaded}{
+	\theoremstyle{plain}
 	\newtheorem{proposition}[theorem]{Proposition}
+	\theorembodyfont{\upshape}
 	\newtheorem{remark}[theorem]{Remark}
 }{
+	% -- theorem-like environments
+	\theoremstyle{plain}
+	\NewTheorem{behauptung}{Behauptung}
+	\NewTheorem{behauptungen}{Behauptungen}
+	\NewTheorem{claim}{Claim}
+	\NewTheorem{claims}{Claims}
+	\NewTheorem{corollary}{Corollary}
+	\NewTheorem{fact}{Fact}
+	\NewTheorem{fakt}{Fakt}
+	\NewTheorem{folgerung}{Folgerung}
+	\NewTheorem{folgerungen}{Folgerungen}
+	\NewTheorem{lemma}{Lemma}
+	\NewTheorem{korollar}{Korollar}
+	\NewTheorem{proposition}{Proposition}
+	\NewTheorem{satz}{Satz}
+	\NewTheorem{theorem}{Theorem}
+
+	\newtheorem{subsatz}{Satz}[generalthm]
+	\renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
+
+	% -- remark/example/definition-like environments -- %
+	\theorembodyfont{\upshape}
 	\NewTheorem{anwendung}{Anwendung}
 	\NewTheorem{anwendungen}{Anwendungen}
 	\NewTheorem{aufwaermuebung}{Aufwärm-Übung}
@@ -155,8 +186,6 @@
 	\NewTheorem{beispiel}{Beispiel}
 	\NewTheorem{antibeispiel}{Anti-Beispiel}
 	\NewTheorem{beispiele}{Beispiele}
-	\NewTheorem{behauptung}{Behauptung}
-	\NewTheorem{behauptungen}{Behauptungen}
 	\NewTheorem{bembsp}{Bemerkung / Beispiel}
 	\NewTheorem{bembspe}{Bemerkungen / Beispiele}
 	\NewTheorem{bemdef}{Bemerkung / Definition}
@@ -167,17 +196,11 @@
 	\NewTheorem{bspdef}{Beispiel / Definition}
 	\NewTheorem{bspidee}{Beispiel / Idee}
 	\NewTheorem{checkenvironment}{Check}
-	\NewTheorem{claim}{Claim}
-	\NewTheorem{claims}{Claims}
 	\NewTheorem{construction}{Construction}
-	\NewTheorem{corollary}{Corollary}
 	\NewTheorem{defbem}{Definition / Bemerkung}
 	\NewTheorem{deferinnerung}{Definition / Erinnerung}
 	\NewTheorem{definition}{Definition}
 	\NewTheorem{definitionen}{Definitionen}
-	\NewTheorem{deflemma}{Definition / Lemma}
-	\NewTheorem{defprop}{Definition / Proposition}
-	\NewTheorem{defsatz}{Definition / Satz}
 	\NewTheorem{einschub}{Einschub}
 	\NewTheorem{ergaenzung}{Ergänzung}
 	\NewTheorem{example}{Example}
@@ -185,15 +208,7 @@
 	\NewTheorem{exercise}{Exercise}
 	\NewTheorem{exkurs}{Exkurs}
 	\NewTheorem{erinnerung}{Erinnerung}
-	\NewTheorem{fact}{Fact}
-	\NewTheorem{fakt}{Fakt}
-	\NewTheorem{folgerung}{Folgerung}
-	\NewTheorem{folgerungbsp}{Folgerung / Beispiel}
-	\NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
-	\NewTheorem{folgerungen}{Folgerungen}
-	\NewTheorem{folgnotation}{Folgerungen / Notation}
 	\NewTheorem{frage}{Frage}
-	\NewTheorem{frageuebung}{Frage / Übung}
 	\NewTheorem{fragen}{Fragen}
 	\NewTheorem{goal}{Goal}
 	\NewTheorem{hint}{Hint}
@@ -201,10 +216,7 @@
 	\NewTheorem{idee}{Idee}
 	\NewTheorem{interpretation}{Interpretation}
 	\NewTheorem{intuition}{Intuition}
-	\NewTheorem{lemmadef}{Lemma + Def}
-	\NewTheorem{lemma}{Lemma}
 	\NewTheorem{konvention}{Konvention}
-	\NewTheorem{korollar}{Korollar}
 	\NewTheorem{notabene}{Nota Bene}
 	\NewTheorem{notation}{Notation}
 	\NewTheorem{notationen}{Notationen}
@@ -212,26 +224,30 @@
 	\NewTheorem{notice}{Notice}
 	\NewTheorem{merkregel}{Merkregel}
 	\NewTheorem{motivation}{Motivation}
-	\NewTheorem{proposition}{Proposition}
 	\NewTheorem{question}{Question}
 	\NewTheorem{recall}{Recall}
 	\NewTheorem{rechentrick}{Rechentrick}
 	\NewTheorem{remark}{Remark}
-	\NewTheorem{remarkconvention}{Remark / Convention}
-	\NewTheorem{remarkdef}{Remark / Definition}
-	\NewTheorem{satz}{Satz}
-	\NewTheorem{satzdef}{Satz / Definition}
 	\NewTheorem{slogan}{Slogan}
 	\NewTheorem{spezialfall}{Spezialfall}
-	\NewTheorem{theorem}{Theorem}
-	\NewTheorem{thmdef}{Theorem \& Definition}
 	\NewTheorem{tocome}{To Come}
 	\NewTheorem{wiederholung}{Wiederholung}
 	\NewTheorem{ziel}{Ziel}
 
-	\newtheorem{subsatz}{Satz}[generalthm]
-	\renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
-}
+	% these are a bit ambiguous, should not be used in papers %
+	\NewTheorem{deflemma}{Definition / Lemma}
+	\NewTheorem{defprop}{Definition / Proposition}
+	\NewTheorem{defsatz}{Definition / Satz}
+	\NewTheorem{folgerungbsp}{Folgerung / Beispiel}
+	\NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
+	\NewTheorem{folgnotation}{Folgerungen / Notation}
+	\NewTheorem{frageuebung}{Frage / Übung}
+	\NewTheorem{lemmadef}{Lemma + Def}
+	\NewTheorem{remarkconvention}{Remark / Convention}
+	\NewTheorem{remarkdef}{Remark / Definition}
+	\NewTheorem{satzdef}{Satz / Definition}
+	\NewTheorem{thmdef}{Theorem \& Definition}
+}}{}
 % stack below with optional argument
 \RequirePackage{stackrel}
 
@@ -681,6 +697,7 @@
 \DeclareFunction-{\tangentspace}[2,]{T_{#1}}{#2} % tangent space of manifold #2 at point #1
 \DeclareFunction-{\cotangentspace}[2,]{T^*_{#1}}{#2} % tangent space of manifold #2 at point #1
 \DeclareFunction-{\tangentbundle}[1,]{T}{#1} % tangent bundle of manifold #1
+\DeclareFunction-{\normalbundle}[1,]{N}{#1} % normal bundle of submanifold #1
 \DeclareFunction-{\cotangentbundle}[1,]{T^*}{#1} % tangent bundle of manifold #1
 \DeclareFunction+{\vectorfields}[1,]{\mathcal{X}}{#1} % tangent bundle of manifold #1
 \DeclareFunction+{\decktransformations}[2,0]{\operatorname{Deck}}{\quot{#1}{#2}} % deck transformations of Y over X.
@@ -746,7 +763,7 @@
 \DeclareFunction+{\preimage}[1,]{\operatorname{Pre}}{#1} % \preimage of #1 
 \DeclareFunction-{\grad}[1,]{\operatorname{grad}}{#1} % grad of #1 
 \DeclareFunction-{\divergence}[1,]{\operatorname{div}}{#1} % divergence of vector field #1 
-\DeclareFunction-{\gradient}[1,]{\nabla}{#1} % grad of #1 
+\DeclareFunction-{\gradient}[1,]{\operatorname{grad}}{#1} % grad of #1 
 % from AGLA
 \DeclareFunction-{\exterior}[2,]{\bigwedge^{#1}}{#2} % #1-th exterior product of #2
 \DeclareFunction+{\bijections}[1,]{\operatorname{Bij}}{#1} % Bijections of #1 
@@ -822,15 +839,21 @@
 \DeclarePostFunction-{\skeleton}[2]{^{(#2)}}{#1} % #2-skeleton of #1
 \newcommand{\pathinverse}[1]{\overline{#1}}
 \newcommand{\pointset}{\Set{\text{pt}}}
+
 \DeclareFunction+{\homology}[2,1]{H_{#1}}{#2}
 \DeclareFunction+{\reducedhomology}[2,1]{\tilde{H}_{#1}}{#2}
-\DeclareFunction+{\relativehomology}[3,1]{H_{#1}}{#2;#3}
+
 \DeclareFunction+{\cohomology}[2,1]{H^{#1}}{#2}
-\DeclareFunction+{\extfunctor}[2,0]{\operatorname{Ext}}{#1;#2}
-\DeclareFunction+{\extfunctorover}[3,1]{\operatorname{Ext}_{#1}}{#2,#3}
 \DeclareFunction+{\reducedcohomology}[2,1]{\tilde{H}^{#1}}{#2}
-\DeclareFunction+{\reducedcohomologyover}[3,1]{\tilde{H}^{#1}}{#2;#3}
-\DeclareFunction+{\cohomologyover}[3,1]{H^{#1}}{#2;#3}
+
+\DeclareFunction+{\reducedtorfunctor}[2,0]{\operatorname{Tor}}{#1,#2}
+\DeclareFunction+{\torfunctor}[3,1]{\operatorname{Tor}^{#1}}{#2,#3}
+\DeclareFunction+{\torfunctorover}[4,2]{\operatorname{Tor}_{#1}^{#2}}{#3,#4}
+
+\DeclareFunction+{\reducedextfunctor}[2,0]{\operatorname{Ext}}{#1;#2}
+\DeclareFunction+{\extfunctor}[3,1]{\operatorname{Ext}^{#1}}{#2;#3}
+\DeclareFunction+{\extfunctorover}[4,2]{\operatorname{Ext}_{#1}^{#2}}{#3;#4}
+
 \DeclareFunction+{\cellularhomology}[2,1]{H_{#1}^{\text{cell}}}{#2}
 \newcommand{\cellularboundary}[1][]{\partial^{\text{cell}}\ifstrempty{#1}{}{_{#1}}}
 \DeclareFunction+{\cellcomplex}[2,1]{C^{\text{cell}}_k}{#1}
