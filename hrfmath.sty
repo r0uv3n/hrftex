@@ -22,6 +22,7 @@
 	nomasternumbers/false/.code=\togglefalse{nomasternumbers},
 	nomasternumbers/.initial=false,
 	nomasternumbers/.default=true,
+	empheqoverload/.is choice,
 	empheqoverload/true/.code=\toggletrue{empheqoverload},
 	empheqoverload/false/.code=\togglefalse{empheqoverload},
 	empheqoverload/.initial=false,
@@ -30,15 +31,16 @@
 	numberwithin/.initial,
 	definetheorems/.is choice,
 	definetheorems/true/.code=\toggletrue{definetheorems},
-	definetheorems/false/.code=\togglefalse{numberindividually},
-	definetheorems/.initial=false,
+	definetheorems/false/.code=\togglefalse{definetheorems},
+	definetheorems/.initial=true,
 	definetheorems/.default=true,
 }
 % 
 
 
-\ProcessPgfOptions{/hrftex/hrfmath}
 \toggletrue{nontheorem}
+\toggletrue{definetheorems}
+\ProcessPgfOptions{/hrftex/hrfmath}
 % Process numberwithin
 \pgfkeys{/hrftex/hrfmath/numberwithin/.get=\numbertheoremswithinthis}
 \def\novaluegiven{\pgfkeysnovalue}
@@ -98,7 +100,7 @@
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \newenvironment{subproof}[1][{}]{\ifthenelse{\equal{#1}{}}{\begin{proof}}{\begin{proof}[{#1}]}\renewcommand{\qedsymbol}{$\square$}}{\end{proof}}
 }{
-\PassOptionsToPackage{amsmath, thmmarks, amsthm}{ntheorem}
+\PassOptionsToPackage{amsmath, thmmarks, amsthm,framed}{ntheorem}
 \RequirePackage{ntheorem}
 \usetagform{default}
 \gdef\proofSymbol{\ensuremath{\blacksquare}} % so that the square can be used for subproofs
@@ -151,15 +153,10 @@
 \iftoggle{beamerloaded}{
 	\theoremstyle{plain}
 	\newtheorem{proposition}[theorem]{Proposition}
-	\theorembodyfont{\upshape}
 	\newtheorem{remark}[theorem]{Remark}
 }{
-	% -- theorem-like environments
+	% -- theorem-like environments -- most emphasis (italic text, lots of spacing)
 	\theoremstyle{plain}
-	\NewTheorem{behauptung}{Behauptung}
-	\NewTheorem{behauptungen}{Behauptungen}
-	\NewTheorem{claim}{Claim}
-	\NewTheorem{claims}{Claims}
 	\NewTheorem{corollary}{Corollary}
 	\NewTheorem{fact}{Fact}
 	\NewTheorem{fakt}{Fakt}
@@ -174,42 +171,43 @@
 	\newtheorem{subsatz}{Satz}[generalthm]
 	\renewcommand{\thesubsatz}{\thegeneralthm.\arabic{subsatz}}
 
-	% -- remark/example/definition-like environments -- %
-	\theorembodyfont{\upshape}
+	% -- definition-like environments -- medium emphasis
+	% by default these will have bold heading, normal body, extra spacing
+	\theoremstyle{definition}
+	\NewTheorem{antibeispiel}{Anti-Beispiel}
 	\NewTheorem{anwendung}{Anwendung}
 	\NewTheorem{anwendungen}{Anwendungen}
-	\NewTheorem{aufwaermuebung}{Aufwärm-Übung}
 	\NewTheorem{attention}{\warning}
-	\NewTheorem{achtung}{\emph{Achtung}}
-	\NewTheorem{application}{Application}
-	\NewTheorem{beachte}{Beachte}
+	\NewTheorem{aufwaermuebung}{Aufwärm-Übung}
+	\NewTheorem{achtung}{Achtung}
 	\NewTheorem{beispiel}{Beispiel}
-	\NewTheorem{antibeispiel}{Anti-Beispiel}
 	\NewTheorem{beispiele}{Beispiele}
-	\NewTheorem{bembsp}{Bemerkung / Beispiel}
-	\NewTheorem{bembspe}{Bemerkungen / Beispiele}
-	\NewTheorem{bemdef}{Bemerkung / Definition}
-	\NewTheorem{bemnotation}{Bemerkung / Notation}
-	\NewTheorem{bemuebung}{Bemerkung / Übung}
-	\NewTheorem{bemerkung}{Bemerkung}
-	\NewTheorem{bemerkungen}{Bemerkungen}
-	\NewTheorem{bspdef}{Beispiel / Definition}
-	\NewTheorem{bspidee}{Beispiel / Idee}
 	\NewTheorem{checkenvironment}{Check}
 	\NewTheorem{construction}{Construction}
-	\NewTheorem{defbem}{Definition / Bemerkung}
-	\NewTheorem{deferinnerung}{Definition / Erinnerung}
 	\NewTheorem{definition}{Definition}
 	\NewTheorem{definitionen}{Definitionen}
-	\NewTheorem{einschub}{Einschub}
-	\NewTheorem{ergaenzung}{Ergänzung}
 	\NewTheorem{example}{Example}
 	\NewTheorem{examples}{Examples}
 	\NewTheorem{exercise}{Exercise}
-	\NewTheorem{exkurs}{Exkurs}
-	\NewTheorem{erinnerung}{Erinnerung}
 	\NewTheorem{frage}{Frage}
 	\NewTheorem{fragen}{Fragen}
+	\NewTheorem{question}{Question}
+
+	% -- remark/example/definition-like environments -- small emphasis
+	% by default these will have italic heading, normal body, no extra spacing
+	\theoremstyle{remark}
+	\NewTheorem{application}{Application}
+	\NewTheorem{beachte}{Beachte}
+	\NewTheorem{behauptung}{Behauptung}
+	\NewTheorem{behauptungen}{Behauptungen}
+	\NewTheorem{claim}{Claim}
+	\NewTheorem{claims}{Claims}
+	\NewTheorem{bemerkung}{Bemerkung}
+	\NewTheorem{bemerkungen}{Bemerkungen}
+	\NewTheorem{einschub}{Einschub}
+	\NewTheorem{ergaenzung}{Ergänzung}
+	\NewTheorem{exkurs}{Exkurs}
+	\NewTheorem{erinnerung}{Erinnerung}
 	\NewTheorem{goal}{Goal}
 	\NewTheorem{hint}{Hint}
 	\NewTheorem{idea}{Idea}
@@ -224,7 +222,6 @@
 	\NewTheorem{notice}{Notice}
 	\NewTheorem{merkregel}{Merkregel}
 	\NewTheorem{motivation}{Motivation}
-	\NewTheorem{question}{Question}
 	\NewTheorem{recall}{Recall}
 	\NewTheorem{rechentrick}{Rechentrick}
 	\NewTheorem{remark}{Remark}
@@ -235,18 +232,27 @@
 	\NewTheorem{ziel}{Ziel}
 
 	% these are a bit ambiguous, should not be used in papers %
-	\NewTheorem{deflemma}{Definition / Lemma}
-	\NewTheorem{defprop}{Definition / Proposition}
-	\NewTheorem{defsatz}{Definition / Satz}
-	\NewTheorem{folgerungbsp}{Folgerung / Beispiel}
-	\NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
-	\NewTheorem{folgnotation}{Folgerungen / Notation}
-	\NewTheorem{frageuebung}{Frage / Übung}
-	\NewTheorem{lemmadef}{Lemma + Def}
-	\NewTheorem{remarkconvention}{Remark / Convention}
-	\NewTheorem{remarkdef}{Remark / Definition}
-	\NewTheorem{satzdef}{Satz / Definition}
-	\NewTheorem{thmdef}{Theorem \& Definition}
+	% \NewTheorem{bembsp}{Bemerkung / Beispiel}
+	% \NewTheorem{bembspe}{Bemerkungen / Beispiele}
+	% \NewTheorem{bemdef}{Bemerkung / Definition}
+	% \NewTheorem{bemnotation}{Bemerkung / Notation}
+	% \NewTheorem{bemuebung}{Bemerkung / Übung}
+	% \NewTheorem{bspdef}{Beispiel / Definition}
+	% \NewTheorem{bspidee}{Beispiel / Idee}
+	% \NewTheorem{defbem}{Definition / Bemerkung}
+	% \NewTheorem{deferinnerung}{Definition / Erinnerung}
+	% \NewTheorem{deflemma}{Definition / Lemma}
+	% \NewTheorem{defprop}{Definition / Proposition}
+	% \NewTheorem{defsatz}{Definition / Satz}
+	% \NewTheorem{folgerungbsp}{Folgerung / Beispiel}
+	% \NewTheorem{folgerungenbsp}{Folgerungen / Beispiele}
+	% \NewTheorem{folgnotation}{Folgerungen / Notation}
+	% \NewTheorem{frageuebung}{Frage / Übung}
+	% \NewTheorem{lemmadef}{Lemma + Def}
+	% \NewTheorem{remarkconvention}{Remark / Convention}
+	% \NewTheorem{remarkdef}{Remark / Definition}
+	% \NewTheorem{satzdef}{Satz / Definition}
+	% \NewTheorem{thmdef}{Theorem \& Definition}
 }}{}
 % stack below with optional argument
 \RequirePackage{stackrel}
