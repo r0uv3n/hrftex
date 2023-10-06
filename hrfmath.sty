@@ -787,7 +787,7 @@
 \newcommand{\sqmatrices}[2]{\matrices{#1}{#1}{#2}} % #1*#1-square matrices over field #2
 
 \DeclareFunction+{\determinant}[1,]{\det}{#1} % determinant of #1
-\DeclareFunction+{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
+\DeclareFunction-{\trace}[1,]{\operatorname{tr}}{#1} % determinant of #1
 \DeclareFunction+{\invertiblematrices}[1,]{\operatorname{GL}}{#1}
 \DeclareFunction+{\generallineargroup}[1,]{\operatorname{GL}}{#1}
 \DeclareFunction+{\generallineargroupover}[2,]{\operatorname{GL}_{#1}}{#2}
