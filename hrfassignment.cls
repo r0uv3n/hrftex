@@ -71,7 +71,7 @@
 \newcaptionname{english}{\hrfassignment@sheetid}{Exercises: Sheet \textnumero}
 \newcaptionname{ngerman}{\hrfassignment@groupid}{Übungsgruppe}
 \newcaptionname{english}{\hrfassignment@groupid}{Exercise group}
-
+    
 %%%%%%% Custom Commands %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%\fi
 

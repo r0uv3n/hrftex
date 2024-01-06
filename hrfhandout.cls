@@ -158,7 +158,7 @@
 
 \KOMAoptions{parskip=half-,twocolumn,headings=normal,titlepage=false}
 
-\geometry{bottom=2.5cm,top=2.5cm,left=1.5cm,right=1.5cm}
+\geometry{bottom=1.5cm,top=1.5cm,left=1cm,right=1cm}
 
 \ifhrfhandout@shortheader
     \ifhrfhandout@numberedtalks
@@ -176,8 +176,7 @@
     \ohead{\textbf{\@university}\\\@date}
 \fi
 
-\setkomafont{pagefoot}{\textnormal}
-\cfoot{\pagemark{}}
+\cfoot{}
 
 
 
@@ -258,6 +257,6 @@
     \fi
   \end{center}%
   \par
-  \vskip 2em
+  \vskip 1em
 }
 
